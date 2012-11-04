@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Web Development | William John Bert]]></title>
-  <link href="http://williamjohbnert.com/categories/web-development/atom.xml" rel="self"/>
-  <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T18:02:08-05:00</updated>
-  <id>http://williamjohbnert.com/</id>
+  <link href="http://williamjohnbert.com/categories/web-development/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2012-11-04T18:25:13-05:00</updated>
+  <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A Case Study of Node.js in Production]]></title>
-    <link href="http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production/"/>
+    <link href="http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production/"/>
     <updated>2012-10-01T17:27:53-04:00</updated>
-    <id>http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production</id>
+    <id>http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production</id>
     <content type="html"><![CDATA[<p>I'm giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
 
 <blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
@@ -26,9 +26,9 @@
   
   <entry>
     <title type="html"><![CDATA[ExtJS TreeStore trouble with nested nodes]]></title>
-    <link href="http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
+    <link href="http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
     <updated>2012-04-19T06:23:07-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
+    <id>http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
     <content type="html"><![CDATA[<p>At work, we're building an app to edit objects in a database--a classic CRUD application. For now, we're trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let's call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
 
 <p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
@@ -47,9 +47,9 @@
   
   <entry>
     <title type="html"><![CDATA[How to install accelerated BLAS into a Python virtualenv]]></title>
-    <link href="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
+    <link href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
     <updated>2012-03-23T16:43:33-04:00</updated>
-    <id>http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
+    <id>http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
     <content type="html"><![CDATA[<h2>Background</h2>
 
 <p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim's</a> corpus processing).</p>
@@ -114,9 +114,9 @@ self-optimizing. There are others out there targeted at particular CPU architect
   
   <entry>
     <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
-    <link href="http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
+    <link href="http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
     <updated>2011-08-26T07:16:14-04:00</updated>
-    <id>http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
+    <id>http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
     <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
 registration/login system pretty easily. But I wanted to give users the ability
 to use their existing accounts through popular services such as Facebook,
@@ -191,9 +191,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[How to: Unit testing in Django with mocking and patching]]></title>
-    <link href="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
+    <link href="http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
     <updated>2011-07-08T06:56:29-04:00</updated>
-    <id>http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
+    <id>http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
 <p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular

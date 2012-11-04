@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Meta | William John Bert]]></title>
-  <link href="http://williamjohbnert.com/categories/meta/atom.xml" rel="self"/>
-  <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T18:02:08-05:00</updated>
-  <id>http://williamjohbnert.com/</id>
+  <link href="http://williamjohnbert.com/categories/meta/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2012-11-04T18:25:13-05:00</updated>
+  <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Old dog, new tricks]]></title>
-    <link href="http://williamjohbnert.com/2010/11/old-dog-new-tricks/"/>
+    <link href="http://williamjohnbert.com/2010/11/old-dog-new-tricks/"/>
     <updated>2010-11-16T14:02:23-05:00</updated>
-    <id>http://williamjohbnert.com/2010/11/old-dog-new-tricks</id>
+    <id>http://williamjohnbert.com/2010/11/old-dog-new-tricks</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2010/11/dog_computer.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2010/11/dog_computer.jpg" alt="A dog using a laptop" /></a></p>
 
 <p>So I'm actually not new to blogging--I blogged for about a year from 2003-2004 and, though it may lead to embarrassment, I'll even link to the old thing, which is still up: <a href="http://pleonasticephemera.blogspot.com/">Pleonastic Ephemera</a>. (I've also participated in several private group blogs for sharing writing with geographically-dispersed friends.)</p>
@@ -32,9 +32,9 @@
   
   <entry>
     <title type="html"><![CDATA[There's no content yet]]></title>
-    <link href="http://williamjohbnert.com/2010/09/theres-no-content-yet/"/>
+    <link href="http://williamjohnbert.com/2010/09/theres-no-content-yet/"/>
     <updated>2010-09-19T14:01:03-04:00</updated>
-    <id>http://williamjohbnert.com/2010/09/theres-no-content-yet</id>
+    <id>http://williamjohnbert.com/2010/09/theres-no-content-yet</id>
     <content type="html"><![CDATA[<p>But I'm working on it.</p>
 ]]></content>
   </entry>

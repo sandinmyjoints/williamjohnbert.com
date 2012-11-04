@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Programming | William John Bert]]></title>
-  <link href="http://williamjohbnert.com/categories/programming/atom.xml" rel="self"/>
-  <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T18:02:08-05:00</updated>
-  <id>http://williamjohbnert.com/</id>
+  <link href="http://williamjohnbert.com/categories/programming/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2012-11-04T18:25:13-05:00</updated>
+  <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A Case Study of Node.js in Production]]></title>
-    <link href="http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production/"/>
+    <link href="http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production/"/>
     <updated>2012-10-01T17:27:53-04:00</updated>
-    <id>http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production</id>
+    <id>http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production</id>
     <content type="html"><![CDATA[<p>I'm giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
 
 <blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
@@ -26,9 +26,9 @@
   
   <entry>
     <title type="html"><![CDATA[(Relatively) quick and easy Gensim example code]]></title>
-    <link href="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
+    <link href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
     <updated>2012-05-04T04:12:23-04:00</updated>
-    <id>http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
+    <id>http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
     <content type="html"><![CDATA[<p>Here's some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
 
 <p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
@@ -345,9 +345,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Introduction to gensim: "Topic Modelling for Humans"]]></title>
-    <link href="http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
+    <link href="http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
     <updated>2012-05-03T10:06:02-04:00</updated>
-    <id>http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
+    <id>http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
     <content type="html"><![CDATA[<p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I've been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
 
 <p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
@@ -358,9 +358,9 @@
   
   <entry>
     <title type="html"><![CDATA[Interview with Radim Rehurek, creator of gensim]]></title>
-    <link href="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
+    <link href="http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
     <updated>2012-04-30T08:58:42-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
+    <id>http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
     <content type="html"><![CDATA[<p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I'm giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I'll post the slides and example code for the talk soon.) I've found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim's history and goals, and about his background and interests.</p>
 
 <p><strong>WB: Why did you create gensim?</strong></p>
@@ -450,9 +450,9 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   
   <entry>
     <title type="html"><![CDATA[ExtJS TreeStore trouble with nested nodes]]></title>
-    <link href="http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
+    <link href="http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
     <updated>2012-04-19T06:23:07-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
+    <id>http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
     <content type="html"><![CDATA[<p>At work, we're building an app to edit objects in a database--a classic CRUD application. For now, we're trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let's call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
 
 <p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>

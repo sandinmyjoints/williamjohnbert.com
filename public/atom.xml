@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[William John Bert]]></title>
-  <link href="http://williamjohbnert.com/atom.xml" rel="self"/>
-  <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T18:02:08-05:00</updated>
-  <id>http://williamjohbnert.com/</id>
+  <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2012-11-04T18:25:13-05:00</updated>
+  <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A Case Study of Node.js in Production]]></title>
-    <link href="http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production/"/>
+    <link href="http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production/"/>
     <updated>2012-10-01T17:27:53-04:00</updated>
-    <id>http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production</id>
+    <id>http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production</id>
     <content type="html"><![CDATA[<p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
 
 <blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
@@ -26,9 +26,9 @@
   
   <entry>
     <title type="html"><![CDATA[(Relatively) quick and easy Gensim example code]]></title>
-    <link href="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
+    <link href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
     <updated>2012-05-04T04:12:23-04:00</updated>
-    <id>http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
+    <id>http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
     <content type="html"><![CDATA[<p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
 
 <p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
@@ -258,9 +258,9 @@
   
   <entry>
     <title type="html"><![CDATA[An Introduction to gensim: "Topic Modelling for Humans"]]></title>
-    <link href="http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
+    <link href="http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
     <updated>2012-05-03T10:06:02-04:00</updated>
-    <id>http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
+    <id>http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
     <content type="html"><![CDATA[<p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I&#8217;ve been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
 
 <p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
@@ -271,9 +271,9 @@
   
   <entry>
     <title type="html"><![CDATA[Interview with Radim Rehurek, creator of gensim]]></title>
-    <link href="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
+    <link href="http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
     <updated>2012-04-30T08:58:42-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
+    <id>http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
     <content type="html"><![CDATA[<p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
 
 <p><strong>WB: Why did you create gensim?</strong></p>
@@ -363,9 +363,9 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   
   <entry>
     <title type="html"><![CDATA[ExtJS TreeStore trouble with nested nodes]]></title>
-    <link href="http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
+    <link href="http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
     <updated>2012-04-19T06:23:07-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
+    <id>http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
     <content type="html"><![CDATA[<p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD application. For now, we&#8217;re trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let&#8217;s call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
 
 <p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
@@ -384,9 +384,9 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   
   <entry>
     <title type="html"><![CDATA[Fake bio for Steve]]></title>
-    <link href="http://williamjohbnert.com/2012/04/fake-bio-for-steve/"/>
+    <link href="http://williamjohnbert.com/2012/04/fake-bio-for-steve/"/>
     <updated>2012-04-06T09:53:07-04:00</updated>
-    <id>http://williamjohbnert.com/2012/04/fake-bio-for-steve</id>
+    <id>http://williamjohnbert.com/2012/04/fake-bio-for-steve</id>
     <content type="html"><![CDATA[<p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
 
 <p>Here&#8217;s mine:</p>
@@ -399,9 +399,9 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   
   <entry>
     <title type="html"><![CDATA[How to install accelerated BLAS into a Python virtualenv]]></title>
-    <link href="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
+    <link href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
     <updated>2012-03-23T16:43:33-04:00</updated>
-    <id>http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
+    <id>http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
     <content type="html"><![CDATA[<h2>Background</h2>
 
 <p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
@@ -466,9 +466,9 @@ self-optimizing. There are others out there targeted at particular CPU architect
   
   <entry>
     <title type="html"><![CDATA[Novelties & Traditions]]></title>
-    <link href="http://williamjohbnert.com/2011/11/novelties-traditions/"/>
+    <link href="http://williamjohnbert.com/2011/11/novelties-traditions/"/>
     <updated>2011-11-19T05:28:21-05:00</updated>
-    <id>http://williamjohbnert.com/2011/11/novelties-traditions</id>
+    <id>http://williamjohnbert.com/2011/11/novelties-traditions</id>
     <content type="html"><![CDATA[<p>Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving&#8217;s always been my favorite holiday so I&#8217;m more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who&#8217;re renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
 
 <p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don&#8217;t Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, &#8220;Busted,&#8221; aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn&#8217;t have been doing&#8211;a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the &#8220;Busted&#8221; lesson plan</a> more than a year ago&#8211;right around the previous Friendsgiving. Hard to believe it&#8217;s been that long!</p>
@@ -477,9 +477,9 @@ self-optimizing. There are others out there targeted at particular CPU architect
   
   <entry>
     <title type="html"><![CDATA[Gender, programming, and the power of language ]]></title>
-    <link href="http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language/"/>
+    <link href="http://williamjohnbert.com/2011/08/gender-programming-and-the-power-of-language/"/>
     <updated>2011-08-28T12:15:02-04:00</updated>
-    <id>http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language</id>
+    <id>http://williamjohnbert.com/2011/08/gender-programming-and-the-power-of-language</id>
     <content type="html"><![CDATA[<p>An interlude from the recent trend of hardcore Django action:</p>
 
 <blockquote><p>When I spoke with a female intern this summer, she recounted how, in 2006, the
@@ -500,9 +500,9 @@ a guy.”</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
-    <link href="http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
+    <link href="http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
     <updated>2011-08-26T07:16:14-04:00</updated>
-    <id>http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
+    <id>http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
     <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
 registration/login system pretty easily. But I wanted to give users the ability
 to use their existing accounts through popular services such as Facebook,
@@ -577,9 +577,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[How to: Unit testing in Django with mocking and patching]]></title>
-    <link href="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
+    <link href="http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
     <updated>2011-07-08T06:56:29-04:00</updated>
-    <id>http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
+    <id>http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
 <p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular
@@ -765,9 +765,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Simple Django Event Calendar]]></title>
-    <link href="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
+    <link href="http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
     <updated>2011-06-13T16:34:52-04:00</updated>
-    <id>http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
+    <id>http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
 <p>I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
@@ -1132,9 +1132,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Marshall, Barnard, Laurel, Marshall]]></title>
-    <link href="http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall/"/>
+    <link href="http://williamjohnbert.com/2011/05/marshall-barnard-laurel-marshall/"/>
     <updated>2011-05-19T18:13:26-04:00</updated>
-    <id>http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall</id>
+    <id>http://williamjohnbert.com/2011/05/marshall-barnard-laurel-marshall</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg" alt="" /></a><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg" alt="" /></a>
 <a href="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg" alt="" /></a>
 <a href="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg" alt="" /></a></p>
@@ -1143,9 +1143,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Poetry for the President]]></title>
-    <link href="http://williamjohbnert.com/2011/05/poetry-for-the-president/"/>
+    <link href="http://williamjohnbert.com/2011/05/poetry-for-the-president/"/>
     <updated>2011-05-11T07:43:10-04:00</updated>
-    <id>http://williamjohbnert.com/2011/05/poetry-for-the-president</id>
+    <id>http://williamjohnbert.com/2011/05/poetry-for-the-president</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
 
 <p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
@@ -1156,9 +1156,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Spring, spring, spring]]></title>
-    <link href="http://williamjohbnert.com/2011/05/spring-spring-spring/"/>
+    <link href="http://williamjohnbert.com/2011/05/spring-spring-spring/"/>
     <updated>2011-05-09T05:59:26-04:00</updated>
-    <id>http://williamjohbnert.com/2011/05/spring-spring-spring</id>
+    <id>http://williamjohnbert.com/2011/05/spring-spring-spring</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
 
 <p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
@@ -1167,9 +1167,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[New story, and other updates]]></title>
-    <link href="http://williamjohbnert.com/2011/03/new-story-in-anomalous-press/"/>
+    <link href="http://williamjohnbert.com/2011/03/new-story-in-anomalous-press/"/>
     <updated>2011-03-23T07:35:36-04:00</updated>
-    <id>http://williamjohbnert.com/2011/03/new-story-in-anomalous-press</id>
+    <id>http://williamjohnbert.com/2011/03/new-story-in-anomalous-press</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png"><img src="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png" alt="Anomalous Press #1" /></a>I&#8217;m really thrilled to have a story, <a href="http://www.anomalouspress.org/current/21.bert.winner.php">&#8220;Winner,&#8221;</a> in the very first issue of Anomalous Press. It was released on the Ides of March, so I&#8217;m a bit tardy announcing it here—it&#8217;s been a busy March so far.</p>
 
 <p>The issue includes work from many better writers than me, including <a href="http://www.anomalouspress.org/current/25.ayala.winter.php">a poem</a> and <a href="http://www.anomalouspress.org/current/26.ayala.vision.php">two translations</a> from my friend Naomi Ayala. It was Naomi who suggested I submit to Anomalous. In this way and many others, she&#8217;s been a great friend and supporter of my writing, and I hope someday to be able to pay her back. You can catch another poem of hers when <a href="http://www.callandresponsedc.org/">Call + Response: Textures</a> opens on April 16. (More on that tomorrow.)</p>
@@ -1182,9 +1182,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Stuff: Happening]]></title>
-    <link href="http://williamjohbnert.com/2011/02/stuff-happening/"/>
+    <link href="http://williamjohnbert.com/2011/02/stuff-happening/"/>
     <updated>2011-02-22T15:06:54-05:00</updated>
-    <id>http://williamjohbnert.com/2011/02/stuff-happening</id>
+    <id>http://williamjohnbert.com/2011/02/stuff-happening</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
 
 <ul>
@@ -1199,9 +1199,9 @@ very helpful as well.</p>
   
   <entry>
     <title type="html"><![CDATA[Bell Poetry Club]]></title>
-    <link href="http://williamjohbnert.com/2011/01/bell-poetry-club/"/>
+    <link href="http://williamjohnbert.com/2011/01/bell-poetry-club/"/>
     <updated>2011-01-30T10:11:27-05:00</updated>
-    <id>http://williamjohbnert.com/2011/01/bell-poetry-club</id>
+    <id>http://williamjohnbert.com/2011/01/bell-poetry-club</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg" alt="Potomac River ice" /></a></p>
 
 <p>Friday, I helped out with an 826DC workshop at Bell Multicultural High School in Columbia Heights. Bell&#8217;s Poetry Club meets after school each Friday, and we came by  to work with them on metaphor. To fuel the discussion, we read &#8220;Snow Leopards at the Denver Zoo&#8221; by <a href="http://en.wikipedia.org/wiki/William_Matthews_%28poet%29">William Matthews</a> (who I&#8217;d never heard of before—I&#8217;m so not a poet):</p>
@@ -1239,9 +1239,9 @@ and I pour it from hand to hand.
   
   <entry>
     <title type="html"><![CDATA[Building the New Call + Response Site]]></title>
-    <link href="http://williamjohbnert.com/2011/01/building-the-new-call-response-site/"/>
+    <link href="http://williamjohnbert.com/2011/01/building-the-new-call-response-site/"/>
     <updated>2011-01-26T15:32:03-05:00</updated>
-    <id>http://williamjohbnert.com/2011/01/building-the-new-call-response-site</id>
+    <id>http://williamjohnbert.com/2011/01/building-the-new-call-response-site</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg" alt="National Portrart Gallery in the snow" /></a>Over the past couple weeks I worked on relaunching the website for <a href="http://www.callandresponsedc.org/">Call + Response</a>, an art show I co-curate with my friend <a href="http://twitter.com/kiraface">Kira</a>.</p>
 
 <p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn&#8217;t use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
@@ -1264,9 +1264,9 @@ and I pour it from hand to hand.
   
   <entry>
     <title type="html"><![CDATA[Should have been born in January]]></title>
-    <link href="http://williamjohbnert.com/2011/01/should-have-been-born-in-january/"/>
+    <link href="http://williamjohnbert.com/2011/01/should-have-been-born-in-january/"/>
     <updated>2011-01-19T02:37:30-05:00</updated>
-    <id>http://williamjohbnert.com/2011/01/should-have-been-born-in-january</id>
+    <id>http://williamjohnbert.com/2011/01/should-have-been-born-in-january</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg" alt="A book being reading by a fireplace." /></a>I can&#8217;t stand Garrison Keillor&#8217;s A Prairie Home Companion, but the best part about waking up at 6:35 a.m. is his <a href="http://writersalmanac.publicradio.org/">Writer&#8217;s Almanac</a>. For five minutes he puts his cornmeal voice to good use, first to list this-day-in-literature history tidbits, then to read a poem.</p>
 
 <p>In this way I learned that three of my favorite authors, David Mitchell (the 12th), Lorrie Moore (the 13th), and Julian Barnes (today, the 19th), were born in January. That kind of news is the kind of news I want to wake up to.</p>

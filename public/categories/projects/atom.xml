@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Projects | William John Bert]]></title>
-  <link href="http://williamjohbnert.com/categories/projects/atom.xml" rel="self"/>
-  <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T18:02:08-05:00</updated>
-  <id>http://williamjohbnert.com/</id>
+  <link href="http://williamjohnbert.com/categories/projects/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2012-11-04T18:25:13-05:00</updated>
+  <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
-    <link href="http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
+    <link href="http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
     <updated>2011-08-26T07:16:14-04:00</updated>
-    <id>http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
+    <id>http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
     <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
 registration/login system pretty easily. But I wanted to give users the ability
 to use their existing accounts through popular services such as Facebook,
@@ -92,9 +92,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[Simple Django Event Calendar]]></title>
-    <link href="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
+    <link href="http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
     <updated>2011-06-13T16:34:52-04:00</updated>
-    <id>http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
+    <id>http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
 <p>I've been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
@@ -488,9 +488,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[Spring, spring, spring]]></title>
-    <link href="http://williamjohbnert.com/2011/05/spring-spring-spring/"/>
+    <link href="http://williamjohnbert.com/2011/05/spring-spring-spring/"/>
     <updated>2011-05-09T05:59:26-04:00</updated>
-    <id>http://williamjohbnert.com/2011/05/spring-spring-spring</id>
+    <id>http://williamjohnbert.com/2011/05/spring-spring-spring</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>--the ideal vacation.</p>
 
 <p>Craig Nova is the resident author for this session at DBI, and I'm looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It'll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don't have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I'm feeling optimistic.</p>
@@ -499,9 +499,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[Stuff: Happening]]></title>
-    <link href="http://williamjohbnert.com/2011/02/stuff-happening/"/>
+    <link href="http://williamjohnbert.com/2011/02/stuff-happening/"/>
     <updated>2011-02-22T15:06:54-05:00</updated>
-    <id>http://williamjohbnert.com/2011/02/stuff-happening</id>
+    <id>http://williamjohnbert.com/2011/02/stuff-happening</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
 
 <ul>
@@ -516,9 +516,9 @@ mid-July). Good timing.</p>
   
   <entry>
     <title type="html"><![CDATA[Building the New Call + Response Site]]></title>
-    <link href="http://williamjohbnert.com/2011/01/building-the-new-call-response-site/"/>
+    <link href="http://williamjohnbert.com/2011/01/building-the-new-call-response-site/"/>
     <updated>2011-01-26T15:32:03-05:00</updated>
-    <id>http://williamjohbnert.com/2011/01/building-the-new-call-response-site</id>
+    <id>http://williamjohnbert.com/2011/01/building-the-new-call-response-site</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg" alt="National Portrart Gallery in the snow" /></a>Over the past couple weeks I worked on relaunching the website for <a href="http://www.callandresponsedc.org/">Call + Response</a>, an art show I co-curate with my friend <a href="http://twitter.com/kiraface">Kira</a>.</p>
 
 <p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn't use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
