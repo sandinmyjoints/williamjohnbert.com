@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Communications | William John Bert]]></title>
+  <link href="http://williamjohbnert.com/categories/communications/atom.xml" rel="self"/>
+  <link href="http://williamjohbnert.com/"/>
+  <updated>2012-11-04T16:21:19-05:00</updated>
+  <id>http://williamjohbnert.com/</id>
+  <author>
+    <name><![CDATA[William John Bert]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Where I'm coming from]]></title>
+    <link href="http://williamjohbnert.com/2010/12/where-im-coming-from/"/>
+    <updated>2010-12-05T06:12:40-05:00</updated>
+    <id>http://williamjohbnert.com/2010/12/where-im-coming-from</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2010/12/IMG_0827-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2010/12/IMG_0827-1.jpg" alt="Three hikers above the clouds on Mt Fuji" /></a></p>
+
+<p>In my <a href="http://williamjohnbert.com/2010/11/old-dog-new-tricks/">old dog, new tricks</a> post, I mentioned that, though I used to blog, what you're reading now represents my first use of Wordpress. Was it hard to set up? No. It  doesn't hurt that I have a computer science background,  including an undergrad degree in the field. Of course, when I was in  college, web development was not part of the required CS curriculum. Standalone apps were still  dominant, so I learned Java and then C# .NET, which I used to write  black box trading systems for a couple years. During that time, I also took my first writing classes, and once I realized that software engineering was not going to be my career,  I left that job and went to grad school for writing for a  couple of years.</p>
+
+<p>Post-grad school, I got into communications/marketing  as my day job, and of course those fields are now entwined with web  development, as websites/email/social media/etc have become the dominant  tools for organizations to get their messages out. So I find myself in the  nexus of computers and communications, which, considering my background,  seems like a natural place for me to be.</p>
+
+<p>In my current job, I maintain a relatively simple site, using Dreamweaver to write the  standards-compliant XHTML and occasional JavaScript that the site uses.  But I want to develop and hone my skills, and starting a WordPress blog  to play around with is a step in that direction. I've already  customized the theme and poked around in the templates, and I'll be  doing some more of that. My long-term plan is to learn <a href="http://www.djangoproject.com/">Django</a> and to write my own--wait for it--applications. Yes, back to application programming. But a different kind from what I learned back then, and one I'm really excited to get into.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Old dog, new tricks]]></title>
+    <link href="http://williamjohbnert.com/2010/11/old-dog-new-tricks/"/>
+    <updated>2010-11-16T14:02:23-05:00</updated>
+    <id>http://williamjohbnert.com/2010/11/old-dog-new-tricks</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2010/11/dog_computer.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2010/11/dog_computer.jpg" alt="A dog using a laptop" /></a></p>
+
+<p>So I'm actually not new to blogging--I blogged for about a year from 2003-2004 and, though it may lead to embarrassment, I'll even link to the old thing, which is still up: <a href="http://pleonasticephemera.blogspot.com/">Pleonastic Ephemera</a>. (I've also participated in several private group blogs for sharing writing with geographically-dispersed friends.)</p>
+
+<p>Pleonastic Ephemera was on Blogspot, which is a great tool for getting blogs up quickly with ease and minimal back-end configuration, while this blog represents my first foray into the more complex WordPress platform. WP is built around PHP scripts, which I've haven't worked with much before, but it's easy to pick it up thanks to <a href="http://codex.wordpress.org">WordPress's copious documentation</a>.</p>
+
+<p>I've played around with a few themes, and chosen this one for the moment, though I'm still looking for one that really grabs me. I've customized this one  a bit and will probably do more of that, which is part of my larger goal: to bring my web development skills up to date with some contemporary languages and platforms. PHP and WordPress are a first step in that direction, but I'll post much more about my background, motivation, and plans next week.</p>
+
+<p><em>(Photo from <a href="http://www.flickr.com/photos/will_brenner/">here</a>)</em></p>
+]]></content>
+  </entry>
+  
+</feed>

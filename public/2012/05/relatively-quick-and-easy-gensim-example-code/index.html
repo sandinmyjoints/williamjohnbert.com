@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>(Relatively) quick and easy Gensim example code - William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">(Relatively) Quick and Easy Gensim Example Code</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-04T04:12:23-04:00" pubdate data-updated="true">May 4<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
+
+<p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
+
+<p>Note that this code <strong>will not work out of the box</strong>. To train the models, you need to provide your own background corpus (a collection of documents, where a document can range from one sentence up to multiple pages of text). Choosing a good corpus is an art; generally, you want tens of thousands of documents that are representative of your problem domain. Like the gensim tutorial, this code also shows how to build a corpus from Wikipedia for experimentation, though note that doing so require a lot of computing time. You could potentially <a href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">save hours by installing accelerated BLAS on your system</a>.</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>[] </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>    <span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pprint</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Generating a training/background corpus from your own source of documents</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.corpora</span> <span class="kn">import</span> <span class="n">TextCorpus</span><span class="p">,</span> <span class="n">MmCorpus</span><span class="p">,</span> <span class="n">Dictionary</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># gensim docs: &quot;Provide a filename or a file-like object as input and TextCorpus will be initialized with a</span>
+</span><span class='line'>    <span class="c"># dictionary in `self.dictionary`and will support the `iter` corpus method. For other kinds of corpora, you only</span>
+</span><span class='line'>    <span class="c"># need to override `get_texts` and provide your own implementation.&quot;</span>
+</span><span class='line'>    <span class="n">background_corpus</span> <span class="o">=</span> <span class="n">TextCorpus</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">YOUR_CORPUS</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Important -- save the dictionary generated by the corpus, or future operations will not be able to map results</span>
+</span><span class='line'>    <span class="c"># back to original words.</span>
+</span><span class='line'>    <span class="n">background_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+</span><span class='line'>        <span class="s">&quot;my_dict.dict&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;background_corpus.mm&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">background_corpus</span><span class="p">)</span>  <span class="c">#  Uses numpy to persist wiki corpus in Matrix Market format. File will be several GBs.</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Generating a large training/background corpus using Wikipedia</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.corpora</span> <span class="kn">import</span> <span class="n">WikiCorpus</span><span class="p">,</span> <span class="n">wikicorpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">articles</span> <span class="o">=</span> <span class="s">&quot;enwiki-latest-pages-articles.xml.bz2&quot;</span>  <span class="c"># available from http://en.wikipedia.org/wiki/Wikipedia:Database_download</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># This will take many hours! Output is Wikipedia in bucket-of-words (BOW) sparse matrix.</span>
+</span><span class='line'>    <span class="n">wiki_corpus</span> <span class="o">=</span> <span class="n">WikiCorpus</span><span class="p">(</span><span class="n">articles</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">wiki_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;wiki_dict.dict&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;wiki_corpus.mm&quot;</span><span class="p">,</span> <span class="n">wiki_corpus</span><span class="p">)</span>  <span class="c">#  File will be several GBs.</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Working with persisted corpus and dictionary</span>
+</span><span class='line'>    <span class="n">bow_corpus</span> <span class="o">=</span> <span class="n">MmCorpus</span><span class="p">(</span><span class="s">&quot;wiki_corpus.mm&quot;</span><span class="p">)</span>  <span class="c"># Revive a corpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">dictionary</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;wiki_dict.dict&quot;</span><span class="p">)</span>  <span class="c"># Load a dictionary</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Transformations among vector spaces</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">LsiModel</span><span class="p">,</span> <span class="n">LogEntropyModel</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logent_transformation</span> <span class="o">=</span> <span class="n">LogEntropyModel</span><span class="p">(</span><span class="n">wiki_corpus</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">)</span>  <span class="c"># Log Entropy weights frequencies of all document features in the corpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">tokenize_func</span> <span class="o">=</span> <span class="n">wikicorpus</span><span class="o">.</span><span class="n">tokenize</span>  <span class="c"># The tokenizer used to create the Wikipedia corpus</span>
+</span><span class='line'>    <span class="n">document</span> <span class="o">=</span> <span class="s">&quot;Some text to be transformed.&quot;</span>
+</span><span class='line'>    <span class="c"># First, tokenize document using the same tokenization as was used on the background corpus, and then convert it to</span>
+</span><span class='line'>    <span class="c"># BOW representation using the dictionary created when generating the background corpus.</span>
+</span><span class='line'>    <span class="n">bow_document</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">document</span><span class="p">))</span>
+</span><span class='line'>    <span class="c"># converts a single document to log entropy representation. document must be in the same vector space as corpus.</span>
+</span><span class='line'>    <span class="n">logent_document</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[[</span>
+</span><span class='line'>        <span class="n">bow_document</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Transform arbitrary documents by getting them into the same BOW vector space created by your training corpus</span>
+</span><span class='line'>    <span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Some iterable&quot;</span><span class="p">,</span> <span class="s">&quot;containing multiple&quot;</span><span class="p">,</span> <span class="s">&quot;documents&quot;</span><span class="p">,</span> <span class="s">&quot;...&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">bow_documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">)</span>  <span class="c"># use a generator expression because...</span>
+</span><span class='line'>    <span class="n">logent_documents</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[</span>
+</span><span class='line'>                       <span class="n">bow_documents</span><span class="p">]</span>  <span class="c"># ...transformation is done during iteration of documents using generators, so this uses constant memory</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Chained transformations</span>
+</span><span class='line'>    <span class="c"># This builds a new corpus from iterating over documents of bow_corpus as transformed to log entropy representation.</span>
+</span><span class='line'>    <span class="c"># Will also take many hours if bow_corpus is the Wikipedia corpus created above.</span>
+</span><span class='line'>    <span class="n">logent_corpus</span> <span class="o">=</span> <span class="n">MmCorpus</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">bow_corpus</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Creates LSI transformation model from log entropy corpus representation. Takes several hours with Wikipedia corpus.</span>
+</span><span class='line'>    <span class="n">lsi_transformation</span> <span class="o">=</span> <span class="n">LsiModel</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_corpus</span><span class="p">,</span> <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Alternative way of performing same operation as above, but with implicit chaining</span>
+</span><span class='line'>    <span class="c"># lsi_transformation = LsiModel(corpus=logent_transformation[bow_corpus], id2word=dictionary,</span>
+</span><span class='line'>    <span class="c">#    num_features=400)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Can persist transformation models, too.</span>
+</span><span class='line'>    <span class="n">logent_transformation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;logent.model&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">lsi_transformation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;lsi.model&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Similarities (the best part)</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.similarities</span> <span class="kn">import</span> <span class="n">Similarity</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># This index corpus consists of what you want to compare future queries against</span>
+</span><span class='line'>    <span class="n">index_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A bear walked in the dark forest.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;Tall trees have many more leaves than short bushes.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;A starship may someday travel across vast reaches of space to other stars.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;Difference is the concept of how two or more entities are not the same.&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="c"># A corpus can be anything, as long as iterating over it produces a representation of the corpus documents as vectors.</span>
+</span><span class='line'>    <span class="n">corpus</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">index_documents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">Similarity</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">lsi_transformation</span><span class="p">[</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">corpus</span><span class="p">]],</span> <span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">output_prefix</span><span class="o">=</span><span class="s">&quot;shard&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Index corpus:&quot;</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Similarities of index corpus documents to one another:&quot;</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">index</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;In the face of ambiguity, refuse the temptation to guess.&quot;</span>
+</span><span class='line'>    <span class="n">sims_to_query</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">lsi_transformation</span><span class="p">[</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span><span class="n">query</span><span class="p">))]]]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Similarities of index corpus documents to &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">query</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sims_to_query</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">best_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sims_to_query</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">sims_to_query</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">best_score</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">most_similar_doc</span> <span class="o">=</span> <span class="n">documents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;The document most similar to the query is &#39;</span><span class="si">%s</span><span class="s">&#39; with a score of </span><span class="si">%.2f</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">most_similar_doc</span><span class="p">,</span> <span class="n">best_score</span><span class="p">)</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">William John Bert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-04T04:12:23-04:00" pubdate data-updated="true">May 4<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/cool-stuff/'>Cool Stuff</a>, <a class='category' href='/categories/interests/'>Interests</a>, <a class='category' href='/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/" data-via="williamjohnbert" data-counturl="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/" title="Previous Post: An Introduction to gensim: "Topic Modelling for Humans"">&laquo; An Introduction to gensim: "Topic Modelling for Humans"</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/10/a-case-study-of-node-js-in-production/" title="Next Post: A Case Study of Node.js in Production">A Case Study of Node.js in Production &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: "Topic Modelling for Humans"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

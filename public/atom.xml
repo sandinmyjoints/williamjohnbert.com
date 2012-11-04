@@ -1,16 +1,980 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2012-11-04T13:11:52-05:00</updated>
-  <id>http://yoursite.com/</id>
+  <title><![CDATA[William John Bert]]></title>
+  <link href="http://williamjohbnert.com/atom.xml" rel="self"/>
+  <link href="http://williamjohbnert.com/"/>
+  <updated>2012-11-04T16:21:19-05:00</updated>
+  <id>http://williamjohbnert.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[William John Bert]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[A Case Study of Node.js in Production]]></title>
+    <link href="http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production/"/>
+    <updated>2012-10-01T17:27:53-04:00</updated>
+    <id>http://williamjohbnert.com/2012/10/a-case-study-of-node-js-in-production</id>
+    <content type="html"><![CDATA[<p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
+
+<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[(Relatively) quick and easy Gensim example code]]></title>
+    <link href="http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
+    <updated>2012-05-04T04:12:23-04:00</updated>
+    <id>http://williamjohbnert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
+    <content type="html"><![CDATA[<p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
+
+<p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
+
+<p>Note that this code <strong>will not work out of the box</strong>. To train the models, you need to provide your own background corpus (a collection of documents, where a document can range from one sentence up to multiple pages of text). Choosing a good corpus is an art; generally, you want tens of thousands of documents that are representative of your problem domain. Like the gensim tutorial, this code also shows how to build a corpus from Wikipedia for experimentation, though note that doing so require a lot of computing time. You could potentially <a href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">save hours by installing accelerated BLAS on your system</a>.</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>[] </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>    <span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pprint</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Generating a training/background corpus from your own source of documents</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.corpora</span> <span class="kn">import</span> <span class="n">TextCorpus</span><span class="p">,</span> <span class="n">MmCorpus</span><span class="p">,</span> <span class="n">Dictionary</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># gensim docs: &quot;Provide a filename or a file-like object as input and TextCorpus will be initialized with a</span>
+</span><span class='line'>    <span class="c"># dictionary in `self.dictionary`and will support the `iter` corpus method. For other kinds of corpora, you only</span>
+</span><span class='line'>    <span class="c"># need to override `get_texts` and provide your own implementation.&quot;</span>
+</span><span class='line'>    <span class="n">background_corpus</span> <span class="o">=</span> <span class="n">TextCorpus</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">YOUR_CORPUS</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Important -- save the dictionary generated by the corpus, or future operations will not be able to map results</span>
+</span><span class='line'>    <span class="c"># back to original words.</span>
+</span><span class='line'>    <span class="n">background_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+</span><span class='line'>        <span class="s">&quot;my_dict.dict&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;background_corpus.mm&quot;</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">background_corpus</span><span class="p">)</span>  <span class="c">#  Uses numpy to persist wiki corpus in Matrix Market format. File will be several GBs.</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Generating a large training/background corpus using Wikipedia</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.corpora</span> <span class="kn">import</span> <span class="n">WikiCorpus</span><span class="p">,</span> <span class="n">wikicorpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">articles</span> <span class="o">=</span> <span class="s">&quot;enwiki-latest-pages-articles.xml.bz2&quot;</span>  <span class="c"># available from http://en.wikipedia.org/wiki/Wikipedia:Database_download</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># This will take many hours! Output is Wikipedia in bucket-of-words (BOW) sparse matrix.</span>
+</span><span class='line'>    <span class="n">wiki_corpus</span> <span class="o">=</span> <span class="n">WikiCorpus</span><span class="p">(</span><span class="n">articles</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">wiki_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;wiki_dict.dict&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;wiki_corpus.mm&quot;</span><span class="p">,</span> <span class="n">wiki_corpus</span><span class="p">)</span>  <span class="c">#  File will be several GBs.</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Working with persisted corpus and dictionary</span>
+</span><span class='line'>    <span class="n">bow_corpus</span> <span class="o">=</span> <span class="n">MmCorpus</span><span class="p">(</span><span class="s">&quot;wiki_corpus.mm&quot;</span><span class="p">)</span>  <span class="c"># Revive a corpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">dictionary</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;wiki_dict.dict&quot;</span><span class="p">)</span>  <span class="c"># Load a dictionary</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Transformations among vector spaces</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">LsiModel</span><span class="p">,</span> <span class="n">LogEntropyModel</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">logent_transformation</span> <span class="o">=</span> <span class="n">LogEntropyModel</span><span class="p">(</span><span class="n">wiki_corpus</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">)</span>  <span class="c"># Log Entropy weights frequencies of all document features in the corpus</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">tokenize_func</span> <span class="o">=</span> <span class="n">wikicorpus</span><span class="o">.</span><span class="n">tokenize</span>  <span class="c"># The tokenizer used to create the Wikipedia corpus</span>
+</span><span class='line'>    <span class="n">document</span> <span class="o">=</span> <span class="s">&quot;Some text to be transformed.&quot;</span>
+</span><span class='line'>    <span class="c"># First, tokenize document using the same tokenization as was used on the background corpus, and then convert it to</span>
+</span><span class='line'>    <span class="c"># BOW representation using the dictionary created when generating the background corpus.</span>
+</span><span class='line'>    <span class="n">bow_document</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">document</span><span class="p">))</span>
+</span><span class='line'>    <span class="c"># converts a single document to log entropy representation. document must be in the same vector space as corpus.</span>
+</span><span class='line'>    <span class="n">logent_document</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[[</span>
+</span><span class='line'>        <span class="n">bow_document</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Transform arbitrary documents by getting them into the same BOW vector space created by your training corpus</span>
+</span><span class='line'>    <span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Some iterable&quot;</span><span class="p">,</span> <span class="s">&quot;containing multiple&quot;</span><span class="p">,</span> <span class="s">&quot;documents&quot;</span><span class="p">,</span> <span class="s">&quot;...&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">bow_documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">)</span>  <span class="c"># use a generator expression because...</span>
+</span><span class='line'>    <span class="n">logent_documents</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[</span>
+</span><span class='line'>                       <span class="n">bow_documents</span><span class="p">]</span>  <span class="c"># ...transformation is done during iteration of documents using generators, so this uses constant memory</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Chained transformations</span>
+</span><span class='line'>    <span class="c"># This builds a new corpus from iterating over documents of bow_corpus as transformed to log entropy representation.</span>
+</span><span class='line'>    <span class="c"># Will also take many hours if bow_corpus is the Wikipedia corpus created above.</span>
+</span><span class='line'>    <span class="n">logent_corpus</span> <span class="o">=</span> <span class="n">MmCorpus</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">bow_corpus</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Creates LSI transformation model from log entropy corpus representation. Takes several hours with Wikipedia corpus.</span>
+</span><span class='line'>    <span class="n">lsi_transformation</span> <span class="o">=</span> <span class="n">LsiModel</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_corpus</span><span class="p">,</span> <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Alternative way of performing same operation as above, but with implicit chaining</span>
+</span><span class='line'>    <span class="c"># lsi_transformation = LsiModel(corpus=logent_transformation[bow_corpus], id2word=dictionary,</span>
+</span><span class='line'>    <span class="c">#    num_features=400)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># Can persist transformation models, too.</span>
+</span><span class='line'>    <span class="n">logent_transformation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;logent.model&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">lsi_transformation</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;lsi.model&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">### Similarities (the best part)</span>
+</span><span class='line'>    <span class="kn">from</span> <span class="nn">gensim.similarities</span> <span class="kn">import</span> <span class="n">Similarity</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># This index corpus consists of what you want to compare future queries against</span>
+</span><span class='line'>    <span class="n">index_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A bear walked in the dark forest.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;Tall trees have many more leaves than short bushes.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;A starship may someday travel across vast reaches of space to other stars.&quot;</span><span class="p">,</span>
+</span><span class='line'>                 <span class="s">&quot;Difference is the concept of how two or more entities are not the same.&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="c"># A corpus can be anything, as long as iterating over it produces a representation of the corpus documents as vectors.</span>
+</span><span class='line'>    <span class="n">corpus</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">index_documents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">Similarity</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">lsi_transformation</span><span class="p">[</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">corpus</span><span class="p">]],</span> <span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">output_prefix</span><span class="o">=</span><span class="s">&quot;shard&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Index corpus:&quot;</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Similarities of index corpus documents to one another:&quot;</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">index</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;In the face of ambiguity, refuse the temptation to guess.&quot;</span>
+</span><span class='line'>    <span class="n">sims_to_query</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="n">lsi_transformation</span><span class="p">[</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span><span class="n">query</span><span class="p">))]]]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;Similarities of index corpus documents to &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">query</span>
+</span><span class='line'>    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">sims_to_query</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">best_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sims_to_query</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">index</span> <span class="o">=</span> <span class="n">sims_to_query</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">best_score</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">most_similar_doc</span> <span class="o">=</span> <span class="n">documents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;The document most similar to the query is &#39;</span><span class="si">%s</span><span class="s">&#39; with a score of </span><span class="si">%.2f</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">most_similar_doc</span><span class="p">,</span> <span class="n">best_score</span><span class="p">)</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[An Introduction to gensim: "Topic Modelling for Humans"]]></title>
+    <link href="http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
+    <updated>2012-05-03T10:06:02-04:00</updated>
+    <id>http://williamjohbnert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
+    <content type="html"><![CDATA[<p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I&#8217;ve been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
+
+<p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
+
+<p>Finally, I also developed a <a href="http://github.com/sandinmyjoints/visularity">demo app to visualize semantic similarity queries</a>. It&#8217;s a Flask web app, with gensim generating data on the backend that is clustered by scipy and scikit-learn and visualized by d3.js as agglomerative and hierarchical clusters as well as a simple table and dendrogram. To make it all work in realtime, I used threading and hookbox. I call it Visularity, and it&#8217;s <a href="http://github.com/sandinmyjoints/visularity">available on github</a>. You need to provide your own model and dictionary data to use&#8211;check out my presentation and visit <a href="http://radimrehurek.com/gensim">radimrehurek.com/gensim/</a> to learn how. Comments and feedback welcome!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Interview with Radim Rehurek, creator of gensim]]></title>
+    <link href="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
+    <updated>2012-04-30T08:58:42-04:00</updated>
+    <id>http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
+    <content type="html"><![CDATA[<p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
+
+<p><strong>WB: Why did you create gensim?</strong></p>
+
+<p>RR: Consulting gig for a digital library project (Czech Digital
+Mathematics Library, dml.cz), some 3 years ago. It started off as a
+few loosely connected Python scripts to support the &#8220;show similar
+articles&#8221; functionality. We wanted to use some of the statistical
+methods, like latent semantic analysis. Originally, gensim only
+contained wrappers around existing Fortran libraries for SVD, like
+Propack and Svdpack.</p>
+
+<p>But there were issues with that, and it scaled badly (all documents in
+RAM), so I started looking for more scalable, online algorithms.
+Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
+
+<p>In the end, I developed new algorithms for these methods for gensim.
+The theoretical part of this research later turned into a part of my
+PhD thesis.</p>
+
+<p><strong>Who is using gensim (as far as you know)&#8211;academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
+
+<p>Yes, I&#8217;ve heard from many academic as well as commercial
+organizations, both on the mailing list and off. Off the top of my
+head: ravn.co.uk, roistr.com, sportsauthority.com, larkc.eu; TU of
+Denmark, U of Stuttgart, Masaryk U, U of Ghent, some people used it in
+the Yahoo! KD cup competition&#8230; But what they all did with gensim, or
+whether they still use it, I don&#8217;t know. The gensim license (LGPL) is
+pretty liberal in that respect.</p>
+
+<p>Unfortunately, all this use rarely translates into any feedback or
+contributions. I guess I&#8217;m just not very good at the
+bring-new-developers-and-grow-open-source stuff :(</p>
+
+<p><strong>Roughly how much of the current codebase was written by you, and how much by contributors?</strong></p>
+
+<p>Almost everything by me, but I am very grateful for bug fixes and
+patches. I try to put every contribution from other people into the
+changelog: https://github.com/piskvorky/gensim/blob/develop/CHANGELOG.txt
+. I made some wiki pages to make contributing easier:
+https://github.com/piskvorky/gensim/wiki . I also try to answer
+general questions on the mailing list.</p>
+
+<p><strong>What are your favorite features, or parts of the code that you&#8217;re most proud of?</strong></p>
+
+<p>I don&#8217;t have emotional attachments to parts of the code &#8211; if it&#8217;s
+bad, it needs to go. I guess the most proven parts are the ones that
+had been around for the longest &#8211; LSA etc. Things that were
+contributed recently by other people, like the new HDP (hierarchical
+dirichlet process) code, or the <code>gensim.parsing</code> subpackage, are the
+most rough around the edges.</p>
+
+<p>The best feature is the memory independence for sure. Most
+implementations of the statistical semantics methods assume the
+training data resides in RAM, which limits their use to small/medium
+corpora. Also they work in batch mode, needing a full re-train when
+new training data arrives. The LSA/LDA algos are online though (can be
+updated with new data, incrementally).</p>
+
+<p><strong>What&#8217;s your background? Academic, software engineering, both?</strong></p>
+
+<p>I finished my PhD, but I feel more like a software engineer than a
+pure researcher. Even during my academic years, I was working in IT
+commerce. I wouldn&#8217;t like to stay in academia professionally.</p>
+
+<p><strong>What are you working on next for gensim? What about outside of gensim?</strong></p>
+
+<p>Small things like adding the &#8220;hashing trick&#8221; etc:
+https://github.com/piskvorky/gensim/issues . Basically things that
+gensim users have been asking for. Some issues keep coming back on the
+mailing list, and while not technically bugs, they hint at minor
+redesigns and improvements.</p>
+
+<p>One big thing that is missing is a basic visual style for gensim. I
+have no clue how to do that and it&#8217;s really pathetic gensim doesn&#8217;t
+even have a logo yet!</p>
+
+<p>Outside of gensim, I am busy doing consulting (scaling up text
+processing: fulltext search, semantic search, ad targeting etc &#8211;
+backend stuff). I&#8217;m planning to do a startup that offers semantic
+search and similarity as a service. A kind of easy-to-use black box
+tool, something like searchify or myrrix. But it&#8217;s hard to find good
+people to work with&#8230; and hard to give up/interrupt a well-paying
+career :) I applied for YC last month, alone, but they turned me down.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ExtJS TreeStore trouble with nested nodes]]></title>
+    <link href="http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
+    <updated>2012-04-19T06:23:07-04:00</updated>
+    <id>http://williamjohbnert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
+    <content type="html"><![CDATA[<p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD application. For now, we&#8217;re trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let&#8217;s call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
+
+<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
+
+<blockquote><p>It doesn&#8217;t matter if the [model] ids are unique within the JSON [or any data]. It must be unique within the tree.</p></blockquote>
+
+<p>If you add the first json to the tree with for example the id 4_1 and you add the second json with again a node 4_1 then you have two nodes with the same id.</p>
+
+<p>In other words, TreeStore doesn&#8217;t distinguish the types of roots and their children (or children&#8217;s children, etc). To TreeStore, they are <strong>all</strong> nodes, and ids must be unique across all nodes. If you have an instance of a Task model with id=1 and it has a foreign key to a Goal that also has id=1, TreeStore has a problem with that. Apparently it doesn&#8217;t introspect the objects enough to see that, say, one is a Task and its children are Goals, despite the Task model having a <code>hasMany</code> field that defines its relation to the Goal model. That seems counterintuitive to me, maybe even misleading. Perhaps that&#8217;s why we&#8217;re not the only ones who&#8217;ve <a href="http://www.sencha.com/forum/showthread.php?129524-CLOSED-Selection-of-Association-in-DataView">had</a> <a href="http://www.sencha.com/forum/showthread.php?135285-TreeStore-Model-and-quot-id-quot-field">this</a> <a href="http://www.sencha.com/forum/showthread.php?196396-How-to-add-children-tree-nodes-dynamically">problem</a>.</p>
+
+<p>My quick fix was to write a <code>stringify_id()</code> function to wrap ids passed to the TreeStore with a prefix unique to each type, so the id of Task id=1 becomes &#8220;task-1&#8221;. <code>destringify_id()</code> unwraps the ids that come back through the proxy.</p>
+
+<p>TreeStore&#8217;s <a href="http://docs.sencha.com/ext-js/4-0/#!/api/Ext.data.TreeStore">docs</a> do not mention this restriction, as far as I can tell. Maybe if you purchase Ext JS, you get better docs, I&#8217;m not sure. We may be doing just that, so I could have a chance to find out. One of the complaints you sometimes hear about open source is that the docs aren&#8217;t that great, so I&#8217;m curious to see how a for-profit company&#8217;s docs stack up against the documentation culture of the communities I&#8217;m most familiar with (Python and Django), which tend to be pretty solid.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fake bio for Steve]]></title>
+    <link href="http://williamjohbnert.com/2012/04/fake-bio-for-steve/"/>
+    <updated>2012-04-06T09:53:07-04:00</updated>
+    <id>http://williamjohbnert.com/2012/04/fake-bio-for-steve</id>
+    <content type="html"><![CDATA[<p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
+
+<p>Here&#8217;s mine:</p>
+
+<blockquote><p>Steve Souryal is a group of 15 small islets and rocks in the central equatorial Atlantic Ocean. He lies in the Intertropical Convergence Zone, a region of severe storms. Steve exposes serpentinized abyssal mantle peridotite and kaersutite-bearing ultramafic mylonite on the top of the second-largest megamullion in the world (after the Parece Vela megamullion under Okinotoshima in the Pacific). He is the only location in the Atlantic Ocean where the abyssal mantle is exposed above sea level! In 1986, Steve was designated an environmentally protected area, and since 1998, the Danish Navy has maintained a permanently manned research facility in him. His main economic activity is tuna fishing, and we are incredibly lucky to have him with us tonight.</p></blockquote>
+
+<p>Apologies to Wikipedia. But somehow, it just feels right.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to install accelerated BLAS into a Python virtualenv]]></title>
+    <link href="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
+    <updated>2012-03-23T16:43:33-04:00</updated>
+    <id>http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
+    <content type="html"><![CDATA[<h1>Background</h1>
+
+<p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
+
+<p>To see what BLAS libraries you are using, do:</p>
+
+<pre><code>python -c 'import numpy; numpy.show_config()'
+</code></pre>
+
+<p>If none of them are installed, you probably want to install one or
+more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since it&#8217;s portable and
+self-optimizing. There are others out there targeted at particular CPU architectures.</p>
+
+<p>Unfortunately, the <a href="http://docs.scipy.org/doc/numpy/user/install.html">Scipy docs</a> are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven&#8217;t tried to run them on a more recent version, it&#8217;s possible they work with those as well.</p>
+
+<h1>Prereqs</h1>
+
+<p>On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):</p>
+
+<pre><code>sudo apt-get install liblapack-dev
+sudo apt-get install gfortran
+</code></pre>
+
+<h1>Instructions</h1>
+
+<p>Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:</p>
+
+<pre><code>#!/bin/bash
+workon [envname]
+pip uninstall numpy # only if numpy is already installed
+pip uninstall scipy # only if scipy is already installed
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+</code></pre>
+
+<p>Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:</p>
+
+<pre><code>pip install numpy
+pip install scipy
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Novelties & Traditions]]></title>
+    <link href="http://williamjohbnert.com/2011/11/novelties-traditions/"/>
+    <updated>2011-11-19T05:28:21-05:00</updated>
+    <id>http://williamjohbnert.com/2011/11/novelties-traditions</id>
+    <content type="html"><![CDATA[<p>Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving&#8217;s always been my favorite holiday so I&#8217;m more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who&#8217;re renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
+
+<p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don&#8217;t Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, &#8220;Busted,&#8221; aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn&#8217;t have been doing&#8211;a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the &#8220;Busted&#8221; lesson plan</a> more than a year ago&#8211;right around the previous Friendsgiving. Hard to believe it&#8217;s been that long!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gender, programming, and the power of language ]]></title>
+    <link href="http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language/"/>
+    <updated>2011-08-28T12:15:02-04:00</updated>
+    <id>http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language</id>
+    <content type="html"><![CDATA[<p>An interlude from the recent trend of hardcore Django action:</p>
+
+<blockquote><p>When I spoke with a female intern this summer, she recounted how, in 2006, the
+GNOME Project, a free and open source software project, received almost 200 Google
+Summer of Code applicants. All of them were male. When GNOME advertised an
+identical program for women, emphasizing opportunities for learning and mentorship
+instead of tough competition, they received more than 100 highly qualified female
+applicants for the three spots they were able to fund. What amazed me even more was
+when she suggested that our own company slogan — “We Help the World’s Best
+Developers Make Better Software” — might alienate prospective female candidates.
+That had never occurred to me. But according to our intern, in the world of
+computer science, “when you hear the phrase ‘the world’s best developers,’ you see
+a guy.”</p></blockquote>
+
+<p>From <a href="http://www.washingtonpost.com/opinions/when-computer-programming-was-womens-work/2011/08/24/gIQAdixGgJ_print.html">When computer programming was ‘women’s work’</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
+    <link href="http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
+    <updated>2011-08-26T07:16:14-04:00</updated>
+    <id>http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
+    <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account registration/login system pretty easily. But I wanted to give users the ability to use their existing accounts through popular services such as Facebook, Twitter, etc., rather than have to create yet another account. Here&#8217;s how I did it.</p>
+
+<h1>Sorting Through the Choices</h1>
+
+<p>There are a number of reusable Django apps out there to help with registration/login from social media sites. I found this <a href="http://hackerluddite.wordpress.com/2011/05/17/review-of-4-django-social-auth-apps/">Review of 4 Django Social Auth apps</a> very helpful in sorting out the options. After reading it, I was left to choose between <a href="https://github.com/omab/django-social-auth"><code>django-social-auth</code></a> (I originally linked to the wrong app here, but this link is correct) and <a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>) because a friend had recommended it and because I&#8217;d already installed it before I read this article. However, the article&#8217;s conclusion that <code>django-allauth</code> is best out of the box also seems valid.</p>
+
+<h1>Installation</h1>
+
+<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>&#8217;s docs</a> are helpful in walking you through available settings and options.</p>
+
+<p>I also found the included example app useful. To use this app, I cloned <code>django-social-auth</code>&#8217;s git repo, created a virtualenv called <code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1, showing a simple screen with options to login through about a dozen different different services.</p>
+
+<h1>API Keys</h1>
+
+<p>The first service I tested was Twitter. I use it more than any others, and I already had the API keys for it. I threw my API key and secret key into the example <code>local_settings.py</code> file provided with <code>django-social-auth</code> and tried to log in via the example app. Boom: <code>401 Unauthorized</code>. I double-checked all my settings and installation and whatnot. Seemed fine.</p>
+
+<p>I turned my attention to the API keys. The ones I had were generated for <a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when I generated them at dev.twitter.com. But now I was running on localhost, 127.0.0.1, so I suspected the readsrs.com keys wouldn&#8217;t be valid. I wasn&#8217;t sure whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at the request. (It seemed like it should do so, but I hadn&#8217;t seen any instructions anywhere that said to get a key for your development machine.) Turns out Twitter will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was able to log in with my Twitter credentials, and just as it should, <code>django-social-auth</code> automatically created an <code>auth.user</code> for this account.</p>
+
+<h1>Integrating with Readsr</h1>
+
+<p>I followed the instructions again to config my own app, Readsr. To add a login option using Twitter credentials, I put a link to the reversed view that begins the <code>django-social-auth</code> login process for twitter, i.e., <code>{% url socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
+
+<p>I still need to fix a few oddities. For example, Twitter returns my first and last names together in <code>first_name</code> (or else <code>django-social-auth</code> is concatenating them into that column), and doesn&#8217;t supply any email address. But the basic functionality is there, and was relatively easy to achieve.</p>
+
+<h1>Postscript</h1>
+
+<p>The author of the article I linked above had an error using OpenID when using <code>django-social-auth</code>, which is why he preferred <code>django-authall</code>. He filed a bug for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago (though if you read the comments, it seems it was actually fixed back in mid-July). Good timing.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to: Unit testing in Django with mocking and patching]]></title>
+    <link href="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
+    <updated>2011-07-08T06:56:29-04:00</updated>
+    <id>http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
+    <content type="html"><![CDATA[<h3>Background</h3>
+
+<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month). I created a DayOfWeek model to store any particular event&#8217;s day of the week. It contains a method next_day_of_week() to return a datetime.date object set to the next occurrence of whatever weekday a given event instance is set to (this helps with figuring out when the next occurrence of an event is).</p>
+
+<p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
+
+<ul>
+<li>For an object with DayOfWeek set to Sunday, next_day_of_week() would return 7/3/2011 (current day).</li>
+<li>For DayOfWeek set to Monday, it would return 7/4/2011 (first subsequent Monday).</li>
+<li>For DayOfWeek set to Saturday, it would return 7/9/2011 (first subsequent Saturday).</li>
+</ul>
+
+
+<p>Sounds simple enough. It seemed like this would be a good place to do my first unit tests.</p>
+
+<h3>Unit Testing</h3>
+
+<p>To do unit testing, the typical method is to first write test cases and then write code. In this case, I&#8217;d already written my code, so I went back and wrote test cases, trying to forget how my code worked.</p>
+
+<p>To write test cases, you have to detail requirements for each method you want to test: input and expected (correct) output. The list of examples for
+next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch: next_day_of_week() calculates the next day of the week relative to the current date, by calling datetime.date.today(). So if I write expected output for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any following day. I needed a way to make datetime.date.today() always spit out my input date when I run tests, yet still continue to function normally outside of testing. Enter mocking.</p>
+
+<h3>Mocking</h3>
+
+<p>The solution was to mock out the method&#8211;to replace the real datetime.date.today() with a fake one that produces the same output no matter what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock library</a>. Specifically, I needed to use the patch decorator. This decorator makes it really easy to replace on particular object within the scope of a particular method.</p>
+
+<p>Before I could patch the today() method, I needed to create my own fake method. It would look like this:</p>
+
+<pre><code>def faketoday()
+    return date(2011, 7, 4)
+</code></pre>
+
+<p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
+
+<pre><code>&gt;&gt;&gt; import mock
+&gt;&gt;&gt; def faketoday():
+...     return datetime.date(2011, 7, 4)
+... 
+&gt;&gt;&gt; @mock.patch("datetime.date.today", faketoday)
+... def testfunc():
+...     return datetime.date.today()
+... 
+&gt;&gt;&gt; testfunc()
+Traceback (most recent call last):
+  File "&lt;console&gt;", line 1, in &lt;module&gt;
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 561, in patched
+    arg = patching.__enter__()
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 623, in __enter__
+    setattr(self.target, self.attribute, new_attr)
+TypeError: can't set attributes of built-in/extension type 'datetime.date'
+&gt;&gt;&gt; 
+</code></pre>
+
+<p>datetime.date is considered a Python built-in and can&#8217;t be modified.</p>
+
+<h3>Modifying a Class That Can&#8217;t Be Modified</h3>
+
+<p>The trick is to write a child class that can be modified, and thus faked:</p>
+
+<pre><code>class FakeDate(date):
+    "A fake replacement for date that can be mocked for testing."
+    def __new__(cls, *args, **kwargs):
+        return date.__new__(date, *args, **kwargs)
+</code></pre>
+
+<p>All this does is create a class whose constructor returns an instance of its parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here because the new class isn&#8217;t a built-in and thus can be mocked.</p>
+
+<p>To use it, we simply decorate any test method that calls datetime.date.today() with a patch to replace datetime.date with FakeDate, and we also provide FakeDate a fake today() method that returns only and always the particular we are going to use for testing:</p>
+
+<pre><code>class TestDayOfWeek(TestCase):
+    """Test the day of the week functions."""
+
+    @mock.patch('series.models.date', FakeDate)
+    def test_valid_my_next_day_of_week_sameday(self):
+        from datetime import date
+        FakeDate.today = classmethod(lambda cls: date(2011, 7, 3)) # July 3, 2011 is a Sunday
+        new_day_of_week = DayOfWeek.objects.create()
+        new_day_of_week.day = "SU"
+        self.assertEquals(new_day_of_week.my_next_day_of_week(), date(2011, 7, 3))
+</code></pre>
+
+<p>A couple things to note: the patch only applies within this particular method, so each method to use a patch must be decorated. Also, the real datetime.date is imported in the method so we can use it inside the fake today() method. We could put this fake today() method inside FakeClass, but making it a lambda (anonymous) method assigned inside the test case gives us the flexibility to set a particular date for each test case.</p>
+
+<h3>Namespacing</h3>
+
+<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first, and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken effect.</p>
+
+<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the series app, or series.models in Python dotted notation), date has been imported like so:</p>
+
+<pre><code>from datetime import date
+</code></pre>
+
+<p>This means that within series.models, date is now available as series.models.date, so that&#8217;s the name that needs to be mocked out. For more on namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
+
+<p>Now we can supply out unit tests with any date we want, ensuring that we know what the results should be and can test against them.</p>
+
+<h3>References</h3>
+
+<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a> (I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally, the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was very helpful as well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Simple Django Event Calendar]]></title>
+    <link href="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
+    <updated>2011-06-13T16:34:52-04:00</updated>
+    <id>http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
+    <content type="html"><![CDATA[<h3>Background</h3>
+
+<p>I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
+
+<h3>Existing Solutions</h3>
+
+<p>First I searched for existing Django calendar solutions. I found several. <a href="https://code.google.com/p/django-swingtime/">Swingtime</a> and <a href="https://github.com/dokterbob/django-agenda">django-agenda</a> seemed very well thought out and comprehensive, but were also perhaps overkill for what I needed. <a href="https://code.google.com/p/django-gencal/">django-gencal</a> doesn&#8217;t appear to be maintained and I had trouble understanding the documentation (though you may have better results, as I am slow).</p>
+
+<h3>A Way Forward</h3>
+
+<p>I found that Python&#8217;s calendar module has a built template called <a href="http://docs.python.org/library/calendar.html#calendar.HTMLCalendar">HTMLCalendar</a>, which sounded promising. Then I found a <a href="http://journal.uggedal.com/creating-a-flexible-monthly-calendar-in-django/">couple</a> <a href="http://drumcoder.co.uk/blog/2010/jun/13/monthly-calendar-django/">examples</a> of people inheriting from HTMLCalendar to add data to the calendar display. This sounded right on, so I adapted this code for my reading events.</p>
+
+<h3>Problem: Presentation and Content Mixed</h3>
+
+<p>I noticed a problem in the code I was adapting. The view was producing HTML. That seemed to violate separation of content and presentation. Shouldn&#8217;t the HTML be generated in the template? And since the templating language itself isn&#8217;t powerful enough to generate an HTML table from a list of objects, that meant I needed to write my own template tag. Yikes.</p>
+
+<h3>Writing My First Template Tag</h3>
+
+<p>Django&#8217;s documentation made it easy, though. A template tag consists of a few parts. Below is the code; it goes into a subdirectory of the django app called &#8220;templatetags.&#8221;</p>
+
+<p>The first part follows directly from the Django docs: get a register object.</p>
+
+<p>Then I define a function to parse the template tag arguments and return the node (the HTML code from which the page is eventually build). The template syntax is defined here.</p>
+
+<p>Then I define the node itself, which is made thread-safe by storing and retrieving the variables passed through the template tag from a context (again, this is straight from the Django docs).</p>
+
+<p>Then I inherit from HTMLCalendar and redefine the format methods to add the particular reading event data. You could adapt this class to any kind of event that has an associated date/time by changing the groupby lambda function to use whatever field your event object uses to store its date and time (my reading object simply calls it &#8220;date_and_time&#8221;).</p>
+
+<p>Finally, I register this template tag so it is available to templates.</p>
+
+<p>Here&#8217;s the code.</p>
+
+<pre><code>    from calendar import HTMLCalendar
+    from django import template
+    from datetime import date
+    from itertools import groupby
+
+    from django.utils.html import conditional_escape as esc
+
+    register = template.Library()
+
+    def do_reading_calendar(parser, token):
+        """
+        The template tag's syntax is {% reading_calendar year month reading_list %}
+        """
+
+        try:
+            tag_name, year, month, reading_list = token.split_contents()
+        except ValueError:
+            raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
+        return ReadingCalendarNode(year, month, reading_list)
+
+
+    class ReadingCalendarNode(template.Node):
+        """
+        Process a particular node in the template. Fail silently.
+        """
+
+        def __init__(self, year, month, reading_list):
+            try:
+                self.year = template.Variable(year)
+                self.month = template.Variable(month)
+                self.reading_list = template.Variable(reading_list)
+            except ValueError:
+                raise template.TemplateSyntaxError
+
+        def render(self, context):
+            try:
+                # Get the variables from the context so the method is thread-safe.
+                my_reading_list = self.reading_list.resolve(context)
+                my_year = self.year.resolve(context)
+                my_month = self.month.resolve(context)
+                cal = ReadingCalendar(my_reading_list)
+                return cal.formatmonth(int(my_year), int(my_month))
+            except ValueError:
+                return          
+            except template.VariableDoesNotExist:
+                return
+
+
+    class ReadingCalendar(HTMLCalendar):
+        """
+        Overload Python's calendar.HTMLCalendar to add the appropriate reading events to
+        each day's table cell.
+        """
+
+        def __init__(self, readings):
+            super(ReadingCalendar, self).__init__()
+            self.readings = self.group_by_day(readings)
+
+        def formatday(self, day, weekday):
+            if day != 0:
+                cssclass = self.cssclasses[weekday]
+                if date.today() == date(self.year, self.month, day):
+                    cssclass += ' today'
+                if day in self.readings:
+                    cssclass += ' filled'
+                    body = ['&lt;ul&gt;']
+                    for reading in self.readings[day]:
+                        body.append('&lt;li&gt;')
+                        body.append('&lt;a href="%s"&gt;' % reading.get_absolute_url())
+                        body.append(esc(reading.series.primary_name))
+                        body.append('&lt;/a&gt;&lt;/li&gt;')
+                    body.append('&lt;/ul&gt;')
+                    return self.day_cell(cssclass, '&lt;span class="dayNumber"&gt;%d&lt;/span&gt; %s' % (day, ''.join(body)))
+                return self.day_cell(cssclass, '&lt;span class="dayNumberNoReadings"&gt;%d&lt;/span&gt;' % (day))
+            return self.day_cell('noday', '&amp;nbsp;')
+
+        def formatmonth(self, year, month):
+            self.year, self.month = year, month
+            return super(ReadingCalendar, self).formatmonth(year, month)
+
+        def group_by_day(self, readings):
+            field = lambda reading: reading.date_and_time.day
+            return dict(
+                [(day, list(items)) for day, items in groupby(readings, field)]
+            )
+
+        def day_cell(self, cssclass, body):
+            return '&lt;td class="%s"&gt;%s&lt;/td&gt;' % (cssclass, body)
+
+    # Register the template tag so it is available to templates
+    register.tag("reading_calendar", do_reading_calendar)
+</code></pre>
+
+<p>Then, here&#8217;s the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
+
+<pre><code>    def named_month(month_number):
+
+        """
+        Return the name of the month, given the number.
+        """
+        return date(1900, month_number, 1).strftime("%B")
+
+    def this_month(request):
+        """
+        Show calendar of readings this month.
+        """
+        today = datetime.now()
+        return calendar(request, today.year, today.month)
+
+
+    def calendar(request, year, month, series_id=None):
+        """
+        Show calendar of readings for a given month of a given year.
+        ``series_id``
+        The reading series to show. None shows all reading series.
+        """
+
+        my_year = int(year)
+        my_month = int(month)
+        my_calendar_from_month = datetime(my_year, my_month, 1)
+        my_calendar_to_month = datetime(my_year, my_month, monthrange(my_year, my_month)[1])
+
+        my_reading_events = Reading.objects.filter(date_and_time__gte=my_calendar_from_month).filter(date_and_time__lte=my_calendar_to_month)
+        if series_id:
+            my_reading_events = my_reading_events.filter(series=series_id)
+
+        # Calculate values for the calendar controls. 1-indexed (Jan = 1)
+        my_previous_year = my_year
+        my_previous_month = my_month - 1
+        if my_previous_month == 0:
+            my_previous_year = my_year - 1
+            my_previous_month = 12
+        my_next_year = my_year
+        my_next_month = my_month + 1
+        if my_next_month == 13:
+            my_next_year = my_year + 1
+            my_next_month = 1
+        my_year_after_this = my_year + 1
+        my_year_before_this = my_year - 1
+        return render_to_response("cal_template.html", { 'readings_list': my_reading_events,
+                                                            'month': my_month,
+                                                            'month_name': named_month(my_month),
+                                                            'year': my_year,
+                                                            'previous_month': my_previous_month,
+                                                            'previous_month_name': named_month(my_previous_month),
+                                                            'previous_year': my_previous_year,
+                                                            'next_month': my_next_month,
+                                                            'next_month_name': named_month(my_next_month),
+                                                            'next_year': my_next_year,
+                                                            'year_before_this': my_year_before_this,
+                                                            'year_after_this': my_year_after_this,
+        }, context_instance=RequestContext(request))
+</code></pre>
+
+<p>And finally, here&#8217;s the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I&#8217;ll forgo writing that out):</p>
+
+<pre><code>{% load reading_tags %}
+
+&lt;div id="calendar"&gt;
+    {% reading_calendar year month reading_list %}
+&lt;/div&gt;
+</code></pre>
+
+<p>Hopefully that makes sense. Enjoy!</p>
+
+<p><em>You can also see this code (made generic for any kind of event) <a href="http://djangosnippets.org/snippets/2464/">on django snippets</a>.</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Marshall, Barnard, Laurel, Marshall]]></title>
+    <link href="http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall/"/>
+    <updated>2011-05-19T18:13:26-04:00</updated>
+    <id>http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg" alt="" /></a><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg" alt="" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Poetry for the President]]></title>
+    <link href="http://williamjohbnert.com/2011/05/poetry-for-the-president/"/>
+    <updated>2011-05-11T07:43:10-04:00</updated>
+    <id>http://williamjohbnert.com/2011/05/poetry-for-the-president</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
+
+<p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
+
+<p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spring, spring, spring]]></title>
+    <link href="http://williamjohbnert.com/2011/05/spring-spring-spring/"/>
+    <updated>2011-05-09T05:59:26-04:00</updated>
+    <id>http://williamjohbnert.com/2011/05/spring-spring-spring</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
+
+<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New story, and other updates]]></title>
+    <link href="http://williamjohbnert.com/2011/03/new-story-in-anomalous-press/"/>
+    <updated>2011-03-23T07:35:36-04:00</updated>
+    <id>http://williamjohbnert.com/2011/03/new-story-in-anomalous-press</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png"><img src="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png" alt="Anomalous Press #1" /></a>I&#8217;m really thrilled to have a story, <a href="http://www.anomalouspress.org/current/21.bert.winner.php">&#8220;Winner,&#8221;</a> in the very first issue of Anomalous Press. It was released on the Ides of March, so I&#8217;m a bit tardy announcing it here—it&#8217;s been a busy March so far.</p>
+
+<p>The issue includes work from many better writers than me, including <a href="http://www.anomalouspress.org/current/25.ayala.winter.php">a poem</a> and <a href="http://www.anomalouspress.org/current/26.ayala.vision.php">two translations</a> from my friend Naomi Ayala. It was Naomi who suggested I submit to Anomalous. In this way and many others, she&#8217;s been a great friend and supporter of my writing, and I hope someday to be able to pay her back. You can catch another poem of hers when <a href="http://www.callandresponsedc.org/">Call + Response: Textures</a> opens on April 16. (More on that tomorrow.)</p>
+
+<p>Anomalous Press #1 is available for download as a PDF, but only if you <a href="http://www.paywithatweet.com/">pay with a tweet</a>. Neat concept. Attention as currency. And from a technical standpoint, I&#8217;m interested in how they integrated with <a href="http://dev.twitter.com/">Twitter using OAuth</a>—I want to do a similar thing with the reading series web app (Readsr/Readthing/whatever) I&#8217;m working on: tweet whenever a reading series is updated. So I&#8217;ll be looking into this soon.</p>
+
+<p>First, though, I plan to deploy an alpha version of the site this weekend. I&#8217;ve been reading up on <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <a href="http://pypi.python.org/pypi/pip">pip</a>, <a href="http://fabfile.org/">fabric</a>, and <a href="http://git-scm.com/">git</a>, trying to figure out how to deploy the right way&#8211;with automated version control and dependency isolation. This part, the admin stuff, is as complicated as any coding problem I&#8217;ve faced. Looking forward to tackling it in a marathon session on Saturday!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Stuff: Happening]]></title>
+    <link href="http://williamjohbnert.com/2011/02/stuff-happening/"/>
+    <updated>2011-02-22T15:06:54-05:00</updated>
+    <id>http://williamjohbnert.com/2011/02/stuff-happening</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
+
+<ul>
+<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
+<li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
+<li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
+<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bell Poetry Club]]></title>
+    <link href="http://williamjohbnert.com/2011/01/bell-poetry-club/"/>
+    <updated>2011-01-30T10:11:27-05:00</updated>
+    <id>http://williamjohbnert.com/2011/01/bell-poetry-club</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg" alt="Potomac River ice" /></a></p>
+
+<p>Friday, I helped out with an 826DC workshop at Bell Multicultural High School in Columbia Heights. Bell&#8217;s Poetry Club meets after school each Friday, and we came by  to work with them on metaphor. To fuel the discussion, we read &#8220;Snow Leopards at the Denver Zoo&#8221; by <a href="http://en.wikipedia.org/wiki/William_Matthews_%28poet%29">William Matthews</a> (who I&#8217;d never heard of before—I&#8217;m so not a poet):</p>
+
+<blockquote><pre><code>There are only a hundred or so
+snow leopards alive, and three
+of them here. Hours I watch them jump
+down and jump up, water being
+poured. Though if you fill a glass
+fast with water, it rings high to the top,
+noise of a nail driven true. Snow
+leopards land without sound,
+as if they were already extinct.
+
+
+
+
+
+If I could, I’d sift them
+from hand to hand, like a fire,
+like a debt I can count but can’t pay.
+I’m glad I can’t. If I tried to
+take loss for a wife, and I do,
+and keep her all the days of my life,
+I’d have nothing to leave my children.
+I save them whatever I can keep
+and I pour it from hand to hand.
+</code></pre></blockquote>
+
+<p>A few metaphors there, huh? It&#8217;s a swift poem, turning from accessible to knotty in the space of a few lines. Great for discussion, and the students were more than up to the task. The writing exercise we did next further showed off their chops. We all took 20 minutes to write a poem full of metaphors, then shared them with the group. Their stuff leapt off the page, lyrical, narrative, associative, wild and subtle and everything between.</p>
+
+<p>All of us from 826DC  were seriously impressed, and I look forward to hanging out with the Bell Poetry Club again in a couple weeks. It&#8217;s on us to come up with something new to challenge these talents—my prediction is we&#8217;re going to learn just as much as they do.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Building the New Call + Response Site]]></title>
+    <link href="http://williamjohbnert.com/2011/01/building-the-new-call-response-site/"/>
+    <updated>2011-01-26T15:32:03-05:00</updated>
+    <id>http://williamjohbnert.com/2011/01/building-the-new-call-response-site</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg" alt="National Portrart Gallery in the snow" /></a>Over the past couple weeks I worked on relaunching the website for <a href="http://www.callandresponsedc.org/">Call + Response</a>, an art show I co-curate with my friend <a href="http://twitter.com/kiraface">Kira</a>.</p>
+
+<p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn&#8217;t use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
+
+<p>My goal for this site was to keep the clean, minimal feel while using a modern CMS that would allow for frequent updates, integration with social media, and cool stuff like photo galleries, maps, and interactive widgets. So here&#8217;s what I did.</p>
+
+<ul>
+<li><p>First I installed  a Wordpress theme, a rather minimalist one called <a href="http://www.yukei.net/proyectos/satori-english-documentation/">sartorii</a>. Then I started to customize it to the particular needs of the site, slimming it down further, eliminating sidebars and meta information, culling whatever felt extraneous to the site&#8217;s mission of communicating essentials and focusing on the concept and participants.</p></li>
+<li><p>To present the bios of the participants, I used jQuery UI&#8217;s accordion tool. Call + Response pairs artists with writers, so I wrote code to link two accordions together. When you click on an artist name you get two bios, theirs and the writer they are paired with, and vice versa.</p></li>
+<li><p>I installed  a lightbox plugin for the <a href="http://www.callandresponsedc.org/?page_id=65">photos page</a>. First, I discovered just how many lightbox plugins are out there. I wanted one that would integrate with Wordpress&#8217;s gallery feature, and it took some time to find a solution. I ended up using <a href="http://wordpress.org/extend/plugins/fancy-gallery/">Fancy Gallery</a>, which integrates with <a href="http://fancybox.net/">Fancy Box</a> to produce the desired results.</p></li>
+<li><p>Once I received the poster design for the show from our designer, <a href="http://www.olivermunday.com">Oliver Munday</a>, I further customized the theme to use the poster&#8217;s colors and imagery.</p></li>
+</ul>
+
+
+<p>I&#8217;m pleased with the result. I think it fulfills the goals I set forth. I learned a ton about jQuery, css, and WordPress, which was a great side benefit. Picking up new skills can be really enjoyable, especially when  those skills quickly turn into tangible results.</p>
+
+<p>I&#8217;m already starting on my  next web development project: building a Django app to manage a list of DC-area reading series.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Should have been born in January]]></title>
+    <link href="http://williamjohbnert.com/2011/01/should-have-been-born-in-january/"/>
+    <updated>2011-01-19T02:37:30-05:00</updated>
+    <id>http://williamjohbnert.com/2011/01/should-have-been-born-in-january</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg" alt="A book being reading by a fireplace." /></a>I can&#8217;t stand Garrison Keillor&#8217;s A Prairie Home Companion, but the best part about waking up at 6:35 a.m. is his <a href="http://writersalmanac.publicradio.org/">Writer&#8217;s Almanac</a>. For five minutes he puts his cornmeal voice to good use, first to list this-day-in-literature history tidbits, then to read a poem.</p>
+
+<p>In this way I learned that three of my favorite authors, David Mitchell (the 12th), Lorrie Moore (the 13th), and Julian Barnes (today, the 19th), were born in January. That kind of news is the kind of news I want to wake up to.</p>
+
+<p>From perusing the Writer&#8217;s Almanac&#8217;s website, I have learned that Keillor&#8217;s signature signoff, &#8220;Be well, do good work, and keep in touch,&#8221; is trademarked.</p>
+
+<p>I won <a href="http://williamjohnbert.com/2010/12/quelle-coincidence/">that Julian Barnes book</a>, by the way. Sweet. (I suspect no one else entered, for lack of publicity.)</p>
+]]></content>
+  </entry>
   
 </feed>

@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Interview with Radim Rehurek, creator of gensim - William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Tomorrow at the May 2012 DC Python meetup, I&#8217;m giving a talk on gensim, a Python framework for topic modeling that I use at work and on my own &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Interview With Radim Rehurek, Creator of Gensim</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T08:58:42-04:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
+
+<p><strong>WB: Why did you create gensim?</strong></p>
+
+<p>RR: Consulting gig for a digital library project (Czech Digital
+Mathematics Library, dml.cz), some 3 years ago. It started off as a
+few loosely connected Python scripts to support the &#8220;show similar
+articles&#8221; functionality. We wanted to use some of the statistical
+methods, like latent semantic analysis. Originally, gensim only
+contained wrappers around existing Fortran libraries for SVD, like
+Propack and Svdpack.</p>
+
+<p>But there were issues with that, and it scaled badly (all documents in
+RAM), so I started looking for more scalable, online algorithms.
+Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
+
+<p>In the end, I developed new algorithms for these methods for gensim.
+The theoretical part of this research later turned into a part of my
+PhD thesis.</p>
+
+<p><strong>Who is using gensim (as far as you know)&#8211;academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
+
+<p>Yes, I&#8217;ve heard from many academic as well as commercial
+organizations, both on the mailing list and off. Off the top of my
+head: ravn.co.uk, roistr.com, sportsauthority.com, larkc.eu; TU of
+Denmark, U of Stuttgart, Masaryk U, U of Ghent, some people used it in
+the Yahoo! KD cup competition&#8230; But what they all did with gensim, or
+whether they still use it, I don&#8217;t know. The gensim license (LGPL) is
+pretty liberal in that respect.</p>
+
+<p>Unfortunately, all this use rarely translates into any feedback or
+contributions. I guess I&#8217;m just not very good at the
+bring-new-developers-and-grow-open-source stuff :(</p>
+
+<p><strong>Roughly how much of the current codebase was written by you, and how much by contributors?</strong></p>
+
+<p>Almost everything by me, but I am very grateful for bug fixes and
+patches. I try to put every contribution from other people into the
+changelog: https://github.com/piskvorky/gensim/blob/develop/CHANGELOG.txt
+. I made some wiki pages to make contributing easier:
+https://github.com/piskvorky/gensim/wiki . I also try to answer
+general questions on the mailing list.</p>
+
+<p><strong>What are your favorite features, or parts of the code that you&#8217;re most proud of?</strong></p>
+
+<p>I don&#8217;t have emotional attachments to parts of the code &#8211; if it&#8217;s
+bad, it needs to go. I guess the most proven parts are the ones that
+had been around for the longest &#8211; LSA etc. Things that were
+contributed recently by other people, like the new HDP (hierarchical
+dirichlet process) code, or the <code>gensim.parsing</code> subpackage, are the
+most rough around the edges.</p>
+
+<p>The best feature is the memory independence for sure. Most
+implementations of the statistical semantics methods assume the
+training data resides in RAM, which limits their use to small/medium
+corpora. Also they work in batch mode, needing a full re-train when
+new training data arrives. The LSA/LDA algos are online though (can be
+updated with new data, incrementally).</p>
+
+<p><strong>What&#8217;s your background? Academic, software engineering, both?</strong></p>
+
+<p>I finished my PhD, but I feel more like a software engineer than a
+pure researcher. Even during my academic years, I was working in IT
+commerce. I wouldn&#8217;t like to stay in academia professionally.</p>
+
+<p><strong>What are you working on next for gensim? What about outside of gensim?</strong></p>
+
+<p>Small things like adding the &#8220;hashing trick&#8221; etc:
+https://github.com/piskvorky/gensim/issues . Basically things that
+gensim users have been asking for. Some issues keep coming back on the
+mailing list, and while not technically bugs, they hint at minor
+redesigns and improvements.</p>
+
+<p>One big thing that is missing is a basic visual style for gensim. I
+have no clue how to do that and it&#8217;s really pathetic gensim doesn&#8217;t
+even have a logo yet!</p>
+
+<p>Outside of gensim, I am busy doing consulting (scaling up text
+processing: fulltext search, semantic search, ad targeting etc &#8211;
+backend stuff). I&#8217;m planning to do a startup that offers semantic
+search and similarity as a service. A kind of easy-to-use black box
+tool, something like searchify or myrrix. But it&#8217;s hard to find good
+people to work with&#8230; and hard to give up/interrupt a well-paying
+career :) I applied for YC last month, alone, but they turned me down.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">William John Bert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T08:58:42-04:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/cool-stuff/'>Cool Stuff</a>, <a class='category' href='/categories/interests/'>Interests</a>, <a class='category' href='/categories/programming/'>Programming</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/" data-via="williamjohnbert" data-counturl="http://williamjohbnert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2012/04/extjs-treestore-trouble-with-nested-nodes/" title="Previous Post: ExtJS TreeStore trouble with nested nodes">&laquo; ExtJS TreeStore trouble with nested nodes</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/" title="Next Post: An Introduction to gensim: "Topic Modelling for Humans"">An Introduction to gensim: "Topic Modelling for Humans" &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: "Topic Modelling for Humans"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

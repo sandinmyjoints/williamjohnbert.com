@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How to: Unit testing in Django with mocking and patching - William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Background For Readsr, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How to: Unit Testing in Django With Mocking and Patching</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Background</h3>
+
+<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month). I created a DayOfWeek model to store any particular event&#8217;s day of the week. It contains a method next_day_of_week() to return a datetime.date object set to the next occurrence of whatever weekday a given event instance is set to (this helps with figuring out when the next occurrence of an event is).</p>
+
+<p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
+
+<ul>
+<li>For an object with DayOfWeek set to Sunday, next_day_of_week() would return 7/3/2011 (current day).</li>
+<li>For DayOfWeek set to Monday, it would return 7/4/2011 (first subsequent Monday).</li>
+<li>For DayOfWeek set to Saturday, it would return 7/9/2011 (first subsequent Saturday).</li>
+</ul>
+
+
+<p>Sounds simple enough. It seemed like this would be a good place to do my first unit tests.</p>
+
+<h3>Unit Testing</h3>
+
+<p>To do unit testing, the typical method is to first write test cases and then write code. In this case, I&#8217;d already written my code, so I went back and wrote test cases, trying to forget how my code worked.</p>
+
+<p>To write test cases, you have to detail requirements for each method you want to test: input and expected (correct) output. The list of examples for
+next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch: next_day_of_week() calculates the next day of the week relative to the current date, by calling datetime.date.today(). So if I write expected output for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any following day. I needed a way to make datetime.date.today() always spit out my input date when I run tests, yet still continue to function normally outside of testing. Enter mocking.</p>
+
+<h3>Mocking</h3>
+
+<p>The solution was to mock out the method&#8211;to replace the real datetime.date.today() with a fake one that produces the same output no matter what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock library</a>. Specifically, I needed to use the patch decorator. This decorator makes it really easy to replace on particular object within the scope of a particular method.</p>
+
+<p>Before I could patch the today() method, I needed to create my own fake method. It would look like this:</p>
+
+<pre><code>def faketoday()
+    return date(2011, 7, 4)
+</code></pre>
+
+<p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
+
+<pre><code>&gt;&gt;&gt; import mock
+&gt;&gt;&gt; def faketoday():
+...     return datetime.date(2011, 7, 4)
+... 
+&gt;&gt;&gt; @mock.patch("datetime.date.today", faketoday)
+... def testfunc():
+...     return datetime.date.today()
+... 
+&gt;&gt;&gt; testfunc()
+Traceback (most recent call last):
+  File "&lt;console&gt;", line 1, in &lt;module&gt;
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 561, in patched
+    arg = patching.__enter__()
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 623, in __enter__
+    setattr(self.target, self.attribute, new_attr)
+TypeError: can't set attributes of built-in/extension type 'datetime.date'
+&gt;&gt;&gt; 
+</code></pre>
+
+<p>datetime.date is considered a Python built-in and can&#8217;t be modified.</p>
+
+<h3>Modifying a Class That Can&#8217;t Be Modified</h3>
+
+<p>The trick is to write a child class that can be modified, and thus faked:</p>
+
+<pre><code>class FakeDate(date):
+    "A fake replacement for date that can be mocked for testing."
+    def __new__(cls, *args, **kwargs):
+        return date.__new__(date, *args, **kwargs)
+</code></pre>
+
+<p>All this does is create a class whose constructor returns an instance of its parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here because the new class isn&#8217;t a built-in and thus can be mocked.</p>
+
+<p>To use it, we simply decorate any test method that calls datetime.date.today() with a patch to replace datetime.date with FakeDate, and we also provide FakeDate a fake today() method that returns only and always the particular we are going to use for testing:</p>
+
+<pre><code>class TestDayOfWeek(TestCase):
+    """Test the day of the week functions."""
+
+    @mock.patch('series.models.date', FakeDate)
+    def test_valid_my_next_day_of_week_sameday(self):
+        from datetime import date
+        FakeDate.today = classmethod(lambda cls: date(2011, 7, 3)) # July 3, 2011 is a Sunday
+        new_day_of_week = DayOfWeek.objects.create()
+        new_day_of_week.day = "SU"
+        self.assertEquals(new_day_of_week.my_next_day_of_week(), date(2011, 7, 3))
+</code></pre>
+
+<p>A couple things to note: the patch only applies within this particular method, so each method to use a patch must be decorated. Also, the real datetime.date is imported in the method so we can use it inside the fake today() method. We could put this fake today() method inside FakeClass, but making it a lambda (anonymous) method assigned inside the test case gives us the flexibility to set a particular date for each test case.</p>
+
+<h3>Namespacing</h3>
+
+<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first, and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken effect.</p>
+
+<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the series app, or series.models in Python dotted notation), date has been imported like so:</p>
+
+<pre><code>from datetime import date
+</code></pre>
+
+<p>This means that within series.models, date is now available as series.models.date, so that&#8217;s the name that needs to be mocked out. For more on namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
+
+<p>Now we can supply out unit tests with any date we want, ensuring that we know what the results should be and can test against them.</p>
+
+<h3>References</h3>
+
+<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a> (I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally, the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was very helpful as well.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">William John Bert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/web-development/'>Web Development</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/" data-via="williamjohnbert" data-counturl="http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/06/django-event-calendar-for-a-django-beginner/" title="Previous Post: Simple Django Event Calendar">&laquo; Simple Django Event Calendar</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/08/django-social-auth-installing-and-troubleshooting/" title="Next Post: django-social-auth: Installing and troubleshooting">django-social-auth: Installing and troubleshooting &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: "Topic Modelling for Humans"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

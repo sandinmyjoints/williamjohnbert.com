@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Other | William John Bert]]></title>
+  <link href="http://williamjohbnert.com/categories/other/atom.xml" rel="self"/>
+  <link href="http://williamjohbnert.com/"/>
+  <updated>2012-11-04T16:21:19-05:00</updated>
+  <id>http://williamjohbnert.com/</id>
+  <author>
+    <name><![CDATA[William John Bert]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gender, programming, and the power of language ]]></title>
+    <link href="http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language/"/>
+    <updated>2011-08-28T12:15:02-04:00</updated>
+    <id>http://williamjohbnert.com/2011/08/gender-programming-and-the-power-of-language</id>
+    <content type="html"><![CDATA[<p>An interlude from the recent trend of hardcore Django action:</p>
+
+<blockquote><p>When I spoke with a female intern this summer, she recounted how, in 2006, the
+GNOME Project, a free and open source software project, received almost 200 Google
+Summer of Code applicants. All of them were male. When GNOME advertised an
+identical program for women, emphasizing opportunities for learning and mentorship
+instead of tough competition, they received more than 100 highly qualified female
+applicants for the three spots they were able to fund. What amazed me even more was
+when she suggested that our own company slogan — “We Help the World’s Best
+Developers Make Better Software” — might alienate prospective female candidates.
+That had never occurred to me. But according to our intern, in the world of
+computer science, “when you hear the phrase ‘the world’s best developers,’ you see
+a guy.”</p></blockquote>
+
+<p>From <a href="http://www.washingtonpost.com/opinions/when-computer-programming-was-womens-work/2011/08/24/gIQAdixGgJ_print.html">When computer programming was ‘women’s work’</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Marshall, Barnard, Laurel, Marshall]]></title>
+    <link href="http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall/"/>
+    <updated>2011-05-19T18:13:26-04:00</updated>
+    <id>http://williamjohbnert.com/2011/05/marshall-barnard-laurel-marshall</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg" alt="" /></a><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg" alt="" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Morning Commute]]></title>
+    <link href="http://williamjohbnert.com/2010/11/my-morning-commute/"/>
+    <updated>2010-11-25T06:14:23-05:00</updated>
+    <id>http://williamjohbnert.com/2010/11/my-morning-commute</id>
+    <content type="html"><![CDATA[<p>[caption id="" align="alignnone" width="500" caption="Morning comes to Columbia Heights"]<a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to"><img src="http://30.media.tumblr.com/tumblr_lc5efzo5Cd1qelrpbo1_500.jpg" alt="Early morning sunlight on buildings in Columbia Heights" /></a>[/caption]</p>
+
+<p>Fellow 826DC volunteer and all-around awesome person <a href="http://myamcommute.tumblr.com/">Anna started a Tumblr</a> to collect photos of people's morning commutes. I thought that was a great way to turn what can be one of a day's most unremarkable stretches into something seen anew, so I contributed a <a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to">couple</a> <a href="http://myamcommute.tumblr.com/post/1648509699/william-29-washington-d-c-museum-of-unnatural">photos</a> and plan to send more. At the moment (Happy Thanksgiving!) several of the commute photos involve seriously beautiful skyscapes.</p>
+]]></content>
+  </entry>
+  
+</feed>

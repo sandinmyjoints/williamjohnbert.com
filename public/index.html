@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <title>William John Bert</title>
+  <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="I&#8217;m giving a talk about my experience developing and deploying a Node.js web service in production at the next Nova-Node meetup, October 30 at &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,26 +18,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://williamjohbnert.com/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
+  <h1><a href="/">William John Bert</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>Likes house music and sometimes being alone.</h2>
   
 </hgroup>
 
@@ -49,7 +61,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -65,7 +77,567 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-01T17:27:53-04:00" pubdate data-updated="true">Oct 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
+
+<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) Quick and Easy Gensim Example Code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-04T04:12:23-04:00" pubdate data-updated="true">May 4<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
+
+<p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
+
+<p>Note that this code <strong>will not work out of the box</strong>. To train the models, you need to provide your own background corpus (a collection of documents, where a document can range from one sentence up to multiple pages of text). Choosing a good corpus is an art; generally, you want tens of thousands of documents that are representative of your problem domain. Like the gensim tutorial, this code also shows how to build a corpus from Wikipedia for experimentation, though note that doing so require a lot of computing time. You could potentially <a href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">save hours by installing accelerated BLAS on your system</a>.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2012/05/relatively-quick-and-easy-gensim-example-code/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to Gensim: &#8220;Topic Modelling for Humans&#8221;</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-03T10:06:02-04:00" pubdate data-updated="true">May 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I&#8217;ve been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
+
+<p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
+
+<p>Finally, I also developed a <a href="http://github.com/sandinmyjoints/visularity">demo app to visualize semantic similarity queries</a>. It&#8217;s a Flask web app, with gensim generating data on the backend that is clustered by scipy and scikit-learn and visualized by d3.js as agglomerative and hierarchical clusters as well as a simple table and dendrogram. To make it all work in realtime, I used threading and hookbox. I call it Visularity, and it&#8217;s <a href="http://github.com/sandinmyjoints/visularity">available on github</a>. You need to provide your own model and dictionary data to use&#8211;check out my presentation and visit <a href="http://radimrehurek.com/gensim">radimrehurek.com/gensim/</a> to learn how. Comments and feedback welcome!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview With Radim Rehurek, Creator of Gensim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T08:58:42-04:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
+
+<p><strong>WB: Why did you create gensim?</strong></p>
+
+<p>RR: Consulting gig for a digital library project (Czech Digital
+Mathematics Library, dml.cz), some 3 years ago. It started off as a
+few loosely connected Python scripts to support the &#8220;show similar
+articles&#8221; functionality. We wanted to use some of the statistical
+methods, like latent semantic analysis. Originally, gensim only
+contained wrappers around existing Fortran libraries for SVD, like
+Propack and Svdpack.</p>
+
+<p>But there were issues with that, and it scaled badly (all documents in
+RAM), so I started looking for more scalable, online algorithms.
+Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
+
+<p>In the end, I developed new algorithms for these methods for gensim.
+The theoretical part of this research later turned into a part of my
+PhD thesis.</p>
+
+<p><strong>Who is using gensim (as far as you know)&#8211;academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
+
+<p>Yes, I&#8217;ve heard from many academic as well as commercial
+organizations, both on the mailing list and off. Off the top of my
+head: ravn.co.uk, roistr.com, sportsauthority.com, larkc.eu; TU of
+Denmark, U of Stuttgart, Masaryk U, U of Ghent, some people used it in
+the Yahoo! KD cup competition&#8230; But what they all did with gensim, or
+whether they still use it, I don&#8217;t know. The gensim license (LGPL) is
+pretty liberal in that respect.</p>
+
+<p>Unfortunately, all this use rarely translates into any feedback or
+contributions. I guess I&#8217;m just not very good at the
+bring-new-developers-and-grow-open-source stuff :(</p>
+
+<p><strong>Roughly how much of the current codebase was written by you, and how much by contributors?</strong></p>
+
+<p>Almost everything by me, but I am very grateful for bug fixes and
+patches. I try to put every contribution from other people into the
+changelog: https://github.com/piskvorky/gensim/blob/develop/CHANGELOG.txt
+. I made some wiki pages to make contributing easier:
+https://github.com/piskvorky/gensim/wiki . I also try to answer
+general questions on the mailing list.</p>
+
+<p><strong>What are your favorite features, or parts of the code that you&#8217;re most proud of?</strong></p>
+
+<p>I don&#8217;t have emotional attachments to parts of the code &#8211; if it&#8217;s
+bad, it needs to go. I guess the most proven parts are the ones that
+had been around for the longest &#8211; LSA etc. Things that were
+contributed recently by other people, like the new HDP (hierarchical
+dirichlet process) code, or the <code>gensim.parsing</code> subpackage, are the
+most rough around the edges.</p>
+
+<p>The best feature is the memory independence for sure. Most
+implementations of the statistical semantics methods assume the
+training data resides in RAM, which limits their use to small/medium
+corpora. Also they work in batch mode, needing a full re-train when
+new training data arrives. The LSA/LDA algos are online though (can be
+updated with new data, incrementally).</p>
+
+<p><strong>What&#8217;s your background? Academic, software engineering, both?</strong></p>
+
+<p>I finished my PhD, but I feel more like a software engineer than a
+pure researcher. Even during my academic years, I was working in IT
+commerce. I wouldn&#8217;t like to stay in academia professionally.</p>
+
+<p><strong>What are you working on next for gensim? What about outside of gensim?</strong></p>
+
+<p>Small things like adding the &#8220;hashing trick&#8221; etc:
+https://github.com/piskvorky/gensim/issues . Basically things that
+gensim users have been asking for. Some issues keep coming back on the
+mailing list, and while not technically bugs, they hint at minor
+redesigns and improvements.</p>
+
+<p>One big thing that is missing is a basic visual style for gensim. I
+have no clue how to do that and it&#8217;s really pathetic gensim doesn&#8217;t
+even have a logo yet!</p>
+
+<p>Outside of gensim, I am busy doing consulting (scaling up text
+processing: fulltext search, semantic search, ad targeting etc &#8211;
+backend stuff). I&#8217;m planning to do a startup that offers semantic
+search and similarity as a service. A kind of easy-to-use black box
+tool, something like searchify or myrrix. But it&#8217;s hard to find good
+people to work with&#8230; and hard to give up/interrupt a well-paying
+career :) I applied for YC last month, alone, but they turned me down.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore Trouble With Nested Nodes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T06:23:07-04:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD application. For now, we&#8217;re trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let&#8217;s call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
+
+<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
+
+<blockquote><p>It doesn&#8217;t matter if the [model] ids are unique within the JSON [or any data]. It must be unique within the tree.</p></blockquote>
+
+<p>If you add the first json to the tree with for example the id 4_1 and you add the second json with again a node 4_1 then you have two nodes with the same id.</p>
+
+<p>In other words, TreeStore doesn&#8217;t distinguish the types of roots and their children (or children&#8217;s children, etc). To TreeStore, they are <strong>all</strong> nodes, and ids must be unique across all nodes. If you have an instance of a Task model with id=1 and it has a foreign key to a Goal that also has id=1, TreeStore has a problem with that. Apparently it doesn&#8217;t introspect the objects enough to see that, say, one is a Task and its children are Goals, despite the Task model having a <code>hasMany</code> field that defines its relation to the Goal model. That seems counterintuitive to me, maybe even misleading. Perhaps that&#8217;s why we&#8217;re not the only ones who&#8217;ve <a href="http://www.sencha.com/forum/showthread.php?129524-CLOSED-Selection-of-Association-in-DataView">had</a> <a href="http://www.sencha.com/forum/showthread.php?135285-TreeStore-Model-and-quot-id-quot-field">this</a> <a href="http://www.sencha.com/forum/showthread.php?196396-How-to-add-children-tree-nodes-dynamically">problem</a>.</p>
+
+<p>My quick fix was to write a <code>stringify_id()</code> function to wrap ids passed to the TreeStore with a prefix unique to each type, so the id of Task id=1 becomes &#8220;task-1&#8221;. <code>destringify_id()</code> unwraps the ids that come back through the proxy.</p>
+
+<p>TreeStore&#8217;s <a href="http://docs.sencha.com/ext-js/4-0/#!/api/Ext.data.TreeStore">docs</a> do not mention this restriction, as far as I can tell. Maybe if you purchase Ext JS, you get better docs, I&#8217;m not sure. We may be doing just that, so I could have a chance to find out. One of the complaints you sometimes hear about open source is that the docs aren&#8217;t that great, so I&#8217;m curious to see how a for-profit company&#8217;s docs stack up against the documentation culture of the communities I&#8217;m most familiar with (Python and Django), which tend to be pretty solid.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/fake-bio-for-steve/">Fake Bio for Steve</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-06T09:53:07-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
+
+<p>Here&#8217;s mine:</p>
+
+<blockquote><p>Steve Souryal is a group of 15 small islets and rocks in the central equatorial Atlantic Ocean. He lies in the Intertropical Convergence Zone, a region of severe storms. Steve exposes serpentinized abyssal mantle peridotite and kaersutite-bearing ultramafic mylonite on the top of the second-largest megamullion in the world (after the Parece Vela megamullion under Okinotoshima in the Pacific). He is the only location in the Atlantic Ocean where the abyssal mantle is exposed above sea level! In 1986, Steve was designated an environmentally protected area, and since 1998, the Danish Navy has maintained a permanently manned research facility in him. His main economic activity is tuna fishing, and we are incredibly lucky to have him with us tonight.</p></blockquote>
+
+<p>Apologies to Wikipedia. But somehow, it just feels right.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">How to Install Accelerated BLAS Into a Python Virtualenv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T16:43:33-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Background</h1>
+
+<p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
+
+<p>To see what BLAS libraries you are using, do:</p>
+
+<pre><code>python -c 'import numpy; numpy.show_config()'
+</code></pre>
+
+<p>If none of them are installed, you probably want to install one or
+more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since it&#8217;s portable and
+self-optimizing. There are others out there targeted at particular CPU architectures.</p>
+
+<p>Unfortunately, the <a href="http://docs.scipy.org/doc/numpy/user/install.html">Scipy docs</a> are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven&#8217;t tried to run them on a more recent version, it&#8217;s possible they work with those as well.</p>
+
+<h1>Prereqs</h1>
+
+<p>On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):</p>
+
+<pre><code>sudo apt-get install liblapack-dev
+sudo apt-get install gfortran
+</code></pre>
+
+<h1>Instructions</h1>
+
+<p>Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:</p>
+
+<pre><code>#!/bin/bash
+workon [envname]
+pip uninstall numpy # only if numpy is already installed
+pip uninstall scipy # only if scipy is already installed
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+</code></pre>
+
+<p>Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:</p>
+
+<pre><code>pip install numpy
+pip install scipy
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/11/novelties-traditions/">Novelties & Traditions</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-19T05:28:21-05:00" pubdate data-updated="true">Nov 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving&#8217;s always been my favorite holiday so I&#8217;m more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who&#8217;re renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
+
+<p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don&#8217;t Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, &#8220;Busted,&#8221; aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn&#8217;t have been doing&#8211;a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the &#8220;Busted&#8221; lesson plan</a> more than a year ago&#8211;right around the previous Friendsgiving. Hard to believe it&#8217;s been that long!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/08/gender-programming-and-the-power-of-language/">Gender, Programming, and the Power of Language</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-28T12:15:02-04:00" pubdate data-updated="true">Aug 28<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>An interlude from the recent trend of hardcore Django action:</p>
+
+<blockquote><p>When I spoke with a female intern this summer, she recounted how, in 2006, the
+GNOME Project, a free and open source software project, received almost 200 Google
+Summer of Code applicants. All of them were male. When GNOME advertised an
+identical program for women, emphasizing opportunities for learning and mentorship
+instead of tough competition, they received more than 100 highly qualified female
+applicants for the three spots they were able to fund. What amazed me even more was
+when she suggested that our own company slogan — “We Help the World’s Best
+Developers Make Better Software” — might alienate prospective female candidates.
+That had never occurred to me. But according to our intern, in the world of
+computer science, “when you hear the phrase ‘the world’s best developers,’ you see
+a guy.”</p></blockquote>
+
+<p>From <a href="http://www.washingtonpost.com/opinions/when-computer-programming-was-womens-work/2011/08/24/gIQAdixGgJ_print.html">When computer programming was ‘women’s work’</a>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/08/django-social-auth-installing-and-troubleshooting/">Django-social-auth: Installing and Troubleshooting</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-26T07:16:14-04:00" pubdate data-updated="true">Aug 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Thanks to <code>django-registration</code>, I was able to build a working account registration/login system pretty easily. But I wanted to give users the ability to use their existing accounts through popular services such as Facebook, Twitter, etc., rather than have to create yet another account. Here&#8217;s how I did it.</p>
+
+<h1>Sorting Through the Choices</h1>
+
+<p>There are a number of reusable Django apps out there to help with registration/login from social media sites. I found this <a href="http://hackerluddite.wordpress.com/2011/05/17/review-of-4-django-social-auth-apps/">Review of 4 Django Social Auth apps</a> very helpful in sorting out the options. After reading it, I was left to choose between <a href="https://github.com/omab/django-social-auth"><code>django-social-auth</code></a> (I originally linked to the wrong app here, but this link is correct) and <a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>) because a friend had recommended it and because I&#8217;d already installed it before I read this article. However, the article&#8217;s conclusion that <code>django-allauth</code> is best out of the box also seems valid.</p>
+
+<h1>Installation</h1>
+
+<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>&#8217;s docs</a> are helpful in walking you through available settings and options.</p>
+
+<p>I also found the included example app useful. To use this app, I cloned <code>django-social-auth</code>&#8217;s git repo, created a virtualenv called <code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1, showing a simple screen with options to login through about a dozen different different services.</p>
+
+<h1>API Keys</h1>
+
+<p>The first service I tested was Twitter. I use it more than any others, and I already had the API keys for it. I threw my API key and secret key into the example <code>local_settings.py</code> file provided with <code>django-social-auth</code> and tried to log in via the example app. Boom: <code>401 Unauthorized</code>. I double-checked all my settings and installation and whatnot. Seemed fine.</p>
+
+<p>I turned my attention to the API keys. The ones I had were generated for <a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when I generated them at dev.twitter.com. But now I was running on localhost, 127.0.0.1, so I suspected the readsrs.com keys wouldn&#8217;t be valid. I wasn&#8217;t sure whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at the request. (It seemed like it should do so, but I hadn&#8217;t seen any instructions anywhere that said to get a key for your development machine.) Turns out Twitter will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was able to log in with my Twitter credentials, and just as it should, <code>django-social-auth</code> automatically created an <code>auth.user</code> for this account.</p>
+
+<h1>Integrating with Readsr</h1>
+
+<p>I followed the instructions again to config my own app, Readsr. To add a login option using Twitter credentials, I put a link to the reversed view that begins the <code>django-social-auth</code> login process for twitter, i.e., <code>{% url socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
+
+<p>I still need to fix a few oddities. For example, Twitter returns my first and last names together in <code>first_name</code> (or else <code>django-social-auth</code> is concatenating them into that column), and doesn&#8217;t supply any email address. But the basic functionality is there, and was relatively easy to achieve.</p>
+
+<h1>Postscript</h1>
+
+<p>The author of the article I linked above had an error using OpenID when using <code>django-social-auth</code>, which is why he preferred <code>django-authall</code>. He filed a bug for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago (though if you read the comments, it seems it was actually fixed back in mid-July). Good timing.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -77,9 +649,74 @@
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
     
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: &#8220;Topic Modelling for Humans&#8221;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
   </ul>
 </section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
 
 
 
@@ -91,7 +728,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Your Name -
+  Copyright &copy; 2012 - William John Bert -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

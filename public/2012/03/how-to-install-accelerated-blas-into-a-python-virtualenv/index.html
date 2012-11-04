@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How to install accelerated BLAS into a Python virtualenv - William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Background Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How to Install Accelerated BLAS Into a Python Virtualenv</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T16:43:33-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Background</h1>
+
+<p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
+
+<p>To see what BLAS libraries you are using, do:</p>
+
+<pre><code>python -c 'import numpy; numpy.show_config()'
+</code></pre>
+
+<p>If none of them are installed, you probably want to install one or
+more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since it&#8217;s portable and
+self-optimizing. There are others out there targeted at particular CPU architectures.</p>
+
+<p>Unfortunately, the <a href="http://docs.scipy.org/doc/numpy/user/install.html">Scipy docs</a> are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven&#8217;t tried to run them on a more recent version, it&#8217;s possible they work with those as well.</p>
+
+<h1>Prereqs</h1>
+
+<p>On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):</p>
+
+<pre><code>sudo apt-get install liblapack-dev
+sudo apt-get install gfortran
+</code></pre>
+
+<h1>Instructions</h1>
+
+<p>Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:</p>
+
+<pre><code>#!/bin/bash
+workon [envname]
+pip uninstall numpy # only if numpy is already installed
+pip uninstall scipy # only if scipy is already installed
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+</code></pre>
+
+<p>Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:</p>
+
+<pre><code>pip install numpy
+pip install scipy
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">William John Bert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T16:43:33-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/web-development/'>Web Development</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/" data-via="williamjohnbert" data-counturl="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/11/novelties-traditions/" title="Previous Post: Novelties & Traditions">&laquo; Novelties & Traditions</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/04/fake-bio-for-steve/" title="Next Post: Fake bio for Steve">Fake bio for Steve &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: "Topic Modelling for Humans"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

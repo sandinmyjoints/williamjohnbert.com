@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Simple Django Event Calendar - William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Background I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: Readsr. A reading series is a kind of &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Simple Django Event Calendar</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-13T16:34:52-04:00" pubdate data-updated="true">Jun 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Background</h3>
+
+<p>I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
+
+<h3>Existing Solutions</h3>
+
+<p>First I searched for existing Django calendar solutions. I found several. <a href="https://code.google.com/p/django-swingtime/">Swingtime</a> and <a href="https://github.com/dokterbob/django-agenda">django-agenda</a> seemed very well thought out and comprehensive, but were also perhaps overkill for what I needed. <a href="https://code.google.com/p/django-gencal/">django-gencal</a> doesn&#8217;t appear to be maintained and I had trouble understanding the documentation (though you may have better results, as I am slow).</p>
+
+<h3>A Way Forward</h3>
+
+<p>I found that Python&#8217;s calendar module has a built template called <a href="http://docs.python.org/library/calendar.html#calendar.HTMLCalendar">HTMLCalendar</a>, which sounded promising. Then I found a <a href="http://journal.uggedal.com/creating-a-flexible-monthly-calendar-in-django/">couple</a> <a href="http://drumcoder.co.uk/blog/2010/jun/13/monthly-calendar-django/">examples</a> of people inheriting from HTMLCalendar to add data to the calendar display. This sounded right on, so I adapted this code for my reading events.</p>
+
+<h3>Problem: Presentation and Content Mixed</h3>
+
+<p>I noticed a problem in the code I was adapting. The view was producing HTML. That seemed to violate separation of content and presentation. Shouldn&#8217;t the HTML be generated in the template? And since the templating language itself isn&#8217;t powerful enough to generate an HTML table from a list of objects, that meant I needed to write my own template tag. Yikes.</p>
+
+<h3>Writing My First Template Tag</h3>
+
+<p>Django&#8217;s documentation made it easy, though. A template tag consists of a few parts. Below is the code; it goes into a subdirectory of the django app called &#8220;templatetags.&#8221;</p>
+
+<p>The first part follows directly from the Django docs: get a register object.</p>
+
+<p>Then I define a function to parse the template tag arguments and return the node (the HTML code from which the page is eventually build). The template syntax is defined here.</p>
+
+<p>Then I define the node itself, which is made thread-safe by storing and retrieving the variables passed through the template tag from a context (again, this is straight from the Django docs).</p>
+
+<p>Then I inherit from HTMLCalendar and redefine the format methods to add the particular reading event data. You could adapt this class to any kind of event that has an associated date/time by changing the groupby lambda function to use whatever field your event object uses to store its date and time (my reading object simply calls it &#8220;date_and_time&#8221;).</p>
+
+<p>Finally, I register this template tag so it is available to templates.</p>
+
+<p>Here&#8217;s the code.</p>
+
+<pre><code>    from calendar import HTMLCalendar
+    from django import template
+    from datetime import date
+    from itertools import groupby
+
+    from django.utils.html import conditional_escape as esc
+
+    register = template.Library()
+
+    def do_reading_calendar(parser, token):
+        """
+        The template tag's syntax is {% reading_calendar year month reading_list %}
+        """
+
+        try:
+            tag_name, year, month, reading_list = token.split_contents()
+        except ValueError:
+            raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
+        return ReadingCalendarNode(year, month, reading_list)
+
+
+    class ReadingCalendarNode(template.Node):
+        """
+        Process a particular node in the template. Fail silently.
+        """
+
+        def __init__(self, year, month, reading_list):
+            try:
+                self.year = template.Variable(year)
+                self.month = template.Variable(month)
+                self.reading_list = template.Variable(reading_list)
+            except ValueError:
+                raise template.TemplateSyntaxError
+
+        def render(self, context):
+            try:
+                # Get the variables from the context so the method is thread-safe.
+                my_reading_list = self.reading_list.resolve(context)
+                my_year = self.year.resolve(context)
+                my_month = self.month.resolve(context)
+                cal = ReadingCalendar(my_reading_list)
+                return cal.formatmonth(int(my_year), int(my_month))
+            except ValueError:
+                return          
+            except template.VariableDoesNotExist:
+                return
+
+
+    class ReadingCalendar(HTMLCalendar):
+        """
+        Overload Python's calendar.HTMLCalendar to add the appropriate reading events to
+        each day's table cell.
+        """
+
+        def __init__(self, readings):
+            super(ReadingCalendar, self).__init__()
+            self.readings = self.group_by_day(readings)
+
+        def formatday(self, day, weekday):
+            if day != 0:
+                cssclass = self.cssclasses[weekday]
+                if date.today() == date(self.year, self.month, day):
+                    cssclass += ' today'
+                if day in self.readings:
+                    cssclass += ' filled'
+                    body = ['&lt;ul&gt;']
+                    for reading in self.readings[day]:
+                        body.append('&lt;li&gt;')
+                        body.append('&lt;a href="%s"&gt;' % reading.get_absolute_url())
+                        body.append(esc(reading.series.primary_name))
+                        body.append('&lt;/a&gt;&lt;/li&gt;')
+                    body.append('&lt;/ul&gt;')
+                    return self.day_cell(cssclass, '&lt;span class="dayNumber"&gt;%d&lt;/span&gt; %s' % (day, ''.join(body)))
+                return self.day_cell(cssclass, '&lt;span class="dayNumberNoReadings"&gt;%d&lt;/span&gt;' % (day))
+            return self.day_cell('noday', '&amp;nbsp;')
+
+        def formatmonth(self, year, month):
+            self.year, self.month = year, month
+            return super(ReadingCalendar, self).formatmonth(year, month)
+
+        def group_by_day(self, readings):
+            field = lambda reading: reading.date_and_time.day
+            return dict(
+                [(day, list(items)) for day, items in groupby(readings, field)]
+            )
+
+        def day_cell(self, cssclass, body):
+            return '&lt;td class="%s"&gt;%s&lt;/td&gt;' % (cssclass, body)
+
+    # Register the template tag so it is available to templates
+    register.tag("reading_calendar", do_reading_calendar)
+</code></pre>
+
+<p>Then, here&#8217;s the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
+
+<pre><code>    def named_month(month_number):
+
+        """
+        Return the name of the month, given the number.
+        """
+        return date(1900, month_number, 1).strftime("%B")
+
+    def this_month(request):
+        """
+        Show calendar of readings this month.
+        """
+        today = datetime.now()
+        return calendar(request, today.year, today.month)
+
+
+    def calendar(request, year, month, series_id=None):
+        """
+        Show calendar of readings for a given month of a given year.
+        ``series_id``
+        The reading series to show. None shows all reading series.
+        """
+
+        my_year = int(year)
+        my_month = int(month)
+        my_calendar_from_month = datetime(my_year, my_month, 1)
+        my_calendar_to_month = datetime(my_year, my_month, monthrange(my_year, my_month)[1])
+
+        my_reading_events = Reading.objects.filter(date_and_time__gte=my_calendar_from_month).filter(date_and_time__lte=my_calendar_to_month)
+        if series_id:
+            my_reading_events = my_reading_events.filter(series=series_id)
+
+        # Calculate values for the calendar controls. 1-indexed (Jan = 1)
+        my_previous_year = my_year
+        my_previous_month = my_month - 1
+        if my_previous_month == 0:
+            my_previous_year = my_year - 1
+            my_previous_month = 12
+        my_next_year = my_year
+        my_next_month = my_month + 1
+        if my_next_month == 13:
+            my_next_year = my_year + 1
+            my_next_month = 1
+        my_year_after_this = my_year + 1
+        my_year_before_this = my_year - 1
+        return render_to_response("cal_template.html", { 'readings_list': my_reading_events,
+                                                            'month': my_month,
+                                                            'month_name': named_month(my_month),
+                                                            'year': my_year,
+                                                            'previous_month': my_previous_month,
+                                                            'previous_month_name': named_month(my_previous_month),
+                                                            'previous_year': my_previous_year,
+                                                            'next_month': my_next_month,
+                                                            'next_month_name': named_month(my_next_month),
+                                                            'next_year': my_next_year,
+                                                            'year_before_this': my_year_before_this,
+                                                            'year_after_this': my_year_after_this,
+        }, context_instance=RequestContext(request))
+</code></pre>
+
+<p>And finally, here&#8217;s the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I&#8217;ll forgo writing that out):</p>
+
+<pre><code>{% load reading_tags %}
+
+&lt;div id="calendar"&gt;
+    {% reading_calendar year month reading_list %}
+&lt;/div&gt;
+</code></pre>
+
+<p>Hopefully that makes sense. Enjoy!</p>
+
+<p><em>You can also see this code (made generic for any kind of event) <a href="http://djangosnippets.org/snippets/2464/">on django snippets</a>.</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">William John Bert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-13T16:34:52-04:00" pubdate data-updated="true">Jun 13<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/projects/'>Projects</a>, <a class='category' href='/categories/web-development/'>Web Development</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/" data-via="williamjohnbert" data-counturl="http://williamjohbnert.com/2011/06/django-event-calendar-for-a-django-beginner/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/05/marshall-barnard-laurel-marshall/" title="Previous Post: Marshall, Barnard, Laurel, Marshall">&laquo; Marshall, Barnard, Laurel, Marshall</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/" title="Next Post: How to: Unit testing in Django with mocking and patching">How to: Unit testing in Django with mocking and patching &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: "Topic Modelling for Humans"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

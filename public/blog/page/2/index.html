@@ -1,0 +1,933 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>William John Bert</title>
+  <meta name="author" content="William John Bert">
+
+  
+  <meta name="description" content="Background For Readsr, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://williamjohbnert.com/blog/page/2/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="William John Bert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1913538-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">William John Bert</a></h1>
+  
+    <h2>Likes house music and sometimes being alone.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:williamjohbnert.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/">How to: Unit Testing in Django With Mocking and Patching</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Background</h3>
+
+<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month). I created a DayOfWeek model to store any particular event&#8217;s day of the week. It contains a method next_day_of_week() to return a datetime.date object set to the next occurrence of whatever weekday a given event instance is set to (this helps with figuring out when the next occurrence of an event is).</p>
+
+<p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
+
+<ul>
+<li>For an object with DayOfWeek set to Sunday, next_day_of_week() would return 7/3/2011 (current day).</li>
+<li>For DayOfWeek set to Monday, it would return 7/4/2011 (first subsequent Monday).</li>
+<li>For DayOfWeek set to Saturday, it would return 7/9/2011 (first subsequent Saturday).</li>
+</ul>
+
+
+<p>Sounds simple enough. It seemed like this would be a good place to do my first unit tests.</p>
+
+<h3>Unit Testing</h3>
+
+<p>To do unit testing, the typical method is to first write test cases and then write code. In this case, I&#8217;d already written my code, so I went back and wrote test cases, trying to forget how my code worked.</p>
+
+<p>To write test cases, you have to detail requirements for each method you want to test: input and expected (correct) output. The list of examples for
+next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch: next_day_of_week() calculates the next day of the week relative to the current date, by calling datetime.date.today(). So if I write expected output for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any following day. I needed a way to make datetime.date.today() always spit out my input date when I run tests, yet still continue to function normally outside of testing. Enter mocking.</p>
+
+<h3>Mocking</h3>
+
+<p>The solution was to mock out the method&#8211;to replace the real datetime.date.today() with a fake one that produces the same output no matter what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock library</a>. Specifically, I needed to use the patch decorator. This decorator makes it really easy to replace on particular object within the scope of a particular method.</p>
+
+<p>Before I could patch the today() method, I needed to create my own fake method. It would look like this:</p>
+
+<pre><code>def faketoday()
+    return date(2011, 7, 4)
+</code></pre>
+
+<p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
+
+<pre><code>&gt;&gt;&gt; import mock
+&gt;&gt;&gt; def faketoday():
+...     return datetime.date(2011, 7, 4)
+... 
+&gt;&gt;&gt; @mock.patch("datetime.date.today", faketoday)
+... def testfunc():
+...     return datetime.date.today()
+... 
+&gt;&gt;&gt; testfunc()
+Traceback (most recent call last):
+  File "&lt;console&gt;", line 1, in &lt;module&gt;
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 561, in patched
+    arg = patching.__enter__()
+  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 623, in __enter__
+    setattr(self.target, self.attribute, new_attr)
+TypeError: can't set attributes of built-in/extension type 'datetime.date'
+&gt;&gt;&gt; 
+</code></pre>
+
+<p>datetime.date is considered a Python built-in and can&#8217;t be modified.</p>
+
+<h3>Modifying a Class That Can&#8217;t Be Modified</h3>
+
+<p>The trick is to write a child class that can be modified, and thus faked:</p>
+
+<pre><code>class FakeDate(date):
+    "A fake replacement for date that can be mocked for testing."
+    def __new__(cls, *args, **kwargs):
+        return date.__new__(date, *args, **kwargs)
+</code></pre>
+
+<p>All this does is create a class whose constructor returns an instance of its parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here because the new class isn&#8217;t a built-in and thus can be mocked.</p>
+
+<p>To use it, we simply decorate any test method that calls datetime.date.today() with a patch to replace datetime.date with FakeDate, and we also provide FakeDate a fake today() method that returns only and always the particular we are going to use for testing:</p>
+
+<pre><code>class TestDayOfWeek(TestCase):
+    """Test the day of the week functions."""
+
+    @mock.patch('series.models.date', FakeDate)
+    def test_valid_my_next_day_of_week_sameday(self):
+        from datetime import date
+        FakeDate.today = classmethod(lambda cls: date(2011, 7, 3)) # July 3, 2011 is a Sunday
+        new_day_of_week = DayOfWeek.objects.create()
+        new_day_of_week.day = "SU"
+        self.assertEquals(new_day_of_week.my_next_day_of_week(), date(2011, 7, 3))
+</code></pre>
+
+<p>A couple things to note: the patch only applies within this particular method, so each method to use a patch must be decorated. Also, the real datetime.date is imported in the method so we can use it inside the fake today() method. We could put this fake today() method inside FakeClass, but making it a lambda (anonymous) method assigned inside the test case gives us the flexibility to set a particular date for each test case.</p>
+
+<h3>Namespacing</h3>
+
+<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first, and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken effect.</p>
+
+<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the series app, or series.models in Python dotted notation), date has been imported like so:</p>
+
+<pre><code>from datetime import date
+</code></pre>
+
+<p>This means that within series.models, date is now available as series.models.date, so that&#8217;s the name that needs to be mocked out. For more on namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
+
+<p>Now we can supply out unit tests with any date we want, ensuring that we know what the results should be and can test against them.</p>
+
+<h3>References</h3>
+
+<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a> (I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally, the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was very helpful as well.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/06/django-event-calendar-for-a-django-beginner/">Simple Django Event Calendar</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-13T16:34:52-04:00" pubdate data-updated="true">Jun 13<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Background</h3>
+
+<p>I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
+
+<h3>Existing Solutions</h3>
+
+<p>First I searched for existing Django calendar solutions. I found several. <a href="https://code.google.com/p/django-swingtime/">Swingtime</a> and <a href="https://github.com/dokterbob/django-agenda">django-agenda</a> seemed very well thought out and comprehensive, but were also perhaps overkill for what I needed. <a href="https://code.google.com/p/django-gencal/">django-gencal</a> doesn&#8217;t appear to be maintained and I had trouble understanding the documentation (though you may have better results, as I am slow).</p>
+
+<h3>A Way Forward</h3>
+
+<p>I found that Python&#8217;s calendar module has a built template called <a href="http://docs.python.org/library/calendar.html#calendar.HTMLCalendar">HTMLCalendar</a>, which sounded promising. Then I found a <a href="http://journal.uggedal.com/creating-a-flexible-monthly-calendar-in-django/">couple</a> <a href="http://drumcoder.co.uk/blog/2010/jun/13/monthly-calendar-django/">examples</a> of people inheriting from HTMLCalendar to add data to the calendar display. This sounded right on, so I adapted this code for my reading events.</p>
+
+<h3>Problem: Presentation and Content Mixed</h3>
+
+<p>I noticed a problem in the code I was adapting. The view was producing HTML. That seemed to violate separation of content and presentation. Shouldn&#8217;t the HTML be generated in the template? And since the templating language itself isn&#8217;t powerful enough to generate an HTML table from a list of objects, that meant I needed to write my own template tag. Yikes.</p>
+
+<h3>Writing My First Template Tag</h3>
+
+<p>Django&#8217;s documentation made it easy, though. A template tag consists of a few parts. Below is the code; it goes into a subdirectory of the django app called &#8220;templatetags.&#8221;</p>
+
+<p>The first part follows directly from the Django docs: get a register object.</p>
+
+<p>Then I define a function to parse the template tag arguments and return the node (the HTML code from which the page is eventually build). The template syntax is defined here.</p>
+
+<p>Then I define the node itself, which is made thread-safe by storing and retrieving the variables passed through the template tag from a context (again, this is straight from the Django docs).</p>
+
+<p>Then I inherit from HTMLCalendar and redefine the format methods to add the particular reading event data. You could adapt this class to any kind of event that has an associated date/time by changing the groupby lambda function to use whatever field your event object uses to store its date and time (my reading object simply calls it &#8220;date_and_time&#8221;).</p>
+
+<p>Finally, I register this template tag so it is available to templates.</p>
+
+<p>Here&#8217;s the code.</p>
+
+<pre><code>    from calendar import HTMLCalendar
+    from django import template
+    from datetime import date
+    from itertools import groupby
+
+    from django.utils.html import conditional_escape as esc
+
+    register = template.Library()
+
+    def do_reading_calendar(parser, token):
+        """
+        The template tag's syntax is {% reading_calendar year month reading_list %}
+        """
+
+        try:
+            tag_name, year, month, reading_list = token.split_contents()
+        except ValueError:
+            raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
+        return ReadingCalendarNode(year, month, reading_list)
+
+
+    class ReadingCalendarNode(template.Node):
+        """
+        Process a particular node in the template. Fail silently.
+        """
+
+        def __init__(self, year, month, reading_list):
+            try:
+                self.year = template.Variable(year)
+                self.month = template.Variable(month)
+                self.reading_list = template.Variable(reading_list)
+            except ValueError:
+                raise template.TemplateSyntaxError
+
+        def render(self, context):
+            try:
+                # Get the variables from the context so the method is thread-safe.
+                my_reading_list = self.reading_list.resolve(context)
+                my_year = self.year.resolve(context)
+                my_month = self.month.resolve(context)
+                cal = ReadingCalendar(my_reading_list)
+                return cal.formatmonth(int(my_year), int(my_month))
+            except ValueError:
+                return          
+            except template.VariableDoesNotExist:
+                return
+
+
+    class ReadingCalendar(HTMLCalendar):
+        """
+        Overload Python's calendar.HTMLCalendar to add the appropriate reading events to
+        each day's table cell.
+        """
+
+        def __init__(self, readings):
+            super(ReadingCalendar, self).__init__()
+            self.readings = self.group_by_day(readings)
+
+        def formatday(self, day, weekday):
+            if day != 0:
+                cssclass = self.cssclasses[weekday]
+                if date.today() == date(self.year, self.month, day):
+                    cssclass += ' today'
+                if day in self.readings:
+                    cssclass += ' filled'
+                    body = ['&lt;ul&gt;']
+                    for reading in self.readings[day]:
+                        body.append('&lt;li&gt;')
+                        body.append('&lt;a href="%s"&gt;' % reading.get_absolute_url())
+                        body.append(esc(reading.series.primary_name))
+                        body.append('&lt;/a&gt;&lt;/li&gt;')
+                    body.append('&lt;/ul&gt;')
+                    return self.day_cell(cssclass, '&lt;span class="dayNumber"&gt;%d&lt;/span&gt; %s' % (day, ''.join(body)))
+                return self.day_cell(cssclass, '&lt;span class="dayNumberNoReadings"&gt;%d&lt;/span&gt;' % (day))
+            return self.day_cell('noday', '&amp;nbsp;')
+
+        def formatmonth(self, year, month):
+            self.year, self.month = year, month
+            return super(ReadingCalendar, self).formatmonth(year, month)
+
+        def group_by_day(self, readings):
+            field = lambda reading: reading.date_and_time.day
+            return dict(
+                [(day, list(items)) for day, items in groupby(readings, field)]
+            )
+
+        def day_cell(self, cssclass, body):
+            return '&lt;td class="%s"&gt;%s&lt;/td&gt;' % (cssclass, body)
+
+    # Register the template tag so it is available to templates
+    register.tag("reading_calendar", do_reading_calendar)
+</code></pre>
+
+<p>Then, here&#8217;s the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
+
+<pre><code>    def named_month(month_number):
+
+        """
+        Return the name of the month, given the number.
+        """
+        return date(1900, month_number, 1).strftime("%B")
+
+    def this_month(request):
+        """
+        Show calendar of readings this month.
+        """
+        today = datetime.now()
+        return calendar(request, today.year, today.month)
+
+
+    def calendar(request, year, month, series_id=None):
+        """
+        Show calendar of readings for a given month of a given year.
+        ``series_id``
+        The reading series to show. None shows all reading series.
+        """
+
+        my_year = int(year)
+        my_month = int(month)
+        my_calendar_from_month = datetime(my_year, my_month, 1)
+        my_calendar_to_month = datetime(my_year, my_month, monthrange(my_year, my_month)[1])
+
+        my_reading_events = Reading.objects.filter(date_and_time__gte=my_calendar_from_month).filter(date_and_time__lte=my_calendar_to_month)
+        if series_id:
+            my_reading_events = my_reading_events.filter(series=series_id)
+
+        # Calculate values for the calendar controls. 1-indexed (Jan = 1)
+        my_previous_year = my_year
+        my_previous_month = my_month - 1
+        if my_previous_month == 0:
+            my_previous_year = my_year - 1
+            my_previous_month = 12
+        my_next_year = my_year
+        my_next_month = my_month + 1
+        if my_next_month == 13:
+            my_next_year = my_year + 1
+            my_next_month = 1
+        my_year_after_this = my_year + 1
+        my_year_before_this = my_year - 1
+        return render_to_response("cal_template.html", { 'readings_list': my_reading_events,
+                                                            'month': my_month,
+                                                            'month_name': named_month(my_month),
+                                                            'year': my_year,
+                                                            'previous_month': my_previous_month,
+                                                            'previous_month_name': named_month(my_previous_month),
+                                                            'previous_year': my_previous_year,
+                                                            'next_month': my_next_month,
+                                                            'next_month_name': named_month(my_next_month),
+                                                            'next_year': my_next_year,
+                                                            'year_before_this': my_year_before_this,
+                                                            'year_after_this': my_year_after_this,
+        }, context_instance=RequestContext(request))
+</code></pre>
+
+<p>And finally, here&#8217;s the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I&#8217;ll forgo writing that out):</p>
+
+<pre><code>{% load reading_tags %}
+
+&lt;div id="calendar"&gt;
+    {% reading_calendar year month reading_list %}
+&lt;/div&gt;
+</code></pre>
+
+<p>Hopefully that makes sense. Enjoy!</p>
+
+<p><em>You can also see this code (made generic for any kind of event) <a href="http://djangosnippets.org/snippets/2464/">on django snippets</a>.</em></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/05/marshall-barnard-laurel-marshall/">Marshall, Barnard, Laurel, Marshall</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-19T18:13:26-04:00" pubdate data-updated="true">May 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg" alt="" /></a><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg" alt="" /></a>
+<a href="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/4.jpg" alt="" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/05/poetry-for-the-president/">Poetry for the President</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-11T07:43:10-04:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
+
+<p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
+
+<p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/05/spring-spring-spring/">Spring, Spring, Spring</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-09T05:59:26-04:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
+
+<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/03/new-story-in-anomalous-press/">New Story, and Other Updates</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-23T07:35:36-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png"><img src="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png" alt="Anomalous Press #1" /></a>I&#8217;m really thrilled to have a story, <a href="http://www.anomalouspress.org/current/21.bert.winner.php">&#8220;Winner,&#8221;</a> in the very first issue of Anomalous Press. It was released on the Ides of March, so I&#8217;m a bit tardy announcing it here—it&#8217;s been a busy March so far.</p>
+
+<p>The issue includes work from many better writers than me, including <a href="http://www.anomalouspress.org/current/25.ayala.winter.php">a poem</a> and <a href="http://www.anomalouspress.org/current/26.ayala.vision.php">two translations</a> from my friend Naomi Ayala. It was Naomi who suggested I submit to Anomalous. In this way and many others, she&#8217;s been a great friend and supporter of my writing, and I hope someday to be able to pay her back. You can catch another poem of hers when <a href="http://www.callandresponsedc.org/">Call + Response: Textures</a> opens on April 16. (More on that tomorrow.)</p>
+
+<p>Anomalous Press #1 is available for download as a PDF, but only if you <a href="http://www.paywithatweet.com/">pay with a tweet</a>. Neat concept. Attention as currency. And from a technical standpoint, I&#8217;m interested in how they integrated with <a href="http://dev.twitter.com/">Twitter using OAuth</a>—I want to do a similar thing with the reading series web app (Readsr/Readthing/whatever) I&#8217;m working on: tweet whenever a reading series is updated. So I&#8217;ll be looking into this soon.</p>
+
+<p>First, though, I plan to deploy an alpha version of the site this weekend. I&#8217;ve been reading up on <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <a href="http://pypi.python.org/pypi/pip">pip</a>, <a href="http://fabfile.org/">fabric</a>, and <a href="http://git-scm.com/">git</a>, trying to figure out how to deploy the right way&#8211;with automated version control and dependency isolation. This part, the admin stuff, is as complicated as any coding problem I&#8217;ve faced. Looking forward to tackling it in a marathon session on Saturday!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/02/stuff-happening/">Stuff: Happening</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-22T15:06:54-05:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
+
+<ul>
+<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
+<li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
+<li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
+<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/bell-poetry-club/">Bell Poetry Club</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-30T10:11:27-05:00" pubdate data-updated="true">Jan 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg" alt="Potomac River ice" /></a></p>
+
+<p>Friday, I helped out with an 826DC workshop at Bell Multicultural High School in Columbia Heights. Bell&#8217;s Poetry Club meets after school each Friday, and we came by  to work with them on metaphor. To fuel the discussion, we read &#8220;Snow Leopards at the Denver Zoo&#8221; by <a href="http://en.wikipedia.org/wiki/William_Matthews_%28poet%29">William Matthews</a> (who I&#8217;d never heard of before—I&#8217;m so not a poet):</p>
+
+<blockquote><pre><code>There are only a hundred or so
+snow leopards alive, and three
+of them here. Hours I watch them jump
+down and jump up, water being
+poured. Though if you fill a glass
+fast with water, it rings high to the top,
+noise of a nail driven true. Snow
+leopards land without sound,
+as if they were already extinct.
+
+
+
+
+
+If I could, I’d sift them
+from hand to hand, like a fire,
+like a debt I can count but can’t pay.
+I’m glad I can’t. If I tried to
+take loss for a wife, and I do,
+and keep her all the days of my life,
+I’d have nothing to leave my children.
+I save them whatever I can keep
+and I pour it from hand to hand.
+</code></pre></blockquote>
+
+<p>A few metaphors there, huh? It&#8217;s a swift poem, turning from accessible to knotty in the space of a few lines. Great for discussion, and the students were more than up to the task. The writing exercise we did next further showed off their chops. We all took 20 minutes to write a poem full of metaphors, then shared them with the group. Their stuff leapt off the page, lyrical, narrative, associative, wild and subtle and everything between.</p>
+
+<p>All of us from 826DC  were seriously impressed, and I look forward to hanging out with the Bell Poetry Club again in a couple weeks. It&#8217;s on us to come up with something new to challenge these talents—my prediction is we&#8217;re going to learn just as much as they do.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/building-the-new-call-response-site/">Building the New Call + Response Site</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-26T15:32:03-05:00" pubdate data-updated="true">Jan 26<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg" alt="National Portrart Gallery in the snow" /></a>Over the past couple weeks I worked on relaunching the website for <a href="http://www.callandresponsedc.org/">Call + Response</a>, an art show I co-curate with my friend <a href="http://twitter.com/kiraface">Kira</a>.</p>
+
+<p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn&#8217;t use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
+
+<p>My goal for this site was to keep the clean, minimal feel while using a modern CMS that would allow for frequent updates, integration with social media, and cool stuff like photo galleries, maps, and interactive widgets. So here&#8217;s what I did.</p>
+
+<ul>
+<li><p>First I installed  a Wordpress theme, a rather minimalist one called <a href="http://www.yukei.net/proyectos/satori-english-documentation/">sartorii</a>. Then I started to customize it to the particular needs of the site, slimming it down further, eliminating sidebars and meta information, culling whatever felt extraneous to the site&#8217;s mission of communicating essentials and focusing on the concept and participants.</p></li>
+<li><p>To present the bios of the participants, I used jQuery UI&#8217;s accordion tool. Call + Response pairs artists with writers, so I wrote code to link two accordions together. When you click on an artist name you get two bios, theirs and the writer they are paired with, and vice versa.</p></li>
+<li><p>I installed  a lightbox plugin for the <a href="http://www.callandresponsedc.org/?page_id=65">photos page</a>. First, I discovered just how many lightbox plugins are out there. I wanted one that would integrate with Wordpress&#8217;s gallery feature, and it took some time to find a solution. I ended up using <a href="http://wordpress.org/extend/plugins/fancy-gallery/">Fancy Gallery</a>, which integrates with <a href="http://fancybox.net/">Fancy Box</a> to produce the desired results.</p></li>
+<li><p>Once I received the poster design for the show from our designer, <a href="http://www.olivermunday.com">Oliver Munday</a>, I further customized the theme to use the poster&#8217;s colors and imagery.</p></li>
+</ul>
+
+
+<p>I&#8217;m pleased with the result. I think it fulfills the goals I set forth. I learned a ton about jQuery, css, and WordPress, which was a great side benefit. Picking up new skills can be really enjoyable, especially when  those skills quickly turn into tangible results.</p>
+
+<p>I&#8217;m already starting on my  next web development project: building a Django app to manage a list of DC-area reading series.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/01/should-have-been-born-in-january/">Should Have Been Born in January</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-19T02:37:30-05:00" pubdate data-updated="true">Jan 19<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg" alt="A book being reading by a fireplace." /></a>I can&#8217;t stand Garrison Keillor&#8217;s A Prairie Home Companion, but the best part about waking up at 6:35 a.m. is his <a href="http://writersalmanac.publicradio.org/">Writer&#8217;s Almanac</a>. For five minutes he puts his cornmeal voice to good use, first to list this-day-in-literature history tidbits, then to read a poem.</p>
+
+<p>In this way I learned that three of my favorite authors, David Mitchell (the 12th), Lorrie Moore (the 13th), and Julian Barnes (today, the 19th), were born in January. That kind of news is the kind of news I want to wake up to.</p>
+
+<p>From perusing the Writer&#8217;s Almanac&#8217;s website, I have learned that Keillor&#8217;s signature signoff, &#8220;Be well, do good work, and keep in touch,&#8221; is trademarked.</p>
+
+<p>I won <a href="http://williamjohnbert.com/2010/12/quelle-coincidence/">that Julian Barnes book</a>, by the way. Sweet. (I suspect no one else entered, for lack of publicity.)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to gensim: &#8220;Topic Modelling for Humans&#8221;</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview with Radim Rehurek, creator of gensim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore trouble with nested nodes</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'sandinmyjoints',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("williamjohnbert", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/williamjohnbert" class="twitter-follow-button" data-show-count="false">Follow @williamjohnbert</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - William John Bert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
