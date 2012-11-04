@@ -9,7 +9,8 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Background For Readsr, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month &hellip;">
+  <meta name="description" content="Background For Readsr, I need to track events that recur on a particular
+day of the week (e.g., first Sunday of the month, third Friday of the month &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,7 +108,12 @@
 
   <div class="entry-content"><h3>Background</h3>
 
-<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month). I created a DayOfWeek model to store any particular event&#8217;s day of the week. It contains a method next_day_of_week() to return a datetime.date object set to the next occurrence of whatever weekday a given event instance is set to (this helps with figuring out when the next occurrence of an event is).</p>
+<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular
+day of the week (e.g., first Sunday of the month, third Friday of the month). I
+created a DayOfWeek model to store any particular event&#8217;s day of the week. It
+contains a method next_day_of_week() to return a datetime.date object set to
+the next occurrence of whatever weekday a given event instance is set to (this
+helps with figuring out when the next occurrence of an event is).</p>
 
 <p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
 
@@ -118,92 +124,168 @@
 </ul>
 
 
-<p>Sounds simple enough. It seemed like this would be a good place to do my first unit tests.</p>
+<p>Sounds simple enough. It seemed like this would be a good place to do my first
+unit tests.</p>
 
 <h3>Unit Testing</h3>
 
-<p>To do unit testing, the typical method is to first write test cases and then write code. In this case, I&#8217;d already written my code, so I went back and wrote test cases, trying to forget how my code worked.</p>
+<p>To do unit testing, the typical method is to first write test cases and then
+write code. In this case, I&#8217;d already written my code, so I went back and wrote
+test cases, trying to forget how my code worked.</p>
 
-<p>To write test cases, you have to detail requirements for each method you want to test: input and expected (correct) output. The list of examples for
-next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch: next_day_of_week() calculates the next day of the week relative to the current date, by calling datetime.date.today(). So if I write expected output for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any following day. I needed a way to make datetime.date.today() always spit out my input date when I run tests, yet still continue to function normally outside of testing. Enter mocking.</p>
+<p>To write test cases, you have to detail requirements for each method you want to
+test: input and expected (correct) output. The list of examples for
+next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch:
+next_day_of_week() calculates the next day of the week relative to the
+current date, by calling datetime.date.today(). So if I write expected output
+for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any
+following day. I needed a way to make datetime.date.today() always spit out my
+input date when I run tests, yet still continue to function normally outside of
+testing. Enter mocking.</p>
 
 <h3>Mocking</h3>
 
-<p>The solution was to mock out the method&#8211;to replace the real datetime.date.today() with a fake one that produces the same output no matter what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock library</a>. Specifically, I needed to use the patch decorator. This decorator makes it really easy to replace on particular object within the scope of a particular method.</p>
+<p>The solution was to mock out the method&#8211;to replace the real
+datetime.date.today() with a fake one that produces the same output no matter
+what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock
+library</a>. Specifically, I needed to
+use the patch decorator. This decorator makes it really easy to replace on
+particular object within the scope of a particular method.</p>
 
-<p>Before I could patch the today() method, I needed to create my own fake method. It would look like this:</p>
+<p>Before I could patch the today() method, I needed to create my own fake
+method. It would look like this:</p>
 
-<pre><code>def faketoday()
-    return date(2011, 7, 4)
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
 
-<pre><code>&gt;&gt;&gt; import mock
-&gt;&gt;&gt; def faketoday():
-...     return datetime.date(2011, 7, 4)
-... 
-&gt;&gt;&gt; @mock.patch("datetime.date.today", faketoday)
-... def testfunc():
-...     return datetime.date.today()
-... 
-&gt;&gt;&gt; testfunc()
-Traceback (most recent call last):
-  File "&lt;console&gt;", line 1, in &lt;module&gt;
-  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 561, in patched
-    arg = patching.__enter__()
-  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 623, in __enter__
-    setattr(self.target, self.attribute, new_attr)
-TypeError: can't set attributes of built-in/extension type 'datetime.date'
-&gt;&gt;&gt; 
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mock</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">faketoday</span><span class="p">():</span>
+</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&quot;datetime.date.today&quot;</span><span class="p">,</span> <span class="n">faketoday</span><span class="p">)</span>
+</span><span class='line'><span class="o">...</span> <span class="k">def</span> <span class="nf">testfunc</span><span class="p">():</span>
+</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">testfunc</span><span class="p">()</span>
+</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">561</span><span class="p">,</span> <span class="ow">in</span> <span class="n">patched</span>
+</span><span class='line'>    <span class="n">arg</span> <span class="o">=</span> <span class="n">patching</span><span class="o">.</span><span class="n">__enter__</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">623</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__enter__</span>
+</span><span class='line'>    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span>
+</span><span class='line'><span class="ne">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s">&#39;t set attributes of built-in/extension type &#39;</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="s">&#39;</span>
+</span><span class='line'><span class="o">&gt;&gt;&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>datetime.date is considered a Python built-in and can&#8217;t be modified.</p>
+
+<p><code>datetime.date</code> is considered a Python built-in and can&#8217;t be modified.</p>
 
 <h3>Modifying a Class That Can&#8217;t Be Modified</h3>
 
 <p>The trick is to write a child class that can be modified, and thus faked:</p>
 
-<pre><code>class FakeDate(date):
-    "A fake replacement for date that can be mocked for testing."
-    def __new__(cls, *args, **kwargs):
-        return date.__new__(date, *args, **kwargs)
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">FakeDate</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+</span><span class='line'>  <span class="s">&quot;A fake replacement for date that can be mocked for testing.&quot;</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>All this does is create a class whose constructor returns an instance of its parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here because the new class isn&#8217;t a built-in and thus can be mocked.</p>
 
-<p>To use it, we simply decorate any test method that calls datetime.date.today() with a patch to replace datetime.date with FakeDate, and we also provide FakeDate a fake today() method that returns only and always the particular we are going to use for testing:</p>
+<p>All this does is create a class whose constructor returns an instance of its
+parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here
+because the new class isn&#8217;t a built-in and thus can be mocked.</p>
 
-<pre><code>class TestDayOfWeek(TestCase):
-    """Test the day of the week functions."""
+<p>To use it, we simply decorate any test method that calls datetime.date.today()
+with a patch to replace datetime.date with FakeDate, and we also provide
+FakeDate a fake today() method that returns only and always the particular we
+are going to use for testing:</p>
 
-    @mock.patch('series.models.date', FakeDate)
-    def test_valid_my_next_day_of_week_sameday(self):
-        from datetime import date
-        FakeDate.today = classmethod(lambda cls: date(2011, 7, 3)) # July 3, 2011 is a Sunday
-        new_day_of_week = DayOfWeek.objects.create()
-        new_day_of_week.day = "SU"
-        self.assertEquals(new_day_of_week.my_next_day_of_week(), date(2011, 7, 3))
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">TestDayOfWeek</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;Test the day of the week functions.&quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;series.models.date&#39;</span><span class="p">,</span> <span class="n">FakeDate</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">test_valid_my_next_day_of_week_sameday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>  <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span><span class='line'>  <span class="n">FakeDate</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">cls</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c"># July 3, 2011 is a Sunday</span>
+</span><span class='line'>  <span class="n">new_day_of_week</span> <span class="o">=</span> <span class="n">DayOfWeek</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">new_day_of_week</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="s">&quot;SU&quot;</span>
+</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">new_day_of_week</span><span class="o">.</span><span class="n">my_next_day_of_week</span><span class="p">(),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>A couple things to note: the patch only applies within this particular method, so each method to use a patch must be decorated. Also, the real datetime.date is imported in the method so we can use it inside the fake today() method. We could put this fake today() method inside FakeClass, but making it a lambda (anonymous) method assigned inside the test case gives us the flexibility to set a particular date for each test case.</p>
+
+<p>A couple things to note: the patch only applies within this particular method,
+so each method to use a patch must be decorated. Also, the real datetime.date is
+imported in the method so we can use it inside the fake today() method. We could
+put this fake today() method inside FakeClass, but making it a lambda
+(anonymous) method assigned inside the test case gives us the flexibility to set
+a particular date for each test case.</p>
 
 <h3>Namespacing</h3>
 
-<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first, and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken effect.</p>
+<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the
+method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first,
+and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken
+effect.</p>
 
-<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the series app, or series.models in Python dotted notation), date has been imported like so:</p>
+<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the
+series app, or series.models in Python dotted notation), date has been imported
+like so:</p>
 
-<pre><code>from datetime import date
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>This means that within series.models, date is now available as series.models.date, so that&#8217;s the name that needs to be mocked out. For more on namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
 
-<p>Now we can supply out unit tests with any date we want, ensuring that we know what the results should be and can test against them.</p>
+<p>This means that within series.models, date is now available as
+series.models.date, so that&#8217;s the name that needs to be mocked out. For more on
+namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
+
+<p>Now we can supply out unit tests with any date we want, ensuring that we know
+what the results should be and can test against them.</p>
 
 <h3>References</h3>
 
-<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a> (I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally, the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was very helpful as well.</p>
+<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a>
+(I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally,
+the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was
+very helpful as well.</p>
 </div>
   
   
@@ -271,168 +353,329 @@ TypeError: can't set attributes of built-in/extension type 'datetime.date'
 
 <p>Here&#8217;s the code.</p>
 
-<pre><code>    from calendar import HTMLCalendar
-    from django import template
-    from datetime import date
-    from itertools import groupby
+<figure class='code'><figcaption><span>Reading calendar  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">HTMLCalendar</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">conditional_escape</span> <span class="k">as</span> <span class="n">esc</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">do_reading_calendar</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> The template tag&#39;s syntax is { % reading_calendar year month reading_list %}</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">tag_name</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">raise</span> <span class="n">template</span><span class="o">.</span><span class="n">TemplateSyntaxError</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%r</span><span class="s"> tag requires three arguments&quot;</span> <span class="o">%</span> <span class="n">token</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">ReadingCalendarNode</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ReadingCalendarNode</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">Node</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> Process a particular node in the template. Fail silently.</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+</span><span class='line'>          <span class="bp">self</span><span class="o">.</span><span class="n">reading_list</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">reading_list</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">raise</span> <span class="n">template</span><span class="o">.</span><span class="n">TemplateSyntaxError</span>
+</span><span class='line'>      
+</span><span class='line'>  <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">try</span><span class="p">:</span>
+</span><span class='line'>          <span class="c"># Get the variables from the context so the method is thread-safe.</span>
+</span><span class='line'>          <span class="n">my_reading_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reading_list</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">my_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">my_month</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">cal</span> <span class="o">=</span> <span class="n">ReadingCalendar</span><span class="p">(</span><span class="n">my_reading_list</span><span class="p">)</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">cal</span><span class="o">.</span><span class="n">formatmonth</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">my_year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_month</span><span class="p">))</span>
+</span><span class='line'>      <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span>           
+</span><span class='line'>      <span class="k">except</span> <span class="n">template</span><span class="o">.</span><span class="n">VariableDoesNotExist</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">ReadingCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> Overload Python&#39;s calendar.HTMLCalendar to add the appropriate reading events to</span>
+</span><span class='line'><span class="sd"> each day&#39;s table cell.</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readings</span><span class="p">):</span>
+</span><span class='line'>      <span class="nb">super</span><span class="p">(</span><span class="n">ReadingCalendar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">readings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="n">readings</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">formatday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">weekday</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">if</span> <span class="n">day</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>          <span class="n">cssclass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cssclasses</span><span class="p">[</span><span class="n">weekday</span><span class="p">]</span>
+</span><span class='line'>          <span class="k">if</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">==</span> <span class="n">date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+</span><span class='line'>              <span class="n">cssclass</span> <span class="o">+=</span> <span class="s">&#39; today&#39;</span>
+</span><span class='line'>          <span class="k">if</span> <span class="n">day</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">readings</span><span class="p">:</span>
+</span><span class='line'>              <span class="n">cssclass</span> <span class="o">+=</span> <span class="s">&#39; filled&#39;</span>
+</span><span class='line'>              <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;&lt;ul&gt;&#39;</span><span class="p">]</span>
+</span><span class='line'>              <span class="k">for</span> <span class="n">reading</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">readings</span><span class="p">[</span><span class="n">day</span><span class="p">]:</span>
+</span><span class='line'>                  <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;li&gt;&#39;</span><span class="p">)</span>
+</span><span class='line'>                  <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;a href=&quot;</span><span class="si">%s</span><span class="s">&quot;&gt;&#39;</span> <span class="o">%</span> <span class="n">reading</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">())</span>
+</span><span class='line'>                  <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">esc</span><span class="p">(</span><span class="n">reading</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">primary_name</span><span class="p">))</span>
+</span><span class='line'>                  <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;/a&gt;&lt;/li&gt;&#39;</span><span class="p">)</span>
+</span><span class='line'>              <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;&lt;/ul&gt;&#39;</span><span class="p">)</span>
+</span><span class='line'>              <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_cell</span><span class="p">(</span><span class="n">cssclass</span><span class="p">,</span> <span class="s">&#39;&lt;span class=&quot;dayNumber&quot;&gt;</span><span class="si">%d</span><span class="s">&lt;/span&gt; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">body</span><span class="p">)))</span>
+</span><span class='line'>          <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_cell</span><span class="p">(</span><span class="n">cssclass</span><span class="p">,</span> <span class="s">&#39;&lt;span class=&quot;dayNumberNoReadings&quot;&gt;</span><span class="si">%d</span><span class="s">&lt;/span&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">day</span><span class="p">))</span>
+</span><span class='line'>      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">day_cell</span><span class="p">(</span><span class="s">&#39;noday&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;nbsp;&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">formatmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ReadingCalendar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">formatmonth</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">group_by_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readings</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">field</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">reading</span><span class="p">:</span> <span class="n">reading</span><span class="o">.</span><span class="n">date_and_time</span><span class="o">.</span><span class="n">day</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+</span><span class='line'>          <span class="p">[(</span><span class="n">day</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">items</span><span class="p">))</span> <span class="k">for</span> <span class="n">day</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">readings</span><span class="p">,</span> <span class="n">field</span><span class="p">)]</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">day_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cssclass</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s">&#39;&lt;td class=&quot;</span><span class="si">%s</span><span class="s">&quot;&gt;</span><span class="si">%s</span><span class="s">&lt;/td&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cssclass</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Register the template tag so it is available to templates</span>
+</span><span class='line'><span class="n">register</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="s">&quot;reading_calendar&quot;</span><span class="p">,</span> <span class="n">do_reading_calendar</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-    from django.utils.html import conditional_escape as esc
-
-    register = template.Library()
-
-    def do_reading_calendar(parser, token):
-        """
-        The template tag's syntax is {% reading_calendar year month reading_list %}
-        """
-
-        try:
-            tag_name, year, month, reading_list = token.split_contents()
-        except ValueError:
-            raise template.TemplateSyntaxError, "%r tag requires three arguments" % token.contents.split()[0]
-        return ReadingCalendarNode(year, month, reading_list)
-
-
-    class ReadingCalendarNode(template.Node):
-        """
-        Process a particular node in the template. Fail silently.
-        """
-
-        def __init__(self, year, month, reading_list):
-            try:
-                self.year = template.Variable(year)
-                self.month = template.Variable(month)
-                self.reading_list = template.Variable(reading_list)
-            except ValueError:
-                raise template.TemplateSyntaxError
-
-        def render(self, context):
-            try:
-                # Get the variables from the context so the method is thread-safe.
-                my_reading_list = self.reading_list.resolve(context)
-                my_year = self.year.resolve(context)
-                my_month = self.month.resolve(context)
-                cal = ReadingCalendar(my_reading_list)
-                return cal.formatmonth(int(my_year), int(my_month))
-            except ValueError:
-                return          
-            except template.VariableDoesNotExist:
-                return
-
-
-    class ReadingCalendar(HTMLCalendar):
-        """
-        Overload Python's calendar.HTMLCalendar to add the appropriate reading events to
-        each day's table cell.
-        """
-
-        def __init__(self, readings):
-            super(ReadingCalendar, self).__init__()
-            self.readings = self.group_by_day(readings)
-
-        def formatday(self, day, weekday):
-            if day != 0:
-                cssclass = self.cssclasses[weekday]
-                if date.today() == date(self.year, self.month, day):
-                    cssclass += ' today'
-                if day in self.readings:
-                    cssclass += ' filled'
-                    body = ['&lt;ul&gt;']
-                    for reading in self.readings[day]:
-                        body.append('&lt;li&gt;')
-                        body.append('&lt;a href="%s"&gt;' % reading.get_absolute_url())
-                        body.append(esc(reading.series.primary_name))
-                        body.append('&lt;/a&gt;&lt;/li&gt;')
-                    body.append('&lt;/ul&gt;')
-                    return self.day_cell(cssclass, '&lt;span class="dayNumber"&gt;%d&lt;/span&gt; %s' % (day, ''.join(body)))
-                return self.day_cell(cssclass, '&lt;span class="dayNumberNoReadings"&gt;%d&lt;/span&gt;' % (day))
-            return self.day_cell('noday', '&amp;nbsp;')
-
-        def formatmonth(self, year, month):
-            self.year, self.month = year, month
-            return super(ReadingCalendar, self).formatmonth(year, month)
-
-        def group_by_day(self, readings):
-            field = lambda reading: reading.date_and_time.day
-            return dict(
-                [(day, list(items)) for day, items in groupby(readings, field)]
-            )
-
-        def day_cell(self, cssclass, body):
-            return '&lt;td class="%s"&gt;%s&lt;/td&gt;' % (cssclass, body)
-
-    # Register the template tag so it is available to templates
-    register.tag("reading_calendar", do_reading_calendar)
-</code></pre>
 
 <p>Then, here&#8217;s the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
 
-<pre><code>    def named_month(month_number):
+<figure class='code'><figcaption><span>View  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">named_month</span><span class="p">(</span><span class="n">month_number</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> Return the name of the month, given the number.</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="n">month_number</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%B&quot;</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'><span class="k">def</span> <span class="nf">this_month</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> Show calendar of readings this month.</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>  <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+</span><span class='line'>  
+</span><span class='line'>  
+</span><span class='line'><span class="k">def</span> <span class="nf">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">series_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class='line'>  <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd"> Show calendar of readings for a given month of a given year.</span>
+</span><span class='line'><span class="sd"> ``series_id``</span>
+</span><span class='line'><span class="sd"> The reading series to show. None shows all reading series.</span>
+</span><span class='line'><span class="sd"> &quot;&quot;&quot;</span>
+</span><span class='line'>  
+</span><span class='line'>  <span class="n">my_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_calendar_from_month</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">my_calendar_to_month</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">,</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">my_reading_events</span> <span class="o">=</span> <span class="n">Reading</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">date_and_time__gte</span><span class="o">=</span><span class="n">my_calendar_from_month</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">date_and_time__lte</span><span class="o">=</span><span class="n">my_calendar_to_month</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">series_id</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">my_reading_events</span> <span class="o">=</span> <span class="n">my_reading_events</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">series</span><span class="o">=</span><span class="n">series_id</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c"># Calculate values for the calendar controls. 1-indexed (Jan = 1)</span>
+</span><span class='line'>  <span class="n">my_previous_year</span> <span class="o">=</span> <span class="n">my_year</span>
+</span><span class='line'>  <span class="n">my_previous_month</span> <span class="o">=</span> <span class="n">my_month</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">my_previous_month</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">my_previous_year</span> <span class="o">=</span> <span class="n">my_year</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="n">my_previous_month</span> <span class="o">=</span> <span class="mi">12</span>
+</span><span class='line'>  <span class="n">my_next_year</span> <span class="o">=</span> <span class="n">my_year</span>
+</span><span class='line'>  <span class="n">my_next_month</span> <span class="o">=</span> <span class="n">my_month</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">my_next_month</span> <span class="o">==</span> <span class="mi">13</span><span class="p">:</span>
+</span><span class='line'>      <span class="n">my_next_year</span> <span class="o">=</span> <span class="n">my_year</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="n">my_next_month</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="n">my_year_after_this</span> <span class="o">=</span> <span class="n">my_year</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="n">my_year_before_this</span> <span class="o">=</span> <span class="n">my_year</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&quot;cal_template.html&quot;</span><span class="p">,</span> <span class="p">{</span> <span class="s">&#39;readings_list&#39;</span><span class="p">:</span> <span class="n">my_reading_events</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;month&#39;</span><span class="p">:</span> <span class="n">my_month</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;month_name&#39;</span><span class="p">:</span> <span class="n">named_month</span><span class="p">(</span><span class="n">my_month</span><span class="p">),</span>
+</span><span class='line'>                                                      <span class="s">&#39;year&#39;</span><span class="p">:</span> <span class="n">my_year</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;previous_month&#39;</span><span class="p">:</span> <span class="n">my_previous_month</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;previous_month_name&#39;</span><span class="p">:</span> <span class="n">named_month</span><span class="p">(</span><span class="n">my_previous_month</span><span class="p">),</span>
+</span><span class='line'>                                                      <span class="s">&#39;previous_year&#39;</span><span class="p">:</span> <span class="n">my_previous_year</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;next_month&#39;</span><span class="p">:</span> <span class="n">my_next_month</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;next_month_name&#39;</span><span class="p">:</span> <span class="n">named_month</span><span class="p">(</span><span class="n">my_next_month</span><span class="p">),</span>
+</span><span class='line'>                                                      <span class="s">&#39;next_year&#39;</span><span class="p">:</span> <span class="n">my_next_year</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;year_before_this&#39;</span><span class="p">:</span> <span class="n">my_year_before_this</span><span class="p">,</span>
+</span><span class='line'>                                                      <span class="s">&#39;year_after_this&#39;</span><span class="p">:</span> <span class="n">my_year_after_this</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
 
-        """
-        Return the name of the month, given the number.
-        """
-        return date(1900, month_number, 1).strftime("%B")
-
-    def this_month(request):
-        """
-        Show calendar of readings this month.
-        """
-        today = datetime.now()
-        return calendar(request, today.year, today.month)
-
-
-    def calendar(request, year, month, series_id=None):
-        """
-        Show calendar of readings for a given month of a given year.
-        ``series_id``
-        The reading series to show. None shows all reading series.
-        """
-
-        my_year = int(year)
-        my_month = int(month)
-        my_calendar_from_month = datetime(my_year, my_month, 1)
-        my_calendar_to_month = datetime(my_year, my_month, monthrange(my_year, my_month)[1])
-
-        my_reading_events = Reading.objects.filter(date_and_time__gte=my_calendar_from_month).filter(date_and_time__lte=my_calendar_to_month)
-        if series_id:
-            my_reading_events = my_reading_events.filter(series=series_id)
-
-        # Calculate values for the calendar controls. 1-indexed (Jan = 1)
-        my_previous_year = my_year
-        my_previous_month = my_month - 1
-        if my_previous_month == 0:
-            my_previous_year = my_year - 1
-            my_previous_month = 12
-        my_next_year = my_year
-        my_next_month = my_month + 1
-        if my_next_month == 13:
-            my_next_year = my_year + 1
-            my_next_month = 1
-        my_year_after_this = my_year + 1
-        my_year_before_this = my_year - 1
-        return render_to_response("cal_template.html", { 'readings_list': my_reading_events,
-                                                            'month': my_month,
-                                                            'month_name': named_month(my_month),
-                                                            'year': my_year,
-                                                            'previous_month': my_previous_month,
-                                                            'previous_month_name': named_month(my_previous_month),
-                                                            'previous_year': my_previous_year,
-                                                            'next_month': my_next_month,
-                                                            'next_month_name': named_month(my_next_month),
-                                                            'next_year': my_next_year,
-                                                            'year_before_this': my_year_before_this,
-                                                            'year_after_this': my_year_after_this,
-        }, context_instance=RequestContext(request))
-</code></pre>
 
 <p>And finally, here&#8217;s the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I&#8217;ll forgo writing that out):</p>
 
-<pre><code>{% load reading_tags %}
+<figure class='code'><figcaption><span>Use template tag  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">reading_tags</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">div</span> <span class="nb">id</span><span class="o">=</span><span class="s">&quot;calendar&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="p">{</span><span class="o">%</span> <span class="n">reading_calendar</span> <span class="n">year</span> <span class="n">month</span> <span class="n">reading_list</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-&lt;div id="calendar"&gt;
-    {% reading_calendar year month reading_list %}
-&lt;/div&gt;
-</code></pre>
 
 <p>Hopefully that makes sense. Enjoy!</p>
 

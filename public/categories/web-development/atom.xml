@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web Development | William John Bert]]></title>
   <link href="http://williamjohbnert.com/categories/web-development/atom.xml" rel="self"/>
   <link href="http://williamjohbnert.com/"/>
-  <updated>2012-11-04T16:21:19-05:00</updated>
+  <updated>2012-11-04T17:07:46-05:00</updated>
   <id>http://williamjohbnert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -50,14 +50,15 @@
     <link href="http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/"/>
     <updated>2012-03-23T16:43:33-04:00</updated>
     <id>http://williamjohbnert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv</id>
-    <content type="html"><![CDATA[<h1>Background</h1>
+    <content type="html"><![CDATA[<h2>Background</h2>
 
 <p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim's</a> corpus processing).</p>
 
 <p>To see what BLAS libraries you are using, do:</p>
 
-<pre><code>python -c 'import numpy; numpy.show_config()'
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#39;import numpy; numpy.show_config()&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>If none of them are installed, you probably want to install one or
 more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since it's portable and
@@ -65,32 +66,49 @@ self-optimizing. There are others out there targeted at particular CPU architect
 
 <p>Unfortunately, the <a href="http://docs.scipy.org/doc/numpy/user/install.html">Scipy docs</a> are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven't tried to run them on a more recent version, it's possible they work with those as well.</p>
 
-<h1>Prereqs</h1>
+<h2>Prereqs</h2>
 
 <p>On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):</p>
 
-<pre><code>sudo apt-get install liblapack-dev
-sudo apt-get install gfortran
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install liblapack-dev
+</span><span class='line'><span class="nv">$ </span>sudo apt-get install gfortran
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<h1>Instructions</h1>
+<h2>Instructions</h2>
 
 <p>Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:</p>
 
-<pre><code>#!/bin/bash
-workon [envname]
-pip uninstall numpy # only if numpy is already installed
-pip uninstall scipy # only if scipy is already installed
-export LAPACK=/usr/lib/liblapack.so
-export ATLAS=/usr/lib/libatlas.so
-export BLAS=/usr/lib/libblas.so
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;!/bin/bash&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;workon <span class="o">[</span>envname<span class="o">]</span>
+</span><span class='line'>pip uninstall numpy <span class="c">## only if numpy is already installed</span>
+</span><span class='line'>pip uninstall scipy <span class="c">## only if scipy is already installed</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">LAPACK</span><span class="o">=</span>/usr/lib/liblapack.so
+</span><span class='line'><span class="nb">export </span><span class="nv">ATLAS</span><span class="o">=</span>/usr/lib/libatlas.so
+</span><span class='line'><span class="nb">export </span><span class="nv">BLAS</span><span class="o">=</span>/usr/lib/libblas.so
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:</p>
 
-<pre><code>pip install numpy
-pip install scipy
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pip install numpy
+</span><span class='line'><span class="nv">$ </span>pip install scipy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
@@ -99,33 +117,75 @@ pip install scipy
     <link href="http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
     <updated>2011-08-26T07:16:14-04:00</updated>
     <id>http://williamjohbnert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
-    <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account registration/login system pretty easily. But I wanted to give users the ability to use their existing accounts through popular services such as Facebook, Twitter, etc., rather than have to create yet another account. Here's how I did it.</p>
+    <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
+registration/login system pretty easily. But I wanted to give users the ability
+to use their existing accounts through popular services such as Facebook,
+Twitter, etc., rather than have to create yet another account. Here's how I did
+it.</p>
 
 <h1>Sorting Through the Choices</h1>
 
-<p>There are a number of reusable Django apps out there to help with registration/login from social media sites. I found this <a href="http://hackerluddite.wordpress.com/2011/05/17/review-of-4-django-social-auth-apps/">Review of 4 Django Social Auth apps</a> very helpful in sorting out the options. After reading it, I was left to choose between <a href="https://github.com/omab/django-social-auth"><code>django-social-auth</code></a> (I originally linked to the wrong app here, but this link is correct) and <a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>) because a friend had recommended it and because I'd already installed it before I read this article. However, the article's conclusion that <code>django-allauth</code> is best out of the box also seems valid.</p>
+<p>There are a number of reusable Django apps out there to help with
+registration/login from social media sites. I found this <a href="http://hackerluddite.wordpress.com/2011/05/17/review-of-4-django-social-auth-apps/">Review of 4 Django Social Auth apps</a>
+very helpful in sorting out the options. After reading it, I was left to choose
+between <a href="https://github.com/omab/django-social-auth"><code>django-social-auth</code></a> (I
+originally linked to the wrong app here, but this link is correct) and
+<a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I
+went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>)
+because a friend had recommended it and because I'd already installed it before
+I read this article. However, the article's conclusion that <code>django-allauth</code> is
+best out of the box also seems valid.</p>
 
 <h1>Installation</h1>
 
-<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>'s docs</a> are helpful in walking you through available settings and options.</p>
+<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>'s docs</a> are helpful in
+walking you through available settings and options.</p>
 
-<p>I also found the included example app useful. To use this app, I cloned <code>django-social-auth</code>'s git repo, created a virtualenv called <code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1, showing a simple screen with options to login through about a dozen different different services.</p>
+<p>I also found the included example app useful. To use this app, I cloned
+<code>django-social-auth</code>'s git repo, created a virtualenv called
+<code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this
+virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally
+ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1,
+showing a simple screen with options to login through about a dozen different
+different services.</p>
 
 <h1>API Keys</h1>
 
-<p>The first service I tested was Twitter. I use it more than any others, and I already had the API keys for it. I threw my API key and secret key into the example <code>local_settings.py</code> file provided with <code>django-social-auth</code> and tried to log in via the example app. Boom: <code>401 Unauthorized</code>. I double-checked all my settings and installation and whatnot. Seemed fine.</p>
+<p>The first service I tested was Twitter. I use it more than any others, and I
+already had the API keys for it. I threw my API key and secret key into the
+example <code>local_settings.py</code> file provided with <code>django-social-auth</code> and tried to
+log in via the example app. Boom: <code>401 Unauthorized</code>. I double-checked all my
+settings and installation and whatnot. Seemed fine.</p>
 
-<p>I turned my attention to the API keys. The ones I had were generated for <a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when I generated them at dev.twitter.com. But now I was running on localhost, 127.0.0.1, so I suspected the readsrs.com keys wouldn't be valid. I wasn't sure whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at the request. (It seemed like it should do so, but I hadn't seen any instructions anywhere that said to get a key for your development machine.) Turns out Twitter will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was able to log in with my Twitter credentials, and just as it should, <code>django-social-auth</code> automatically created an <code>auth.user</code> for this account.</p>
+<p>I turned my attention to the API keys. The ones I had were generated for
+<a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when
+I generated them at dev.twitter.com. But now I was running on localhost,
+127.0.0.1, so I suspected the readsrs.com keys wouldn't be valid. I wasn't sure
+whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at
+the request. (It seemed like it should do so, but I hadn't seen any instructions
+anywhere that said to get a key for your development machine.) Turns out Twitter
+will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was
+able to log in with my Twitter credentials, and just as it should,
+<code>django-social-auth</code> automatically created an <code>auth.user</code> for this account.</p>
 
 <h1>Integrating with Readsr</h1>
 
-<p>I followed the instructions again to config my own app, Readsr. To add a login option using Twitter credentials, I put a link to the reversed view that begins the <code>django-social-auth</code> login process for twitter, i.e., <code>{% url socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
+<p>I followed the instructions again to config my own app, Readsr. To add a login
+option using Twitter credentials, I put a link to the reversed view that begins
+the <code>django-social-auth</code> login process for twitter, i.e., <code>{% url
+socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
 
-<p>I still need to fix a few oddities. For example, Twitter returns my first and last names together in <code>first_name</code> (or else <code>django-social-auth</code> is concatenating them into that column), and doesn't supply any email address. But the basic functionality is there, and was relatively easy to achieve.</p>
+<p>I still need to fix a few oddities. For example, Twitter returns my first and
+last names together in <code>first_name</code> (or else <code>django-social-auth</code> is
+concatenating them into that column), and doesn't supply any email address. But
+the basic functionality is there, and was relatively easy to achieve.</p>
 
 <h1>Postscript</h1>
 
-<p>The author of the article I linked above had an error using OpenID when using <code>django-social-auth</code>, which is why he preferred <code>django-authall</code>. He filed a bug for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago (though if you read the comments, it seems it was actually fixed back in mid-July). Good timing.</p>
+<p>The author of the article I linked above had an error using OpenID when using <code>django-social-auth</code>, which is why he preferred <code>django-authall</code>. He filed a bug
+for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago
+(though if you read the comments, it seems it was actually fixed back in
+mid-July). Good timing.</p>
 ]]></content>
   </entry>
   
@@ -136,7 +196,12 @@ pip install scipy
     <id>http://williamjohbnert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
-<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular day of the week (e.g., first Sunday of the month, third Friday of the month). I created a DayOfWeek model to store any particular event's day of the week. It contains a method next_day_of_week() to return a datetime.date object set to the next occurrence of whatever weekday a given event instance is set to (this helps with figuring out when the next occurrence of an event is).</p>
+<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular
+day of the week (e.g., first Sunday of the month, third Friday of the month). I
+created a DayOfWeek model to store any particular event's day of the week. It
+contains a method next_day_of_week() to return a datetime.date object set to
+the next occurrence of whatever weekday a given event instance is set to (this
+helps with figuring out when the next occurrence of an event is).</p>
 
 <p>It's easier to show through an example. On Sunday 7/3/2011:</p>
 
@@ -147,92 +212,209 @@ pip install scipy
 </ul>
 
 
-<p>Sounds simple enough. It seemed like this would be a good place to do my first unit tests.</p>
+<p>Sounds simple enough. It seemed like this would be a good place to do my first
+unit tests.</p>
 
 <h3>Unit Testing</h3>
 
-<p>To do unit testing, the typical method is to first write test cases and then write code. In this case, I'd already written my code, so I went back and wrote test cases, trying to forget how my code worked.</p>
+<p>To do unit testing, the typical method is to first write test cases and then
+write code. In this case, I'd already written my code, so I went back and wrote
+test cases, trying to forget how my code worked.</p>
 
-<p>To write test cases, you have to detail requirements for each method you want to test: input and expected (correct) output. The list of examples for
-next_day_of_week() I wrote above works for this purpose. But there's a catch: next_day_of_week() calculates the next day of the week relative to the current date, by calling datetime.date.today(). So if I write expected output for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any following day. I needed a way to make datetime.date.today() always spit out my input date when I run tests, yet still continue to function normally outside of testing. Enter mocking.</p>
+<p>To write test cases, you have to detail requirements for each method you want to
+test: input and expected (correct) output. The list of examples for
+next_day_of_week() I wrote above works for this purpose. But there's a catch:
+next_day_of_week() calculates the next day of the week relative to the
+current date, by calling datetime.date.today(). So if I write expected output
+for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any
+following day. I needed a way to make datetime.date.today() always spit out my
+input date when I run tests, yet still continue to function normally outside of
+testing. Enter mocking.</p>
 
 <h3>Mocking</h3>
 
-<p>The solution was to mock out the method--to replace the real datetime.date.today() with a fake one that produces the same output no matter what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock library</a>. Specifically, I needed to use the patch decorator. This decorator makes it really easy to replace on particular object within the scope of a particular method.</p>
+<p>The solution was to mock out the method--to replace the real
+datetime.date.today() with a fake one that produces the same output no matter
+what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock
+library</a>. Specifically, I needed to
+use the patch decorator. This decorator makes it really easy to replace on
+particular object within the scope of a particular method.</p>
 
-<p>Before I could patch the today() method, I needed to create my own fake method. It would look like this:</p>
+<p>Before I could patch the today() method, I needed to create my own fake
+method. It would look like this:</p>
 
-<pre><code>def faketoday()
-    return date(2011, 7, 4)
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>There's a problem, though, when I try to patch (or mock out) the method:</p>
 
-<pre><code>&gt;&gt;&gt; import mock
-&gt;&gt;&gt; def faketoday():
-...     return datetime.date(2011, 7, 4)
-... 
-&gt;&gt;&gt; @mock.patch("datetime.date.today", faketoday)
-... def testfunc():
-...     return datetime.date.today()
-... 
-&gt;&gt;&gt; testfunc()
-Traceback (most recent call last):
-  File "&lt;console&gt;", line 1, in &lt;module&gt;
-  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 561, in patched
-    arg = patching.__enter__()
-  File "/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py", line 623, in __enter__
-    setattr(self.target, self.attribute, new_attr)
-TypeError: can't set attributes of built-in/extension type 'datetime.date'
-&gt;&gt;&gt; 
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">blockquote</span><span class="o">&gt;&lt;</span><span class="n">blockquote</span><span class="o">&gt;&lt;</span><span class="n">blockquote</span><span class="o">&gt;&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">import</span> <span class="nn">mock</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">():</span>
+</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&quot;datetime.date.today&quot;</span><span class="p">,</span> <span class="n">faketoday</span><span class="p">)</span>
+</span><span class='line'><span class="o">...</span> <span class="k">def</span> <span class="nf">testfunc</span><span class="p">():</span>
+</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="n">testfunc</span><span class="p">()</span>
+</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">561</span><span class="p">,</span> <span class="ow">in</span> <span class="n">patched</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">arg</span> <span class="o">=</span> <span class="n">patching</span><span class="o">.</span><span class="n">__enter__</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">623</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">strong</span><span class="o">&gt;</span><span class="n">enter</span><span class="o">&lt;/</span><span class="n">strong</span><span class="o">&gt;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s">&#39;t set attributes of built-in/extension type &#39;</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="s">&#39;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p></blockquote></blockquote></blockquote>
 
-<p>datetime.date is considered a Python built-in and can't be modified.</p>
+<p><code>datetime.date</code> is considered a Python built-in and can't be modified.</p>
 
 <h3>Modifying a Class That Can't Be Modified</h3>
 
 <p>The trick is to write a child class that can be modified, and thus faked:</p>
 
-<pre><code>class FakeDate(date):
-    "A fake replacement for date that can be mocked for testing."
-    def __new__(cls, *args, **kwargs):
-        return date.__new__(date, *args, **kwargs)
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">FakeDate</span><span class="p">(</span><span class="n">date</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;A fake replacement for date that can be mocked for testing.&quot;</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>All this does is create a class whose constructor returns an instance of its parent's class, date. Usually, this would be pointless, but it's useful here because the new class isn't a built-in and thus can be mocked.</p>
+<p>All this does is create a class whose constructor returns an instance of its
+parent's class, date. Usually, this would be pointless, but it's useful here
+because the new class isn't a built-in and thus can be mocked.</p>
 
-<p>To use it, we simply decorate any test method that calls datetime.date.today() with a patch to replace datetime.date with FakeDate, and we also provide FakeDate a fake today() method that returns only and always the particular we are going to use for testing:</p>
+<p>To use it, we simply decorate any test method that calls datetime.date.today()
+with a patch to replace datetime.date with FakeDate, and we also provide
+FakeDate a fake today() method that returns only and always the particular we
+are going to use for testing:</p>
 
-<pre><code>class TestDayOfWeek(TestCase):
-    """Test the day of the week functions."""
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">TestDayOfWeek</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;Test the day of the week functions.&quot;&quot;&quot;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;series.models.date&#39;</span><span class="p">,</span> <span class="n">FakeDate</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">test_valid_my_next_day_of_week_sameday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span><span class='line'><span class="n">FakeDate</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">cls</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c"># July 3, 2011 is a Sunday</span>
+</span><span class='line'><span class="n">new_day_of_week</span> <span class="o">=</span> <span class="n">DayOfWeek</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+</span><span class='line'><span class="n">new_day_of_week</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="s">&quot;SU&quot;</span>
+</span><span class='line'><span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">new_day_of_week</span><span class="o">.</span><span class="n">my_next_day_of_week</span><span class="p">(),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-    @mock.patch('series.models.date', FakeDate)
-    def test_valid_my_next_day_of_week_sameday(self):
-        from datetime import date
-        FakeDate.today = classmethod(lambda cls: date(2011, 7, 3)) # July 3, 2011 is a Sunday
-        new_day_of_week = DayOfWeek.objects.create()
-        new_day_of_week.day = "SU"
-        self.assertEquals(new_day_of_week.my_next_day_of_week(), date(2011, 7, 3))
-</code></pre>
-
-<p>A couple things to note: the patch only applies within this particular method, so each method to use a patch must be decorated. Also, the real datetime.date is imported in the method so we can use it inside the fake today() method. We could put this fake today() method inside FakeClass, but making it a lambda (anonymous) method assigned inside the test case gives us the flexibility to set a particular date for each test case.</p>
+<p>A couple things to note: the patch only applies within this particular method,
+so each method to use a patch must be decorated. Also, the real datetime.date is
+imported in the method so we can use it inside the fake today() method. We could
+put this fake today() method inside FakeClass, but making it a lambda
+(anonymous) method assigned inside the test case gives us the flexibility to set
+a particular date for each test case.</p>
 
 <h3>Namespacing</h3>
 
-<p>You may be wondering why the patch decorator takes "series.models.date" as the method to replace instead of "datetime.date". That was how I tried it at first, and I was confused when it didn't work. It seemed as if the patch hadn't taken effect.</p>
+<p>You may be wondering why the patch decorator takes "series.models.date" as the
+method to replace instead of "datetime.date". That was how I tried it at first,
+and I was confused when it didn't work. It seemed as if the patch hadn't taken
+effect.</p>
 
-<p>Well, it hadn't. That's because within the module being tested (models.py in the series app, or series.models in Python dotted notation), date has been imported like so:</p>
+<p>Well, it hadn't. That's because within the module being tested (models.py in the
+series app, or series.models in Python dotted notation), date has been imported
+like so:</p>
 
-<pre><code>from datetime import date
-</code></pre>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>This means that within series.models, date is now available as series.models.date, so that's the name that needs to be mocked out. For more on namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock's Where to patch documentation</a>.</p>
+<p>This means that within series.models, date is now available as
+series.models.date, so that's the name that needs to be mocked out. For more on
+namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock's Where to patch documentation</a>.</p>
 
-<p>Now we can supply out unit tests with any date we want, ensuring that we know what the results should be and can test against them.</p>
+<p>Now we can supply out unit tests with any date we want, ensuring that we know
+what the results should be and can test against them.</p>
 
 <h3>References</h3>
 
-<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a> (I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally, the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was very helpful as well.</p>
+<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a>
+(I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally,
+the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was
+very helpful as well.</p>
 ]]></content>
   </entry>
   

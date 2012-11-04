@@ -11,13 +11,13 @@ tags:
 - python virtualenv blas ubuntu
 ---
 
-# Background #
+## Background #
 
-Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., [gensim's](http://radimrehurek.com/gensim/) corpus processing). 
+Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., [gensim's](http://radimrehurek.com/gensim/) corpus processing).
 
 To see what BLAS libraries you are using, do:
 
-    python -c 'import numpy; numpy.show_config()'
+{% codeblock lang:python %}python -c 'import numpy; numpy.show_config()'{% endcodeblock %}
 
 If none of them are installed, you probably want to install one or
 more. [ATLAS](http://math-atlas.sourceforge.net/) is always a good bet, since it's portable and
@@ -25,26 +25,32 @@ self-optimizing. There are others out there targeted at particular CPU architect
 
 Unfortunately, the [Scipy docs](http://docs.scipy.org/doc/numpy/user/install.html) are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven't tried to run them on a more recent version, it's possible they work with those as well.
 
-# Prereqs #
+## Prereqs #
 
 On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):
 
-    sudo apt-get install liblapack-dev
-    sudo apt-get install gfortran
+{% codeblock lang:bash %}
+$ sudo apt-get install liblapack-dev
+$ sudo apt-get install gfortran
+{% endcodeblock %}
 
-# Instructions #
+## Instructions #
 
 Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:
 
-    #!/bin/bash
-    workon [envname]
-    pip uninstall numpy # only if numpy is already installed
-    pip uninstall scipy # only if scipy is already installed
-    export LAPACK=/usr/lib/liblapack.so
-    export ATLAS=/usr/lib/libatlas.so
-    export BLAS=/usr/lib/libblas.so
+{% codeblock lang:bash %}
+#!/bin/bash
+workon [envname]
+pip uninstall numpy ## only if numpy is already installed
+pip uninstall scipy ## only if scipy is already installed
+export LAPACK=/usr/lib/liblapack.so
+export ATLAS=/usr/lib/libatlas.so
+export BLAS=/usr/lib/libblas.so
+{% endcodeblock %}
 
 Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:
 
-    pip install numpy
-    pip install scipy
+{% codeblock lang:bash %}
+$ pip install numpy
+$ pip install scipy
+{% endcodeblock %}
