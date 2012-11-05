@@ -7,7 +7,7 @@ categories: misc
 ---
 
 [**Zero to Node**](http://www.meetup.com/Nova-Node/events/84918342/), my talk
-  about writng and deploying a node.js app in production, has been rescheduled
+  about writing and deploying a node.js app in production, has been rescheduled
   to Tuesday, November 6, due to Hurricane Sandy.
   
   In other news, I've redone this site using [Octopress](http://octopress.org/)
