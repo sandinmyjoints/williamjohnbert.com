@@ -4,7 +4,7 @@
   <title><![CDATA[Category: misc | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/misc/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2012-11-04T22:47:11-05:00</updated>
+  <updated>2012-11-04T23:11:51-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -20,8 +20,8 @@
     <id>http://williamjohnbert.com/2012/11/update-and-rescheduling</id>
     <content type="html"><![CDATA[<p>Hurricane Sandy rescheduled
   <a href="http://www.meetup.com/Nova-Node/events/84918342/"><strong>Zero to Node</strong></a>, my talk
-  about writing and deploying a node.js app in production, to Tuesday, November
-  6. Hope to see you there!</p>
+  about writing and deploying a node.js app in production, to Wednesday, November
+  7. Hope to see you there!</p>
 
 <p>  In other news, I've redone this site using <a href="http://octopress.org/">Octopress</a>
   with the <a href="https://github.com/roberto/oct2-orange">oct2-orange theme</a>. Sweet!</p>
