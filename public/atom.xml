@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2012-11-04T22:19:21-05:00</updated>
+  <updated>2012-11-04T22:33:05-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Update and Rescheduling]]></title>
+    <link href="http://williamjohnbert.com/2012/11/update-and-rescheduling/"/>
+    <updated>2012-11-04T22:23:00-05:00</updated>
+    <id>http://williamjohnbert.com/2012/11/update-and-rescheduling</id>
+    <content type="html"><![CDATA[<p><a href="http://www.meetup.com/Nova-Node/events/84918342/"><strong>Zero to Node</strong></a>, my talk
+  about writng and deploying a node.js app in production, has been rescheduled
+  to Tuesday, November 6, due to Hurricane Sandy.</p>
+
+<p>  In other news, I&#8217;ve redone this site using <a href="http://octopress.org/">Octopress</a>
+  with the <a href="https://github.com/roberto/oct2-orange">oct2-orange theme</a>. Sweet!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A Case Study of Node.js in Production]]></title>
@@ -1259,21 +1273,6 @@ and I pour it from hand to hand.
 <p>I&#8217;m pleased with the result. I think it fulfills the goals I set forth. I learned a ton about jQuery, css, and WordPress, which was a great side benefit. Picking up new skills can be really enjoyable, especially when  those skills quickly turn into tangible results.</p>
 
 <p>I&#8217;m already starting on my  next web development project: building a Django app to manage a list of DC-area reading series.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Should have been born in January]]></title>
-    <link href="http://williamjohnbert.com/2011/01/should-have-been-born-in-january/"/>
-    <updated>2011-01-19T02:37:30-05:00</updated>
-    <id>http://williamjohnbert.com/2011/01/should-have-been-born-in-january</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0716.jpg" alt="A book being reading by a fireplace." /></a>I can&#8217;t stand Garrison Keillor&#8217;s A Prairie Home Companion, but the best part about waking up at 6:35 a.m. is his <a href="http://writersalmanac.publicradio.org/">Writer&#8217;s Almanac</a>. For five minutes he puts his cornmeal voice to good use, first to list this-day-in-literature history tidbits, then to read a poem.</p>
-
-<p>In this way I learned that three of my favorite authors, David Mitchell (the 12th), Lorrie Moore (the 13th), and Julian Barnes (today, the 19th), were born in January. That kind of news is the kind of news I want to wake up to.</p>
-
-<p>From perusing the Writer&#8217;s Almanac&#8217;s website, I have learned that Keillor&#8217;s signature signoff, &#8220;Be well, do good work, and keep in touch,&#8221; is trademarked.</p>
-
-<p>I won <a href="http://williamjohnbert.com/2010/12/quelle-coincidence/">that Julian Barnes book</a>, by the way. Sweet. (I suspect no one else entered, for lack of publicity.)</p>
 ]]></content>
   </entry>
   
