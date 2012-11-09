@@ -7,9 +7,24 @@ title: Projects
 wordpress_id: 15
 ---
 
+## Visularity ##
+
+[Visularity](https://github.com/sandinmyjoints/visularity) is a web app for
+visualizing semantic similarity that I wrote as a demo for [a talk I gave at the May 2012 DC Python Meetup](http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/). When
+provided with data representing a large corpus of documents (for example, Wikipedia articles), Visularity will cluster words that appear in the corpus by
+how close they are in meaning. This is accomplished through a technique called latent semantic analysis, implemented via
+[Gensim](http://radimrehurek.com/gensim/), a Python topic modelling library. For clustering, I used [scipy](http://www.scipy.org/) and
+[scikit-learn](http://scikit-learn.org/stable/), and for visualization, I used [d3.js](http://d3js.org/). To make it all work in realtime, I used
+[hookbox](https://github.com/hookbox).
+
 ## Doread.me ##
 
-I'm currently developing a web app (fancy name for a website with some additional functionality) called doread.me that presents a new story every day, drawn automagically from literary journals across the internet. I'm using [Django](http://www.djangproject.com), third-party Django apps including Zinnia and South, a lot of JQuery, and most of my free time during January and February 2012. I plan to launch it by Spring 2012, and share the source on github.
+In Spring 2012, I developed a web app (fancy name for a website with some
+additional functionality) called [doread.me](http://doread.me) that presents a
+new story every day, drawn automagically from literary journals across the
+internet. (Contact me if you'd like your journal to be included.) I used
+[Django](http://www.djangoproject.com), third-party Django apps including Zinnia
+and South, and a lot of JQuery. [The source is available on github](https://github.com/sandinmyjoints/doreadme).
 
 ## Readsr ##
 
@@ -51,7 +66,11 @@ I was awarded a [2011 DC Young Artist Grant](http://thedcarts.wordpress.com/2011
 
 
 
-[Call + Response](http://www.callandresponsedc.org) is an art show pairing writers and artists. The third installment will open June 3, 2012, at Hamiltonian Art Gallery in Washington, DC. The first one ran from January 23 to February 13, 2010, and the second, Call + Response: Textures, ran from April 16 to April 28, 2011.
+[Call + Response](http://www.callandresponsedc.org) is an art show pairing
+writers and artists. The third installment ran from June 2-16, 2012, at
+Hamiltonian Art Gallery in Washington, DC. The first one ran from January 23 to
+February 13, 2010, and the second, Call + Response: Textures, ran from April 16
+to April 28, 2011. 
 
 
 
@@ -59,7 +78,17 @@ I was awarded a [2011 DC Young Artist Grant](http://thedcarts.wordpress.com/2011
 
 
 
-[826DC](http://www.826dc.org) is a youth writing center that I helped found. At various times during its existence I've been a board member (when it was initially incorporated as Capitol Letters Writing Center), maintained its website, thought of products and written copy for the [Museum of Unnatural History](http://826dc.org/?page_id=24) (including all the copy for the Species Identification Chart pictured below), and led and TAed many workshops, including some of the ones that led to _[Get Used to the Seats](http://826dc.org/?p=510)_ and _[The Way We See It](http://826dc.org/?p=512)_. Most recently, in November 2010, I led a workshop series for middle schoolers called [_Caught in the Act_](http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/), and I served as Secretary of the Board up through February 2011.
+[826DC](http://www.826dc.org) is a youth writing center that I helped found. At
+various times during its existence I've been a board member (when it was
+initially incorporated as Capitol Letters Writing Center), maintained its
+website, thought of products and written copy for the [Museum of Unnatural
+History](http://826dc.org/?page_id=24) (including all the copy for the Species
+Identification Chart pictured below), and led and TAed many workshops, including
+some of the ones that led to _[Get Used to the Seats](http://826dc.org/?p=510)_
+and _[The Way We See It](http://826dc.org/?p=512)_. Most recently, in November
+2010, I led a workshop series for middle schoolers called [_Caught in the
+Act_](http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/), and I
+served as Secretary of the Board up through February 2011.
 
 
 
