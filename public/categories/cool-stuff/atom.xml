@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cool Stuff | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/cool-stuff/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2012-11-04T23:11:51-05:00</updated>
+  <updated>2012-11-08T19:35:52-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -369,6 +369,9 @@ Running these popular methods shouldn't be so hard, I thought!</p>
 <p>In the end, I developed new algorithms for these methods for gensim.
 The theoretical part of this research later turned into a part of my
 PhD thesis.</p>
+
+<!-- more -->
+
 
 <p><strong>Who is using gensim (as far as you know)--academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
 

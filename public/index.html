@@ -116,6 +116,8 @@
   about writing and deploying a node.js app in production, to Wednesday, November
   7. Hope to see you there!</p>
 
+<p>  (Update: <a href="http://sandinmyjoints.github.com/zero-to-node">here are the slides from my talk</a>.)</p>
+
 <p>  In other news, I&#8217;ve redone this site using <a href="http://octopress.org/">Octopress</a>
   with the <a href="https://github.com/roberto/oct2-orange">oct2-orange theme</a>. Sweet!</p>
 </div>
@@ -153,9 +155,24 @@
   </header>
 
 
-  <div class="entry-content"><p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
+  <div class="entry-content"><p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web
+service in production</a> at the
+next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it
+sounds interesting to you, come by!</p>
 
-<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
+<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by
+  Node. This service can generate audio files on the fly for arbitrary Spanish
+  and English texts with rapid response times. The presentation will walk
+  through the design, development, testing, monitoring, and deployment process
+  for the new application. We will cover topics like how to structure an Express
+  app, testing and debugging, learning to think in streams and pipes, writing a
+  Chef cookbook to deploy to AWS, and monitoring the application for high
+  performance. The lead engineer on the project, William Bert, will also talk
+  about his experiences transitioning from a Python background to Node and some
+  of the key insights he had about writing in Node while developing the
+  application.</p></blockquote>
+
+<p>Update: <a href="http://sandinmyjoints.github.com/zero-to-node">here are the slides from the talk</a>.</p>
 </div>
   
   
@@ -296,72 +313,12 @@ Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
 The theoretical part of this research later turned into a part of my
 PhD thesis.</p>
 
-<p><strong>Who is using gensim (as far as you know)&#8211;academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
-
-<p>Yes, I&#8217;ve heard from many academic as well as commercial
-organizations, both on the mailing list and off. Off the top of my
-head: ravn.co.uk, roistr.com, sportsauthority.com, larkc.eu; TU of
-Denmark, U of Stuttgart, Masaryk U, U of Ghent, some people used it in
-the Yahoo! KD cup competition&#8230; But what they all did with gensim, or
-whether they still use it, I don&#8217;t know. The gensim license (LGPL) is
-pretty liberal in that respect.</p>
-
-<p>Unfortunately, all this use rarely translates into any feedback or
-contributions. I guess I&#8217;m just not very good at the
-bring-new-developers-and-grow-open-source stuff :(</p>
-
-<p><strong>Roughly how much of the current codebase was written by you, and how much by contributors?</strong></p>
-
-<p>Almost everything by me, but I am very grateful for bug fixes and
-patches. I try to put every contribution from other people into the
-changelog: https://github.com/piskvorky/gensim/blob/develop/CHANGELOG.txt
-. I made some wiki pages to make contributing easier:
-https://github.com/piskvorky/gensim/wiki . I also try to answer
-general questions on the mailing list.</p>
-
-<p><strong>What are your favorite features, or parts of the code that you&#8217;re most proud of?</strong></p>
-
-<p>I don&#8217;t have emotional attachments to parts of the code &#8211; if it&#8217;s
-bad, it needs to go. I guess the most proven parts are the ones that
-had been around for the longest &#8211; LSA etc. Things that were
-contributed recently by other people, like the new HDP (hierarchical
-dirichlet process) code, or the <code>gensim.parsing</code> subpackage, are the
-most rough around the edges.</p>
-
-<p>The best feature is the memory independence for sure. Most
-implementations of the statistical semantics methods assume the
-training data resides in RAM, which limits their use to small/medium
-corpora. Also they work in batch mode, needing a full re-train when
-new training data arrives. The LSA/LDA algos are online though (can be
-updated with new data, incrementally).</p>
-
-<p><strong>What&#8217;s your background? Academic, software engineering, both?</strong></p>
-
-<p>I finished my PhD, but I feel more like a software engineer than a
-pure researcher. Even during my academic years, I was working in IT
-commerce. I wouldn&#8217;t like to stay in academia professionally.</p>
-
-<p><strong>What are you working on next for gensim? What about outside of gensim?</strong></p>
-
-<p>Small things like adding the &#8220;hashing trick&#8221; etc:
-https://github.com/piskvorky/gensim/issues . Basically things that
-gensim users have been asking for. Some issues keep coming back on the
-mailing list, and while not technically bugs, they hint at minor
-redesigns and improvements.</p>
-
-<p>One big thing that is missing is a basic visual style for gensim. I
-have no clue how to do that and it&#8217;s really pathetic gensim doesn&#8217;t
-even have a logo yet!</p>
-
-<p>Outside of gensim, I am busy doing consulting (scaling up text
-processing: fulltext search, semantic search, ad targeting etc &#8211;
-backend stuff). I&#8217;m planning to do a startup that offers semantic
-search and similarity as a service. A kind of easy-to-use black box
-tool, something like searchify or myrrix. But it&#8217;s hard to find good
-people to work with&#8230; and hard to give up/interrupt a well-paying
-career :) I applied for YC last month, alone, but they turned me down.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -395,21 +352,31 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   </header>
 
 
-  <div class="entry-content"><p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD application. For now, we&#8217;re trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let&#8217;s call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
+  <div class="entry-content"><p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD
+application. For now, we&#8217;re trying out ExtJS as the client-side UI
+framework. One of the use cases is selecting and editing nested objects,
+represented in our relational database with foreign keys. Let&#8217;s call the root
+object a Task, which consists of nested Goals, which have Steps. Each of those
+is defined by a model on the backend that is more or less mimicked by an
+Ext.data.Model on the client-side, and each model has a proxy to a RESTful
+endpoint on the backend for create/retrieve/update/delete operations. We want to
+use an Ext.tree.TreePanel for the UI, so we hold the data in an
+Ext.data.TreeStore. So far so good.</p>
 
-<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
+<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this
+error: <code>Uncaught TypeError: Cannot read property 'internalId' of
+undefined</code>. Hmm. Everything seems to be working. Our models are loading the
+correct data. No obvious bugs. A lot of inspecting and googling and reading
+documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this
+thread</a>. The
+key quote:</p>
 
-<blockquote><p>It doesn&#8217;t matter if the [model] ids are unique within the JSON [or any data]. It must be unique within the tree.</p></blockquote>
-
-<p>If you add the first json to the tree with for example the id 4_1 and you add the second json with again a node 4_1 then you have two nodes with the same id.</p>
-
-<p>In other words, TreeStore doesn&#8217;t distinguish the types of roots and their children (or children&#8217;s children, etc). To TreeStore, they are <strong>all</strong> nodes, and ids must be unique across all nodes. If you have an instance of a Task model with id=1 and it has a foreign key to a Goal that also has id=1, TreeStore has a problem with that. Apparently it doesn&#8217;t introspect the objects enough to see that, say, one is a Task and its children are Goals, despite the Task model having a <code>hasMany</code> field that defines its relation to the Goal model. That seems counterintuitive to me, maybe even misleading. Perhaps that&#8217;s why we&#8217;re not the only ones who&#8217;ve <a href="http://www.sencha.com/forum/showthread.php?129524-CLOSED-Selection-of-Association-in-DataView">had</a> <a href="http://www.sencha.com/forum/showthread.php?135285-TreeStore-Model-and-quot-id-quot-field">this</a> <a href="http://www.sencha.com/forum/showthread.php?196396-How-to-add-children-tree-nodes-dynamically">problem</a>.</p>
-
-<p>My quick fix was to write a <code>stringify_id()</code> function to wrap ids passed to the TreeStore with a prefix unique to each type, so the id of Task id=1 becomes &#8220;task-1&#8221;. <code>destringify_id()</code> unwraps the ids that come back through the proxy.</p>
-
-<p>TreeStore&#8217;s <a href="http://docs.sencha.com/ext-js/4-0/#!/api/Ext.data.TreeStore">docs</a> do not mention this restriction, as far as I can tell. Maybe if you purchase Ext JS, you get better docs, I&#8217;m not sure. We may be doing just that, so I could have a chance to find out. One of the complaints you sometimes hear about open source is that the docs aren&#8217;t that great, so I&#8217;m curious to see how a for-profit company&#8217;s docs stack up against the documentation culture of the communities I&#8217;m most familiar with (Python and Django), which tend to be pretty solid.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -497,55 +464,16 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
 
 
 <p>If none of them are installed, you probably want to install one or
-more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since it&#8217;s portable and
-self-optimizing. There are others out there targeted at particular CPU architectures.</p>
-
-<p>Unfortunately, the <a href="http://docs.scipy.org/doc/numpy/user/install.html">Scipy docs</a> are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven&#8217;t tried to run them on a more recent version, it&#8217;s possible they work with those as well.</p>
-
-<h2>Prereqs</h2>
-
-<p>On Ubuntu 10.04, and possibly other versions, you need liblapack-dev and gfortran (yes, fortran):</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sudo apt-get install liblapack-dev
-</span><span class='line'><span class="nv">$ </span>sudo apt-get install gfortran
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Instructions</h2>
-
-<p>Install the accelerated linear algebra libraries (ATLAS/LAPACK) in your virtualenv on Ubutu:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
-</span><span class='line'>workon <span class="o">[</span>envname<span class="o">]</span>
-</span><span class='line'>pip uninstall numpy <span class="c">## only if numpy is already installed</span>
-</span><span class='line'>pip uninstall scipy <span class="c">## only if scipy is already installed</span>
-</span><span class='line'><span class="nb">export </span><span class="nv">LAPACK</span><span class="o">=</span>/usr/lib/liblapack.so
-</span><span class='line'><span class="nb">export </span><span class="nv">ATLAS</span><span class="o">=</span>/usr/lib/libatlas.so
-</span><span class='line'><span class="nb">export </span><span class="nv">BLAS</span><span class="o">=</span>/usr/lib/libblas.so
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now you can install numpy and scipy into the same virtualenv and be confident they will perform operations using the accelerated BLAS routines:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pip install numpy
-</span><span class='line'><span class="nv">$ </span>pip install scipy
-</span></code></pre></td></tr></table></div></figure>
-
-
+more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since
+it&#8217;s portable and self-optimizing. There are others out there targeted at
+particular CPU architectures.</p>
 
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">Read on &rarr;</a>
+    </footer>
   
 
 

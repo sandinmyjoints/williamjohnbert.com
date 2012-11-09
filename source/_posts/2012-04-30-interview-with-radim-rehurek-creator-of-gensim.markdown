@@ -39,6 +39,7 @@ In the end, I developed new algorithms for these methods for gensim.
 The theoretical part of this research later turned into a part of my
 PhD thesis.
 
+<!-- more -->
 
 **Who is using gensim (as far as you know)--academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?**
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programming | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/programming/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2012-11-04T23:11:51-05:00</updated>
+  <updated>2012-11-08T19:35:52-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -18,9 +18,24 @@
     <link href="http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production/"/>
     <updated>2012-10-01T17:27:53-04:00</updated>
     <id>http://williamjohnbert.com/2012/10/a-case-study-of-node-js-in-production</id>
-    <content type="html"><![CDATA[<p>I'm giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web service in production</a> at the next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it sounds interesting to you, come by!</p>
+    <content type="html"><![CDATA[<p>I'm giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web
+service in production</a> at the
+next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it
+sounds interesting to you, come by!</p>
 
-<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by Node. This service can generate audio files on the fly for arbitrary Spanish and English texts with rapid response times. The presentation will walk through the design, development, testing, monitoring, and deployment process for the new application. We will cover topics like how to structure an Express app, testing and debugging, learning to think in streams and pipes, writing a Chef cookbook to deploy to AWS, and monitoring the application for high performance. The lead engineer on the project, William Bert, will also talk about his experiences transitioning from a Python background to Node and some of the key insights he had about writing in Node while developing the application.</p></blockquote>
+<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by
+  Node. This service can generate audio files on the fly for arbitrary Spanish
+  and English texts with rapid response times. The presentation will walk
+  through the design, development, testing, monitoring, and deployment process
+  for the new application. We will cover topics like how to structure an Express
+  app, testing and debugging, learning to think in streams and pipes, writing a
+  Chef cookbook to deploy to AWS, and monitoring the application for high
+  performance. The lead engineer on the project, William Bert, will also talk
+  about his experiences transitioning from a Python background to Node and some
+  of the key insights he had about writing in Node while developing the
+  application.</p></blockquote>
+
+<p>Update: <a href="http://sandinmyjoints.github.com/zero-to-node">here are the slides from the talk</a>.</p>
 ]]></content>
   </entry>
   
@@ -381,6 +396,9 @@ Running these popular methods shouldn't be so hard, I thought!</p>
 The theoretical part of this research later turned into a part of my
 PhD thesis.</p>
 
+<!-- more -->
+
+
 <p><strong>Who is using gensim (as far as you know)--academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
 
 <p>Yes, I've heard from many academic as well as commercial
@@ -453,15 +471,46 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
     <link href="http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes/"/>
     <updated>2012-04-19T06:23:07-04:00</updated>
     <id>http://williamjohnbert.com/2012/04/extjs-treestore-trouble-with-nested-nodes</id>
-    <content type="html"><![CDATA[<p>At work, we're building an app to edit objects in a database--a classic CRUD application. For now, we're trying out ExtJS as the client-side UI framework. One of the use cases is selecting and editing nested objects, represented in our relational database with foreign keys. Let's call the root object a Task, which consists of nested Goals, which have Steps. Each of those is defined by a model on the backend that is more or less mimicked by an Ext.data.Model on the client-side, and each model has a proxy to a RESTful endpoint on the backend for create/retrieve/update/delete operations. We want to use an Ext.tree.TreePanel for the UI, so we hold the data in an Ext.data.TreeStore. So far so good.</p>
+    <content type="html"><![CDATA[<p>At work, we're building an app to edit objects in a database--a classic CRUD
+application. For now, we're trying out ExtJS as the client-side UI
+framework. One of the use cases is selecting and editing nested objects,
+represented in our relational database with foreign keys. Let's call the root
+object a Task, which consists of nested Goals, which have Steps. Each of those
+is defined by a model on the backend that is more or less mimicked by an
+Ext.data.Model on the client-side, and each model has a proxy to a RESTful
+endpoint on the backend for create/retrieve/update/delete operations. We want to
+use an Ext.tree.TreePanel for the UI, so we hold the data in an
+Ext.data.TreeStore. So far so good.</p>
 
-<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this error: <code>Uncaught TypeError: Cannot read property 'internalId' of undefined</code>. Hmm. Everything seems to be working. Our models are loading the correct data. No obvious bugs. A lot of inspecting and googling and reading documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this thread</a>. The key quote:</p>
+<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this
+error: <code>Uncaught TypeError: Cannot read property 'internalId' of
+undefined</code>. Hmm. Everything seems to be working. Our models are loading the
+correct data. No obvious bugs. A lot of inspecting and googling and reading
+documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this
+thread</a>. The
+key quote:</p>
 
-<blockquote><p>It doesn't matter if the [model] ids are unique within the JSON [or any data]. It must be unique within the tree.</p></blockquote>
+<!-- more -->
 
-<p>If you add the first json to the tree with for example the id 4_1 and you add the second json with again a node 4_1 then you have two nodes with the same id.</p>
 
-<p>In other words, TreeStore doesn't distinguish the types of roots and their children (or children's children, etc). To TreeStore, they are <strong>all</strong> nodes, and ids must be unique across all nodes. If you have an instance of a Task model with id=1 and it has a foreign key to a Goal that also has id=1, TreeStore has a problem with that. Apparently it doesn't introspect the objects enough to see that, say, one is a Task and its children are Goals, despite the Task model having a <code>hasMany</code> field that defines its relation to the Goal model. That seems counterintuitive to me, maybe even misleading. Perhaps that's why we're not the only ones who've <a href="http://www.sencha.com/forum/showthread.php?129524-CLOSED-Selection-of-Association-in-DataView">had</a> <a href="http://www.sencha.com/forum/showthread.php?135285-TreeStore-Model-and-quot-id-quot-field">this</a> <a href="http://www.sencha.com/forum/showthread.php?196396-How-to-add-children-tree-nodes-dynamically">problem</a>.</p>
+<blockquote><p>It doesn't matter if the [model] ids are unique within the JSON [or any
+  data]. It must be unique within the tree.</p></blockquote>
+
+<p>If you add the first json to the tree with for example the id 4_1 and you add
+the second json with again a node 4_1 then you have two nodes with the same id.</p>
+
+<p>In other words, TreeStore doesn't distinguish the types of roots and their
+children (or children's children, etc). To TreeStore, they are <strong>all</strong> nodes,
+and ids must be unique across all nodes. If you have an instance of a Task model
+with id=1 and it has a foreign key to a Goal that also has id=1, TreeStore has a
+problem with that. Apparently it doesn't introspect the objects enough to see
+that, say, one is a Task and its children are Goals, despite the Task model
+having a <code>hasMany</code> field that defines its relation to the Goal model. That seems
+counterintuitive to me, maybe even misleading. Perhaps that's why we're not the
+only ones who've
+<a href="http://www.sencha.com/forum/showthread.php?129524-CLOSED-Selection-of-Association-in-DataView">had</a>
+<a href="http://www.sencha.com/forum/showthread.php?135285-TreeStore-Model-and-quot-id-quot-field">this</a>
+<a href="http://www.sencha.com/forum/showthread.php?196396-How-to-add-children-tree-nodes-dynamically">problem</a>.</p>
 
 <p>My quick fix was to write a <code>stringify_id()</code> function to wrap ids passed to the TreeStore with a prefix unique to each type, so the id of Task id=1 becomes "task-1". <code>destringify_id()</code> unwraps the ids that come back through the proxy.</p>
 

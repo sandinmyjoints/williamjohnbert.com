@@ -20,10 +20,18 @@ To see what BLAS libraries you are using, do:
 {% codeblock lang:python %}python -c 'import numpy; numpy.show_config()'{% endcodeblock %}
 
 If none of them are installed, you probably want to install one or
-more. [ATLAS](http://math-atlas.sourceforge.net/) is always a good bet, since it's portable and
-self-optimizing. There are others out there targeted at particular CPU architectures.
+more. [ATLAS](http://math-atlas.sourceforge.net/) is always a good bet, since
+it's portable and self-optimizing. There are others out there targeted at
+particular CPU architectures.
 
-Unfortunately, the [Scipy docs](http://docs.scipy.org/doc/numpy/user/install.html) are out of date regarding installing accelerated BLAS libraries on Ubuntu. The instructions I have written below work for Ubuntu 10.04, the current LTS (long-term support) version, and though I haven't tried to run them on a more recent version, it's possible they work with those as well.
+<!-- more -->
+
+Unfortunately, the [Scipy
+docs](http://docs.scipy.org/doc/numpy/user/install.html) are out of date
+regarding installing accelerated BLAS libraries on Ubuntu. The instructions I
+have written below work for Ubuntu 10.04, the current LTS (long-term support)
+version, and though I haven't tried to run them on a more recent version, it's
+possible they work with those as well.
 
 ## Prereqs #
 
