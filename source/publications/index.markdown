@@ -7,7 +7,9 @@ title: Publications
 wordpress_id: 13
 ---
 
-FUSION, Spring 2012 - "Canyon" (short story)
+[DIAGRAM, Issue 12.6](http://thediagram.com/12_6/rev_reitz.html) - Review of Requests 1.0
+
+[FUSION, Spring 2012](http://www.fusionmagazine.org/wp-content/uploads/2012/09/2fusion.vol3_online_10.9.12.pdf) - "Canyon" (short story)
 
 [Don't Forget to Write for the Secondary Grades: 50 Enthralling and Effective Writing Lessons](http://www.amzn.com/111802432X) from [826 National](http://www.826national.org/) - "Busted" (lesson plan)
 
