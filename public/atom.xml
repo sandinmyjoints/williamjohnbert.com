@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-01-14T17:53:50-05:00</updated>
+  <updated>2013-01-17T08:14:49-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Zero to Node, Again]]></title>
+    <link href="http://williamjohnbert.com/2013/01/reprise-of-zero-to-node/"/>
+    <updated>2013-01-17T08:09:00-05:00</updated>
+    <id>http://williamjohnbert.com/2013/01/reprise-of-zero-to-node</id>
+    <content type="html"><![CDATA[<p>At <a href="http://www.meetup.com/node-dc/events/98796672/">NodeDC&#8217;s January meetup</a>,
+I&#8217;ll be giving a reprise of my
+<a href="http://sandinmyjoints.github.com/zero-to-node/">Zero to Node</a> talk, about
+designing, coding, and launching my first web service using Node.js. The meetup
+is Wednesday, Jan 23, at Stetson&#8217;s (1610 U St NW). Hope to see you there!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Review of Requests 1.0]]></title>
@@ -1485,46 +1498,6 @@ very helpful as well.</p>
 <li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Bell Poetry Club]]></title>
-    <link href="http://williamjohnbert.com/2011/01/bell-poetry-club/"/>
-    <updated>2011-01-30T10:11:27-05:00</updated>
-    <id>http://williamjohnbert.com/2011/01/bell-poetry-club</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/IMG_0758.jpg" alt="Potomac River ice" /></a></p>
-
-<p>Friday, I helped out with an 826DC workshop at Bell Multicultural High School in Columbia Heights. Bell&#8217;s Poetry Club meets after school each Friday, and we came by  to work with them on metaphor. To fuel the discussion, we read &#8220;Snow Leopards at the Denver Zoo&#8221; by <a href="http://en.wikipedia.org/wiki/William_Matthews_%28poet%29">William Matthews</a> (who I&#8217;d never heard of before—I&#8217;m so not a poet):</p>
-
-<blockquote><pre><code>There are only a hundred or so
-snow leopards alive, and three
-of them here. Hours I watch them jump
-down and jump up, water being
-poured. Though if you fill a glass
-fast with water, it rings high to the top,
-noise of a nail driven true. Snow
-leopards land without sound,
-as if they were already extinct.
-
-
-
-
-
-If I could, I’d sift them
-from hand to hand, like a fire,
-like a debt I can count but can’t pay.
-I’m glad I can’t. If I tried to
-take loss for a wife, and I do,
-and keep her all the days of my life,
-I’d have nothing to leave my children.
-I save them whatever I can keep
-and I pour it from hand to hand.
-</code></pre></blockquote>
-
-<p>A few metaphors there, huh? It&#8217;s a swift poem, turning from accessible to knotty in the space of a few lines. Great for discussion, and the students were more than up to the task. The writing exercise we did next further showed off their chops. We all took 20 minutes to write a poem full of metaphors, then shared them with the group. Their stuff leapt off the page, lyrical, narrative, associative, wild and subtle and everything between.</p>
-
-<p>All of us from 826DC  were seriously impressed, and I look forward to hanging out with the Bell Poetry Club again in a couple weeks. It&#8217;s on us to come up with something new to challenge these talents—my prediction is we&#8217;re going to learn just as much as they do.</p>
 ]]></content>
   </entry>
   
