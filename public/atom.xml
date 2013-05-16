@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-01-17T08:14:49-05:00</updated>
+  <updated>2013-05-16T19:15:57-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Juxtaposition]]></title>
+    <link href="http://williamjohnbert.com/2013/05/juxtaposition/"/>
+    <updated>2013-05-16T19:02:00-04:00</updated>
+    <id>http://williamjohnbert.com/2013/05/juxtaposition</id>
+    <content type="html"><![CDATA[<p>A few days ago, I happened by chance to read these two articles one after the other:</p>
+
+<ul>
+<li><p><a href="http://tomayko.com/writings/unicorn-is-unix">I like Unicorn because it&#8217;s Unix</a></p></li>
+<li><p><a href="http://highscalability.com/blog/2013/5/13/the-secret-to-10-million-concurrent-connections-the-kernel-i.html">The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution</a></p></li>
+</ul>
+
+
+<p>The first is about how good Unix is at scaling the scheduling and distribution
+of work among processes. The second is about how Unix is the problem when it
+comes to the scheduling and distribution of work at scale.</p>
+
+<p>The question, of course, is &#8220;What scale?&#8221;. Like the difference between a cure and a
+poison is sometimes the dosage.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Zero to Node, Again]]></title>
@@ -1481,23 +1503,6 @@ very helpful as well.</p>
 <p>Anomalous Press #1 is available for download as a PDF, but only if you <a href="http://www.paywithatweet.com/">pay with a tweet</a>. Neat concept. Attention as currency. And from a technical standpoint, I&#8217;m interested in how they integrated with <a href="http://dev.twitter.com/">Twitter using OAuth</a>—I want to do a similar thing with the reading series web app (Readsr/Readthing/whatever) I&#8217;m working on: tweet whenever a reading series is updated. So I&#8217;ll be looking into this soon.</p>
 
 <p>First, though, I plan to deploy an alpha version of the site this weekend. I&#8217;ve been reading up on <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <a href="http://pypi.python.org/pypi/pip">pip</a>, <a href="http://fabfile.org/">fabric</a>, and <a href="http://git-scm.com/">git</a>, trying to figure out how to deploy the right way&#8211;with automated version control and dependency isolation. This part, the admin stuff, is as complicated as any coding problem I&#8217;ve faced. Looking forward to tackling it in a marathon session on Saturday!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Stuff: Happening]]></title>
-    <link href="http://williamjohnbert.com/2011/02/stuff-happening/"/>
-    <updated>2011-02-22T15:06:54-05:00</updated>
-    <id>http://williamjohnbert.com/2011/02/stuff-happening</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
-
-<ul>
-<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
-<li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
-<li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
-<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
-</ul>
-
 ]]></content>
   </entry>
   
