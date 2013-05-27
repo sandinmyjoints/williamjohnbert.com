@@ -9,7 +9,7 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, &hellip;">
+  <meta name="description" content="Background Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">How to Install Accelerated BLAS Into a Python Virtualenv</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-23T16:43:33-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Background</h2>
+
+<p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
+
+<p>To see what BLAS libraries you are using, do:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#39;import numpy; numpy.show_config()&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If none of them are installed, you probably want to install one or
+more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since
+it&#8217;s portable and self-optimizing. There are others out there targeted at
+particular CPU architectures.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1042,50 +1097,6 @@ very helpful as well.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/02/stuff-happening/">Stuff: Happening</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-22T15:06:54-05:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
-
-<ul>
-<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
-<li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
-<li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
-<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1113,6 +1124,10 @@ very helpful as well.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/05/juxtaposition/">Juxtaposition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/01/reprise-of-zero-to-node/">Zero to Node, Again</a>
       </li>
     
@@ -1126,10 +1141,6 @@ very helpful as well.</p>
     
       <li class="post">
         <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
       </li>
     
   </ul>

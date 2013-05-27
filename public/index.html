@@ -9,10 +9,8 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="At NodeDC&#8217;s January meetup,
-I&#8217;ll be giving a reprise of my
-Zero to Node talk, about
-designing, coding, and launching my first web service &hellip;">
+  <meta name="description" content="A few days ago, I happened by chance to read these two articles one after the other: I like Unicorn because it&#8217;s Unix
+The Secret To 10 Million &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +83,55 @@ designing, coding, and launching my first web service &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/05/juxtaposition/">Juxtaposition</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-16T19:02:00-04:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few days ago, I happened by chance to read these two articles one after the other:</p>
+
+<ul>
+<li><p><a href="http://tomayko.com/writings/unicorn-is-unix">I like Unicorn because it&#8217;s Unix</a></p></li>
+<li><p><a href="http://highscalability.com/blog/2013/5/13/the-secret-to-10-million-concurrent-connections-the-kernel-i.html">The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution</a></p></li>
+</ul>
+
+
+<p>The first is about how good Unix is at scaling the scheduling and distribution
+of work among processes. The second is about how Unix is the problem when it
+comes to the scheduling and distribution of work at scale.</p>
+
+<p>The question, of course, is &#8220;What scale?&#8221;. Like the difference between a cure and a
+poison is sometimes the dosage.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -524,61 +571,6 @@ key quote:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">How to Install Accelerated BLAS Into a Python Virtualenv</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-23T16:43:33-04:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Background</h2>
-
-<p>Some mathematically intense operations that use Numpy/Scipy can run faster with accelerated basic linear algebra subroutine (BLAS) libraries installed on your system (e.g., <a href="http://radimrehurek.com/gensim/">gensim&#8217;s</a> corpus processing).</p>
-
-<p>To see what BLAS libraries you are using, do:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s">&#39;import numpy; numpy.show_config()&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If none of them are installed, you probably want to install one or
-more. <a href="http://math-atlas.sourceforge.net/">ATLAS</a> is always a good bet, since
-it&#8217;s portable and self-optimizing. There are others out there targeted at
-particular CPU architectures.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -604,6 +596,10 @@ particular CPU architectures.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/05/juxtaposition/">Juxtaposition</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/01/reprise-of-zero-to-node/">Zero to Node, Again</a>
       </li>
     
@@ -617,10 +613,6 @@ particular CPU architectures.</p>
     
       <li class="post">
         <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) quick and easy Gensim example code</a>
       </li>
     
   </ul>
