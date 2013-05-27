@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>There's no content yet - William John Bert</title>
+  <title>Emacs cl-lib madness - William John Bert</title>
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="But I&#8217;m working on it.
-">
+  <meta name="description" content="Emacs 24.3 renamed the Common Lisp emulation package from cl to cl-lib. The
+release notes say that cl in
+24.3 is now &#8220;a bunch of aliases that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://williamjohnbert.com/2010/09/theres-no-content-yet/">
+  <link rel="canonical" href="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -86,7 +87,7 @@
   
   <header>
     
-      <h1 class="entry-title">There's No Content Yet</h1>
+      <h1 class="entry-title">Emacs Cl-lib Madness</h1>
     
     
       <p class="meta">
@@ -102,14 +103,46 @@
   
 
 
-<time datetime="2010-09-19T14:01:03-04:00" pubdate data-updated="true">Sep 19<span>th</span>, 2010</time>
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>But I&#8217;m working on it.</p>
+<div class="entry-content"><p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
+
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="c1">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)</span>
+</span><span class='line'><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl-lib</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">progn</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;cl-block-wrapper</span> <span class="ss">&#39;identity</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;member*</span> <span class="ss">&#39;cl-member</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;adjoin</span> <span class="ss">&#39;cl-adjoin</span><span class="p">))</span>
+</span><span class='line'>  <span class="c1">;; Else we&#39;re on an older version so require cl.</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
+<code>cl</code>.</p>
 </div>
 
 
@@ -132,12 +165,12 @@
   
 
 
-<time datetime="2010-09-19T14:01:03-04:00" pubdate data-updated="true">Sep 19<span>th</span>, 2010</time>
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/meta/'>Meta</a>
+    <a class='category' href='/categories/emacs/'>emacs</a>, <a class='category' href='/categories/emacs-lisp/'>emacs-lisp</a>, <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 
@@ -146,7 +179,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2010/09/theres-no-content-yet/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2010/09/theres-no-content-yet/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/" >Tweet</a>
   
   
   
@@ -155,8 +188,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/2013/05/juxtaposition/" title="Previous Post: Juxtaposition">&laquo; Juxtaposition</a>
       
-        <a class="basic-alignment right" href="/2010/11/teaching-a-workshop-tonight/" title="Next Post: Tonight: Caught in the Act, part 1">Tonight: Caught in the Act, part 1 &raquo;</a>
       
     </p>
   </footer>
@@ -278,8 +311,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://williamjohnbert.com/2010/09/theres-no-content-yet/';
-        var disqus_url = 'http://williamjohnbert.com/2010/09/theres-no-content-yet/';
+        var disqus_identifier = 'http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/';
+        var disqus_url = 'http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/';
         var disqus_script = 'embed.js';
       
     (function () {

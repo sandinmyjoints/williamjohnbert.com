@@ -9,8 +9,9 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="A few days ago, I happened by chance to read these two articles one after the other: I like Unicorn because it&#8217;s Unix
-The Secret To 10 Million &hellip;">
+  <meta name="description" content="Emacs 24.3 renamed the Common Lisp emulation package from cl to cl-lib. The
+release notes say that cl in
+24.3 is now &#8220;a bunch of aliases that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +84,74 @@ The Secret To 10 Million &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/05/emacs-cl-lib-madness/">Emacs Cl-lib Madness</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
+
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="c1">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)</span>
+</span><span class='line'><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl-lib</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">progn</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;cl-block-wrapper</span> <span class="ss">&#39;identity</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;member*</span> <span class="ss">&#39;cl-member</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;adjoin</span> <span class="ss">&#39;cl-adjoin</span><span class="p">))</span>
+</span><span class='line'>  <span class="c1">;; Else we&#39;re on an older version so require cl.</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
+<code>cl</code>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -529,48 +598,6 @@ key quote:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/04/fake-bio-for-steve/">Fake Bio for Steve</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-06T09:53:07-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
-
-<p>Here&#8217;s mine:</p>
-
-<blockquote><p>Steve Souryal is a group of 15 small islets and rocks in the central equatorial Atlantic Ocean. He lies in the Intertropical Convergence Zone, a region of severe storms. Steve exposes serpentinized abyssal mantle peridotite and kaersutite-bearing ultramafic mylonite on the top of the second-largest megamullion in the world (after the Parece Vela megamullion under Okinotoshima in the Pacific). He is the only location in the Atlantic Ocean where the abyssal mantle is exposed above sea level! In 1986, Steve was designated an environmentally protected area, and since 1998, the Danish Navy has maintained a permanently manned research facility in him. His main economic activity is tuna fishing, and we are incredibly lucky to have him with us tonight.</p></blockquote>
-
-<p>Apologies to Wikipedia. But somehow, it just feels right.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -596,6 +623,10 @@ key quote:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/05/emacs-cl-lib-madness/">Emacs cl-lib madness</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/05/juxtaposition/">Juxtaposition</a>
       </li>
     
@@ -609,10 +640,6 @@ key quote:</p>
     
       <li class="post">
         <a href="/2012/11/update-and-rescheduling/">Update and Rescheduling</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
       </li>
     
   </ul>
