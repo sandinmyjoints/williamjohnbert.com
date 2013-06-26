@@ -9,8 +9,11 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="A few days ago, I happened by chance to read these two articles one after the other: I like Unicorn because it&#8217;s Unix
-The Secret To 10 Million &hellip;">
+  <meta name="description" content="Today I spent some time wrestling with the notorious
+same origin policy
+in order to get CORS
+(cross-origin resource sharing)
+working in Chrome for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +86,91 @@ The Secret To 10 Million &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2013/06/allow-cors-with-localhost-in-chrome/">Allow CORS With Localhost in Chrome</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-25T19:04:00-04:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I spent some time wrestling with the notorious
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">same origin policy</a>
+in order to get CORS
+(<a href="https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS">cross-origin resource sharing</a>)
+working in Chrome for development work I was doing between two applications
+running on localhost. Setting the <code>Access-Control-Allow-Origin</code> header to <code>*</code>
+seemed to have no effect, and
+<a href="https://code.google.com/p/chromium/issues/detail?id=67743">this bug report</a>
+nearly led me to believe that was due to a bug in Chrome that made CORS with
+localhost impossible. It&#8217;s not. It turned out that I also needed some other
+CORs-related headers: <code>Access-Control-Allow-Headers</code> and
+<code>Access-Control-Allow-Methods</code>.</p>
+
+<p>This (slightly generalized) snippet of <a href="http://expressjs.com">Express.js</a>
+middleware is what ended up working for me:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Headers&quot;</span><span class="p">,</span> <span class="s2">&quot;Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span><span class="p">,</span> <span class="s2">&quot;GET, PUT, POST&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With that, Chrome started making OPTIONS requests when I wanted to POST from
+localhost:3001 to localhost:2002. It seems that using <code>contentType:
+application/json</code> for POSTs forces CORS preflighting, which surprised me since
+it seems like a common case for APIs, but no matter:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;options&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="mi">204</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -529,48 +617,6 @@ key quote:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/04/fake-bio-for-steve/">Fake Bio for Steve</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-06T09:53:07-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
-
-<p>Here&#8217;s mine:</p>
-
-<blockquote><p>Steve Souryal is a group of 15 small islets and rocks in the central equatorial Atlantic Ocean. He lies in the Intertropical Convergence Zone, a region of severe storms. Steve exposes serpentinized abyssal mantle peridotite and kaersutite-bearing ultramafic mylonite on the top of the second-largest megamullion in the world (after the Parece Vela megamullion under Okinotoshima in the Pacific). He is the only location in the Atlantic Ocean where the abyssal mantle is exposed above sea level! In 1986, Steve was designated an environmentally protected area, and since 1998, the Danish Navy has maintained a permanently manned research facility in him. His main economic activity is tuna fishing, and we are incredibly lucky to have him with us tonight.</p></blockquote>
-
-<p>Apologies to Wikipedia. But somehow, it just feels right.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -596,6 +642,10 @@ key quote:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/06/allow-cors-with-localhost-in-chrome/">Allow CORS with localhost in Chrome</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/05/juxtaposition/">Juxtaposition</a>
       </li>
     
@@ -609,10 +659,6 @@ key quote:</p>
     
       <li class="post">
         <a href="/2012/11/update-and-rescheduling/">Update and Rescheduling</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a>
       </li>
     
   </ul>

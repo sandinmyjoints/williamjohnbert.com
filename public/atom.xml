@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-05-16T19:15:57-04:00</updated>
+  <updated>2013-06-25T20:30:32-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Allow CORS with localhost in Chrome]]></title>
+    <link href="http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/"/>
+    <updated>2013-06-25T19:04:00-04:00</updated>
+    <id>http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome</id>
+    <content type="html"><![CDATA[<p>Today I spent some time wrestling with the notorious
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">same origin policy</a>
+in order to get CORS
+(<a href="https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS">cross-origin resource sharing</a>)
+working in Chrome for development work I was doing between two applications
+running on localhost. Setting the <code>Access-Control-Allow-Origin</code> header to <code>*</code>
+seemed to have no effect, and
+<a href="https://code.google.com/p/chromium/issues/detail?id=67743">this bug report</a>
+nearly led me to believe that was due to a bug in Chrome that made CORS with
+localhost impossible. It&#8217;s not. It turned out that I also needed some other
+CORs-related headers: <code>Access-Control-Allow-Headers</code> and
+<code>Access-Control-Allow-Methods</code>.</p>
+
+<p>This (slightly generalized) snippet of <a href="http://expressjs.com">Express.js</a>
+middleware is what ended up working for me:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Headers&quot;</span><span class="p">,</span> <span class="s2">&quot;Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span><span class="p">,</span> <span class="s2">&quot;GET, PUT, POST&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With that, Chrome started making OPTIONS requests when I wanted to POST from
+localhost:3001 to localhost:2002. It seems that using <code>contentType:
+application/json</code> for POSTs forces CORS preflighting, which surprised me since
+it seems like a common case for APIs, but no matter:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;options&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="mi">204</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Juxtaposition]]></title>
@@ -1488,21 +1546,6 @@ very helpful as well.</p>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
 
 <p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[New story, and other updates]]></title>
-    <link href="http://williamjohnbert.com/2011/03/new-story-in-anomalous-press/"/>
-    <updated>2011-03-23T07:35:36-04:00</updated>
-    <id>http://williamjohnbert.com/2011/03/new-story-in-anomalous-press</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png"><img src="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png" alt="Anomalous Press #1" /></a>I&#8217;m really thrilled to have a story, <a href="http://www.anomalouspress.org/current/21.bert.winner.php">&#8220;Winner,&#8221;</a> in the very first issue of Anomalous Press. It was released on the Ides of March, so I&#8217;m a bit tardy announcing it here—it&#8217;s been a busy March so far.</p>
-
-<p>The issue includes work from many better writers than me, including <a href="http://www.anomalouspress.org/current/25.ayala.winter.php">a poem</a> and <a href="http://www.anomalouspress.org/current/26.ayala.vision.php">two translations</a> from my friend Naomi Ayala. It was Naomi who suggested I submit to Anomalous. In this way and many others, she&#8217;s been a great friend and supporter of my writing, and I hope someday to be able to pay her back. You can catch another poem of hers when <a href="http://www.callandresponsedc.org/">Call + Response: Textures</a> opens on April 16. (More on that tomorrow.)</p>
-
-<p>Anomalous Press #1 is available for download as a PDF, but only if you <a href="http://www.paywithatweet.com/">pay with a tweet</a>. Neat concept. Attention as currency. And from a technical standpoint, I&#8217;m interested in how they integrated with <a href="http://dev.twitter.com/">Twitter using OAuth</a>—I want to do a similar thing with the reading series web app (Readsr/Readthing/whatever) I&#8217;m working on: tweet whenever a reading series is updated. So I&#8217;ll be looking into this soon.</p>
-
-<p>First, though, I plan to deploy an alpha version of the site this weekend. I&#8217;ve been reading up on <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <a href="http://pypi.python.org/pypi/pip">pip</a>, <a href="http://fabfile.org/">fabric</a>, and <a href="http://git-scm.com/">git</a>, trying to figure out how to deploy the right way&#8211;with automated version control and dependency isolation. This part, the admin stuff, is as complicated as any coding problem I&#8217;ve faced. Looking forward to tackling it in a marathon session on Saturday!</p>
 ]]></content>
   </entry>
   

@@ -5,11 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Novelties & Traditions - William John Bert</title>
+  <title>Allow CORS with localhost in Chrome - William John Bert</title>
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, &hellip;">
+  <meta name="description" content="Today I spent some time wrestling with the notorious
+same origin policy
+in order to get CORS
+(cross-origin resource sharing)
+working in Chrome for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://williamjohnbert.com/2011/11/novelties-traditions/">
+  <link rel="canonical" href="http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -85,7 +89,7 @@
   
   <header>
     
-      <h1 class="entry-title">Novelties & Traditions</h1>
+      <h1 class="entry-title">Allow CORS With Localhost in Chrome</h1>
     
     
       <p class="meta">
@@ -101,16 +105,63 @@
   
 
 
-<time datetime="2011-11-19T05:28:21-05:00" pubdate data-updated="true">Nov 19<span>th</span>, 2011</time>
+<time datetime="2013-06-25T19:04:00-04:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving&#8217;s always been my favorite holiday so I&#8217;m more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who&#8217;re renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
+<div class="entry-content"><p>Today I spent some time wrestling with the notorious
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">same origin policy</a>
+in order to get CORS
+(<a href="https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS">cross-origin resource sharing</a>)
+working in Chrome for development work I was doing between two applications
+running on localhost. Setting the <code>Access-Control-Allow-Origin</code> header to <code>*</code>
+seemed to have no effect, and
+<a href="https://code.google.com/p/chromium/issues/detail?id=67743">this bug report</a>
+nearly led me to believe that was due to a bug in Chrome that made CORS with
+localhost impossible. It&#8217;s not. It turned out that I also needed some other
+CORs-related headers: <code>Access-Control-Allow-Headers</code> and
+<code>Access-Control-Allow-Methods</code>.</p>
 
-<p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don&#8217;t Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, &#8220;Busted,&#8221; aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn&#8217;t have been doing&#8211;a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the &#8220;Busted&#8221; lesson plan</a> more than a year ago&#8211;right around the previous Friendsgiving. Hard to believe it&#8217;s been that long!</p>
+<p>This (slightly generalized) snippet of <a href="http://expressjs.com">Express.js</a>
+middleware is what ended up working for me:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Origin&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Headers&quot;</span><span class="p">,</span> <span class="s2">&quot;Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">res</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Access-Control-Allow-Methods&quot;</span><span class="p">,</span> <span class="s2">&quot;GET, PUT, POST&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With that, Chrome started making OPTIONS requests when I wanted to POST from
+localhost:3001 to localhost:2002. It seems that using <code>contentType:
+application/json</code> for POSTs forces CORS preflighting, which surprised me since
+it seems like a common case for APIs, but no matter:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="s2">&quot;/api/*&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">!==</span> <span class="s2">&quot;options&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="mi">204</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -133,12 +184,12 @@
   
 
 
-<time datetime="2011-11-19T05:28:21-05:00" pubdate data-updated="true">Nov 19<span>th</span>, 2011</time>
+<time datetime="2013-06-25T19:04:00-04:00" pubdate data-updated="true">Jun 25<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/cool-stuff/'>Cool Stuff</a>, <a class='category' href='/categories/interests/'>Interests</a>, <a class='category' href='/categories/publications/'>Publications</a>, <a class='category' href='/categories/teaching/'>Teaching</a>
+    <a class='category' href='/categories/chrome/'>chrome</a>, <a class='category' href='/categories/programming/'>programming</a>, <a class='category' href='/categories/web-development/'>web-development</a>
   
 </span>
 
@@ -147,7 +198,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2011/11/novelties-traditions/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2011/11/novelties-traditions/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/" >Tweet</a>
   
   
   
@@ -156,10 +207,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2011/08/gender-programming-and-the-power-of-language/" title="Previous Post: Gender, programming, and the power of language ">&laquo; Gender, programming, and the power of language </a>
+        <a class="basic-alignment left" href="/2013/05/juxtaposition/" title="Previous Post: Juxtaposition">&laquo; Juxtaposition</a>
       
-      
-        <a class="basic-alignment right" href="/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/" title="Next Post: How to install accelerated BLAS into a Python virtualenv">How to install accelerated BLAS into a Python virtualenv &raquo;</a>
       
     </p>
   </footer>
@@ -281,8 +330,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://williamjohnbert.com/2011/11/novelties-traditions/';
-        var disqus_url = 'http://williamjohnbert.com/2011/11/novelties-traditions/';
+        var disqus_identifier = 'http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/';
+        var disqus_url = 'http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/';
         var disqus_script = 'embed.js';
       
     (function () {
