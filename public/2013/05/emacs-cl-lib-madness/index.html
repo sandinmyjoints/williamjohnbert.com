@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Poetry for the President - William John Bert</title>
+  <title>Emacs cl-lib madness - William John Bert</title>
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry &hellip;">
+  <meta name="description" content="Emacs 24.3 renamed the Common Lisp emulation package from cl to cl-lib. The
+release notes say that cl in
+24.3 is now &#8220;a bunch of aliases that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://williamjohnbert.com/2011/05/poetry-for-the-president/">
+  <link rel="canonical" href="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
    <link href="/stylesheets/data-table.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -85,7 +87,7 @@
   
   <header>
     
-      <h1 class="entry-title">Poetry for the President</h1>
+      <h1 class="entry-title">Emacs Cl-lib Madness</h1>
     
     
       <p class="meta">
@@ -101,18 +103,46 @@
   
 
 
-<time datetime="2011-05-11T07:43:10-04:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
+<div class="entry-content"><p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
 
-<p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
 
-<p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="c1">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)</span>
+</span><span class='line'><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl-lib</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">progn</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;cl-block-wrapper</span> <span class="ss">&#39;identity</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;member*</span> <span class="ss">&#39;cl-member</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;adjoin</span> <span class="ss">&#39;cl-adjoin</span><span class="p">))</span>
+</span><span class='line'>  <span class="c1">;; Else we&#39;re on an older version so require cl.</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
+<code>cl</code>.</p>
 </div>
 
 
@@ -135,12 +165,12 @@
   
 
 
-<time datetime="2011-05-11T07:43:10-04:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/cool-stuff/'>Cool Stuff</a>, <a class='category' href='/categories/teaching/'>Teaching</a>, <a class='category' href='/categories/writing/'>Writing</a>
+    <a class='category' href='/categories/emacs/'>emacs</a>, <a class='category' href='/categories/emacs-lisp/'>emacs-lisp</a>, <a class='category' href='/categories/programming/'>programming</a>
   
 </span>
 
@@ -149,7 +179,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2011/05/poetry-for-the-president/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2011/05/poetry-for-the-president/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/" data-via="williamjohnbert" data-counturl="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/" >Tweet</a>
   
   
   
@@ -158,10 +188,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2011/05/spring-spring-spring/" title="Previous Post: Spring, spring, spring">&laquo; Spring, spring, spring</a>
+        <a class="basic-alignment left" href="/2013/05/juxtaposition/" title="Previous Post: Juxtaposition">&laquo; Juxtaposition</a>
       
       
-        <a class="basic-alignment right" href="/2011/05/marshall-barnard-laurel-marshall/" title="Next Post: Marshall, Barnard, Laurel, Marshall">Marshall, Barnard, Laurel, Marshall &raquo;</a>
+        <a class="basic-alignment right" href="/2013/06/allow-cors-with-localhost-in-chrome/" title="Next Post: Allow CORS with localhost in Chrome">Allow CORS with localhost in Chrome &raquo;</a>
       
     </p>
   </footer>
@@ -283,8 +313,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://williamjohnbert.com/2011/05/poetry-for-the-president/';
-        var disqus_url = 'http://williamjohnbert.com/2011/05/poetry-for-the-president/';
+        var disqus_identifier = 'http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/';
+        var disqus_url = 'http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/';
         var disqus_script = 'embed.js';
       
     (function () {

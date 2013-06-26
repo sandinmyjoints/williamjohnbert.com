@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-06-25T20:30:32-04:00</updated>
+  <updated>2013-06-25T20:31:33-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -68,6 +68,47 @@ it seems like a common case for APIs, but no matter:</p>
 </span><span class='line'><span class="p">});</span>
 </span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs cl-lib madness]]></title>
+    <link href="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/"/>
+    <updated>2013-05-27T15:52:00-04:00</updated>
+    <id>http://williamjohnbert.com/2013/05/emacs-cl-lib-madness</id>
+    <content type="html"><![CDATA[<p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
+
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="c1">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)</span>
+</span><span class='line'><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl-lib</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">progn</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;cl-block-wrapper</span> <span class="ss">&#39;identity</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;member*</span> <span class="ss">&#39;cl-member</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;adjoin</span> <span class="ss">&#39;cl-adjoin</span><span class="p">))</span>
+</span><span class='line'>  <span class="c1">;; Else we&#39;re on an older version so require cl.</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
+<code>cl</code>.</p>
 ]]></content>
   </entry>
   
@@ -1535,17 +1576,6 @@ very helpful as well.</p>
 <p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
 
 <p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spring, spring, spring]]></title>
-    <link href="http://williamjohnbert.com/2011/05/spring-spring-spring/"/>
-    <updated>2011-05-09T05:59:26-04:00</updated>
-    <id>http://williamjohnbert.com/2011/05/spring-spring-spring</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
-
-<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
 ]]></content>
   </entry>
   

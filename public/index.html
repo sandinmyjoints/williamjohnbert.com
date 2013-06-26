@@ -177,6 +177,74 @@ it seems like a common case for APIs, but no matter:</p>
       
   <header>
     
+      <h1 class="entry-title"><a href="/2013/05/emacs-cl-lib-madness/">Emacs Cl-lib Madness</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-27T15:52:00-04:00" pubdate data-updated="true">May 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
+
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="c1">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)</span>
+</span><span class='line'><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl-lib</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">progn</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;cl-block-wrapper</span> <span class="ss">&#39;identity</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;member*</span> <span class="ss">&#39;cl-member</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">defalias</span> <span class="ss">&#39;adjoin</span> <span class="ss">&#39;cl-adjoin</span><span class="p">))</span>
+</span><span class='line'>  <span class="c1">;; Else we&#39;re on an older version so require cl.</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;cl</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
+<code>cl</code>.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2013/05/juxtaposition/">Juxtaposition</a></h1>
     
     
@@ -559,64 +627,6 @@ PhD thesis.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore Trouble With Nested Nodes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-19T06:23:07-04:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD
-application. For now, we&#8217;re trying out ExtJS as the client-side UI
-framework. One of the use cases is selecting and editing nested objects,
-represented in our relational database with foreign keys. Let&#8217;s call the root
-object a Task, which consists of nested Goals, which have Steps. Each of those
-is defined by a model on the backend that is more or less mimicked by an
-Ext.data.Model on the client-side, and each model has a proxy to a RESTful
-endpoint on the backend for create/retrieve/update/delete operations. We want to
-use an Ext.tree.TreePanel for the UI, so we hold the data in an
-Ext.data.TreeStore. So far so good.</p>
-
-<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this
-error: <code>Uncaught TypeError: Cannot read property 'internalId' of
-undefined</code>. Hmm. Everything seems to be working. Our models are loading the
-correct data. No obvious bugs. A lot of inspecting and googling and reading
-documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this
-thread</a>. The
-key quote:</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -646,6 +656,10 @@ key quote:</p>
       </li>
     
       <li class="post">
+        <a href="/2013/05/emacs-cl-lib-madness/">Emacs cl-lib madness</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/05/juxtaposition/">Juxtaposition</a>
       </li>
     
@@ -655,10 +669,6 @@ key quote:</p>
     
       <li class="post">
         <a href="/2013/01/review-of-requests-1-dot-0/">Review of Requests 1.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/11/update-and-rescheduling/">Update and Rescheduling</a>
       </li>
     
   </ul>

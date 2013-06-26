@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: emacs | William John Bert]]></title>
+  <link href="http://williamjohnbert.com/categories/emacs/atom.xml" rel="self"/>
+  <link href="http://williamjohnbert.com/"/>
+  <updated>2013-06-25T20:31:33-04:00</updated>
+  <id>http://williamjohnbert.com/</id>
+  <author>
+    <name><![CDATA[William John Bert]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Emacs cl-lib madness]]></title>
+    <link href="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/"/>
+    <updated>2013-05-27T15:52:00-04:00</updated>
+    <id>http://williamjohnbert.com/2013/05/emacs-cl-lib-madness</id>
+    <content type="html"><![CDATA[<p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
+<a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
+24.3 is now "a bunch of aliases that provide the old, non-prefixed names", but I
+encountered some problems with certain packages searching for--as best I can
+determine--function names that at some point changed but were not kept around as
+aliases. This was particularly problematic when trying to run 24.3 on OS X
+10.6.8.</p>
+
+<p>In case anyone else runs into this problem, here's my solution:</p>
+
+<p>``` scheme
+;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in >=24.3.)
+(if (require 'cl-lib nil t)
+  (progn</p>
+
+<pre><code>(defalias 'cl-block-wrapper 'identity)
+(defalias 'member* 'cl-member)
+(defalias 'adjoin 'cl-adjoin))
+</code></pre>
+
+<p>  ;; Else we're on an older version so require cl.
+  (require 'cl))
+```</p>
+
+<p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
+packages don't complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn't succeed, we're on an older Emacs, so require the old
+<code>cl</code>.</p>
+]]></content>
+  </entry>
+  
+</feed>

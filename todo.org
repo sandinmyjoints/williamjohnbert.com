@@ -1,0 +1,36 @@
+* DONE Get a list of all URLs on old wjb.com
+  CLOSED: [2012-11-04 Sun 17:50]
+* DONE export old WP data, converto MD
+  CLOSED: [2012-11-04 Sun 17:50]
+* DONE choose a static site framework
+  CLOSED: [2012-11-04 Sun 17:51]
+  - jekyll?
+  - octopress?
+  - use github pages?
+* DONE choose a template
+  CLOSED: [2012-11-04 Sun 18:26]
+* DONE 404 page
+  CLOSED: [2012-11-04 Sun 18:47]
+* DONE switch domain
+  CLOSED: [2012-11-04 Sun 20:45]
+* DONE convert comments
+  CLOSED: [2012-11-08 Thu 07:39]
+* DONE figure out how to use submodule
+  CLOSED: [2012-11-08 Thu 20:59]
+* TODO rename octopress to williamjohnbert.com and fork my own repo
+* TODO determine if www. subdomain is causing any trouble?
+* TODO Fix broken mail icon
+* TODO Fix broken RSS icon
+* TODO Customize background image
+* TODO Improve 404 page
+* TODO Fix images.
+* DONE Add Read more links.
+  CLOSED: [2012-11-08 Thu 19:36]
+* TODO Deploy rake task.
+  - http://joshuawood.net/how-to-deploy-jekyll-slash-octopress-to-heroku/
+  - http://jasongarber.com/blog/2012/01/10/deploying-octopress-to-heroku-with-a-custom-buildpack
+* TODO Do 301 redirects to better url structure: http://adamwiggall.com/blog/2012/01/05/redirects-octopress-and-heroku
+* TODO Learn more about octopress
+  - http://octopress.org/docs/blogging/
+* TODO separate repos for code and content
+  - http://alblue.bandlem.com/2012/02/disadvantages-of-octopress.html

@@ -9,7 +9,8 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="My good friend Steve has hosted the lowercase, the monthly reading series associated with 826DC, for three years. Steve has a charming habit of &hellip;">
+  <meta name="description" content="At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD
+application. For now, we&#8217;re trying out ExtJS as the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +83,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">ExtJS TreeStore Trouble With Nested Nodes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-19T06:23:07-04:00" pubdate data-updated="true">Apr 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD
+application. For now, we&#8217;re trying out ExtJS as the client-side UI
+framework. One of the use cases is selecting and editing nested objects,
+represented in our relational database with foreign keys. Let&#8217;s call the root
+object a Task, which consists of nested Goals, which have Steps. Each of those
+is defined by a model on the backend that is more or less mimicked by an
+Ext.data.Model on the client-side, and each model has a proxy to a RESTful
+endpoint on the backend for create/retrieve/update/delete operations. We want to
+use an Ext.tree.TreePanel for the UI, so we hold the data in an
+Ext.data.TreeStore. So far so good.</p>
+
+<p>We coded up our prototype, but when a user selects a Task, Ext JS throws this
+error: <code>Uncaught TypeError: Cannot read property 'internalId' of
+undefined</code>. Hmm. Everything seems to be working. Our models are loading the
+correct data. No obvious bugs. A lot of inspecting and googling and reading
+documentation later, I discover <a href="http://www.sencha.com/forum/archive/index.php/t-160068.html?s=03fb3a67ebf1e1ef856bc5f277ad12e8">this
+thread</a>. The
+key quote:</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2012/04/extjs-treestore-trouble-with-nested-nodes/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1059,44 +1118,6 @@ very helpful as well.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/05/spring-spring-spring/">Spring, Spring, Spring</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-09T05:59:26-04:00" pubdate data-updated="true">May 9<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
-
-<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1128,6 +1149,10 @@ very helpful as well.</p>
       </li>
     
       <li class="post">
+        <a href="/2013/05/emacs-cl-lib-madness/">Emacs cl-lib madness</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/05/juxtaposition/">Juxtaposition</a>
       </li>
     
@@ -1137,10 +1162,6 @@ very helpful as well.</p>
     
       <li class="post">
         <a href="/2013/01/review-of-requests-1-dot-0/">Review of Requests 1.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/11/update-and-rescheduling/">Update and Rescheduling</a>
       </li>
     
   </ul>
