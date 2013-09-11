@@ -9,8 +9,7 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="At work, we&#8217;re building an app to edit objects in a database&#8211;a classic CRUD
-application. For now, we&#8217;re trying out ExtJS as the &hellip;">
+  <meta name="description" content="Tomorrow at the May 2012 DC Python meetup, I&#8217;m giving a talk on gensim, a Python framework for topic modeling that I use at work and on my own &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +82,65 @@ application. For now, we&#8217;re trying out ExtJS as the &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Interview With Radim Rehurek, Creator of Gensim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-30T08:58:42-04:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
+
+<p><strong>WB: Why did you create gensim?</strong></p>
+
+<p>RR: Consulting gig for a digital library project (Czech Digital
+Mathematics Library, dml.cz), some 3 years ago. It started off as a
+few loosely connected Python scripts to support the &#8220;show similar
+articles&#8221; functionality. We wanted to use some of the statistical
+methods, like latent semantic analysis. Originally, gensim only
+contained wrappers around existing Fortran libraries for SVD, like
+Propack and Svdpack.</p>
+
+<p>But there were issues with that, and it scaled badly (all documents in
+RAM), so I started looking for more scalable, online algorithms.
+Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
+
+<p>In the end, I developed new algorithms for these methods for gensim.
+The theoretical part of this research later turned into a part of my
+PhD thesis.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/2012/04/interview-with-radim-rehurek-creator-of-gensim/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1078,46 +1136,6 @@ very helpful as well.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/05/poetry-for-the-president/">Poetry for the President</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-11T07:43:10-04:00" pubdate data-updated="true">May 11<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
-
-<p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
-
-<p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1145,6 +1163,10 @@ very helpful as well.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times/">How legit HTTP (with an async assist) massacred my Node workers</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/06/allow-cors-with-localhost-in-chrome/">Allow CORS with localhost in Chrome</a>
       </li>
     
@@ -1158,10 +1180,6 @@ very helpful as well.</p>
     
       <li class="post">
         <a href="/2013/01/reprise-of-zero-to-node/">Zero to Node, Again</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/01/review-of-requests-1-dot-0/">Review of Requests 1.0</a>
       </li>
     
   </ul>
