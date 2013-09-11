@@ -9,20 +9,21 @@ categories: nodejs http cluster express
 
 An uncaught exception in our Node app was causing not only one, but two and then
 three workers to die. (Fortunately, we hardly ever encounter uncaught
-exceptions. Because we're Node studs! But still.)
+exceptions. Really, just this one since launch a few months ago. We're Node
+studs! Right?)
 
 The funny thing is that we're using Express, which (via Connect) wraps each
 request / response in a try / catch. And we use Express's error handler, which
 returns 500 on unhandled errors.
 
 Another funny thing is we use cluster, which isolates workers from each other.
-They live in entirely separate, solipsistic processes.
+They live in separate, solipsistic processes.
 
 But instead of returning 500, our worker simply died. And, as if in sympathy,
 the rest immediately followed.
 
-Time to get to the bottom of this. A Node stud like me can figure it out, no
-sweat.
+Time to get to the bottom of this. A Node stud like me can figure it out. No
+sweat. Right?
 
 For a sanity check, I went to Chrome and Firefox's network inspectors. Only one
 POST, the bad request that triggered the exception. Everything else looks
@@ -63,13 +64,16 @@ My mind was somewhat blown. The browers were right after all. They were just
 following HTTP. And&mdash;helpfully!&mdash;hiding the resent POSTs from the network
 inspector.
 
+But POSTs are dangerous. They mutate resources! I must only click the *Order*
+button once or I may get charged multiple times!
+
 I had a thought. One I have often, yet each time, it seems new again: *I have
 much to learn*.
 
-Back to the 500s, or lack thereof. Which got funnier still when I realized that
+Back to the 500s. Or lack thereof. Which got funnier still when I realized that
 other errors in our controllers that threw exceptions *did* return 500s. Being a
 hands-on kind of guy, I added one right at the top of a route controller: `throw
-new Error("uh-oh")`. My dev server spat back at me: `500, uh-oh.`
+new Error("uh-oh")`. My dev server spat back: `500 Error: uh-oh`.
 
 So why did that one particular error never, ever return a 500, or any response
 of any kind?
@@ -87,12 +91,12 @@ bit of [this](https://github.com/brianc/node-domain-middleware), a dash of
 / response in a domain.
 
 But how do I get this domain into my controller? My solution was to attach it to
-`res.locals._domain`. Good solution? Well, I'm sure there's a better way. Good
-enough? It solved my immediate problem:
+`res.locals._domain`. Good solution? I don't know. I suspect there's a better
+way. Good enough? It solved my immediate problem:
 
 ```js
-Model.findOne({key: value}, res.locals._domain.bind(function(err, doc) {
-  // This error handler can throw all it wants. My domain will catch it.
+Model.find({key: value}, res.locals._domain.bind(function(err, docs) {
+  // This callback can throw all it wants. My domain will catch it.
 }));
 ```
 
@@ -102,8 +106,8 @@ POSTs. The silent gratitude of the spared workers is its own reward.
 
 Except, do I need to bind every
 [mongoose](https://github.com/LearnBoost/mongoose/pull/1337) and
-[other async IO operation](https://github.com/joyent/node/issues/3908) in my app? There
-are many.
+[other kind of async IO operation](https://github.com/joyent/node/issues/3908)
+in my app? There are many.
 
 Many.
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cluster | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/cluster/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-09-10T20:04:41-04:00</updated>
+  <updated>2013-09-11T08:20:20-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -20,20 +20,21 @@
     <id>http://williamjohnbert.com/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times</id>
     <content type="html"><![CDATA[<p>An uncaught exception in our Node app was causing not only one, but two and then
 three workers to die. (Fortunately, we hardly ever encounter uncaught
-exceptions. Because we're Node studs! But still.)</p>
+exceptions. Really, just this one since launch a few months ago. We're Node
+studs! Right?)</p>
 
 <p>The funny thing is that we're using Express, which (via Connect) wraps each
 request / response in a try / catch. And we use Express's error handler, which
 returns 500 on unhandled errors.</p>
 
 <p>Another funny thing is we use cluster, which isolates workers from each other.
-They live in entirely separate, solipsistic processes.</p>
+They live in separate, solipsistic processes.</p>
 
 <p>But instead of returning 500, our worker simply died. And, as if in sympathy,
 the rest immediately followed.</p>
 
-<p>Time to get to the bottom of this. A Node stud like me can figure it out, no
-sweat.</p>
+<p>Time to get to the bottom of this. A Node stud like me can figure it out. No
+sweat. Right?</p>
 
 <p>For a sanity check, I went to Chrome and Firefox's network inspectors. Only one
 POST, the bad request that triggered the exception. Everything else looks
@@ -74,13 +75,16 @@ this
 following HTTP. And&mdash;helpfully!&mdash;hiding the resent POSTs from the network
 inspector.</p>
 
+<p>But POSTs are dangerous. They mutate resources! I must only click the <em>Order</em>
+button once or I may get charged multiple times!</p>
+
 <p>I had a thought. One I have often, yet each time, it seems new again: <em>I have
 much to learn</em>.</p>
 
-<p>Back to the 500s, or lack thereof. Which got funnier still when I realized that
+<p>Back to the 500s. Or lack thereof. Which got funnier still when I realized that
 other errors in our controllers that threw exceptions <em>did</em> return 500s. Being a
 hands-on kind of guy, I added one right at the top of a route controller: <code>throw
-new Error("uh-oh")</code>. My dev server spat back at me: <code>500, uh-oh.</code></p>
+new Error("uh-oh")</code>. My dev server spat back: <code>500 Error: uh-oh</code>.</p>
 
 <p>So why did that one particular error never, ever return a 500, or any response
 of any kind?</p>
@@ -98,12 +102,12 @@ bit of <a href="https://github.com/brianc/node-domain-middleware">this</a>, a da
 / response in a domain.</p>
 
 <p>But how do I get this domain into my controller? My solution was to attach it to
-<code>res.locals._domain</code>. Good solution? Well, I'm sure there's a better way. Good
-enough? It solved my immediate problem:</p>
+<code>res.locals._domain</code>. Good solution? I don't know. I suspect there's a better
+way. Good enough? It solved my immediate problem:</p>
 
 <p><code>js
-Model.findOne({key: value}, res.locals._domain.bind(function(err, doc) {
-  // This error handler can throw all it wants. My domain will catch it.
+Model.find({key: value}, res.locals._domain.bind(function(err, docs) {
+  // This callback can throw all it wants. My domain will catch it.
 }));
 </code></p>
 
@@ -113,8 +117,8 @@ POSTs. The silent gratitude of the spared workers is its own reward.</p>
 
 <p>Except, do I need to bind every
 <a href="https://github.com/LearnBoost/mongoose/pull/1337">mongoose</a> and
-<a href="https://github.com/joyent/node/issues/3908">other async IO operation</a> in my app? There
-are many.</p>
+<a href="https://github.com/joyent/node/issues/3908">other kind of async IO operation</a>
+in my app? There are many.</p>
 
 <p>Many.</p>
 
