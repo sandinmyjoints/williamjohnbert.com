@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How legit HTTP (with an async assist) massacred my Node workers"
+title: "How legit HTTP (with an async io assist) massacred my Node workers"
 date: 2013-09-10 18:55
 comments: true
 categories: nodejs http cluster express

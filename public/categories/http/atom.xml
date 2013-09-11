@@ -4,7 +4,7 @@
   <title><![CDATA[Category: http | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/http/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-09-10T19:59:37-04:00</updated>
+  <updated>2013-09-10T20:04:41-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[How legit HTTP (with an async assist) massacred my Node workers]]></title>
+    <title type="html"><![CDATA[How legit HTTP (with an async io assist) massacred my Node workers]]></title>
     <link href="http://williamjohnbert.com/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times/"/>
     <updated>2013-09-10T18:55:00-04:00</updated>
     <id>http://williamjohnbert.com/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times</id>
