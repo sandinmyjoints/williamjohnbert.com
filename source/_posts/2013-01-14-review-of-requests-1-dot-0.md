@@ -61,7 +61,19 @@ categories:
 <p>Programmers strive to be subtext-free. The code is tricky enough. Miss a comma or closing brace, and spend hours trying to find your mistake. The computer forgives nothing. Good programmers deal with this by making reality as clean as possible.</p>
 <p>For example, within an app that tracks the books you've read, you've either read a book or not, or perhaps you're currently reading it. There's no &quot;I read a third of it, then put it down for a while,&quot; or &quot;I stole it from a friend and almost finished it but now Vanessa's borrowing it, I think.&quot; A system that tried to encode every possible state of any person's relationship to their books would never be finished. This is how programmers deal with reality: by cleaning it up.</p>
 <p>What I said above about Requests being like Hemingway isn't entirely accurate: his clean prose belies a messy reality that is always present; meaning is often unstated. Likewise, when Austen begins, &quot;It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife,&quot; she is not simply stating a universal truth that she has identified. The sentence comes with subtext: the truth is universal in the minds of some people, but not others, an oxymoron, emphasized by the sentence's lack of an active subject. There is also commentary on the relative power of men and women in her time. Here is a richness that demands and rewards repeated reading, offering interpretations as varied as the number of people who read it.</p>
-<p>When I write a story, I thrive on subtext, on creating shades of meaning and multiple readings. Ambiguity and elision and irony are my techniques for dealing with the messiness of reality. But when I type:</p>
+<p>When I write a story, I thrive on subtext, on creating shades of meaning and
+multiple readings. Ambiguity and elision and irony are my techniques for dealing
+with the messiness of reality. But when I type:</p>
+<pre><code>import requests, config
+user = config.user
+host = config.host
+url = "/api/login"
+data = {
+  "email": user['email'],
+  "password": user['password']
+}
+session = requests.Session()
+session.post(host+url, data=data)</code></pre>
 <p>I aim to banish ambiguity. I name my variables clearly, according to what data they hold. I structure the code to indicate the flow of execution. Requests helps me here: the last two lines that create a new session correspond to how I intuitively think of creating a session. The equivalent in urllib2 would be messier and more verbose.</p>
 <p>I want future readers--myself and others--to understand exactly what that code is doing. Future readers are as sure a thing with code as with literature. <sup><a href="#fn5" class="footnoteRef" id="fnref5">5</a></sup> I'll be re-reading my code in six months when I add a new feature in another part of the program and it suddenly breaks something here and I have to figure out how they are connected.</p>
 <h2 id="what-its-like-to-work-with-a-bad-api">What it's like to work with a bad API</h2>

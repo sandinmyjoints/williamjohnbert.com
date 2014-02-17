@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cool stuff | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/cool-stuff/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2013-11-02T22:41:22-04:00</updated>
+  <updated>2014-02-17T17:36:01-05:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -149,7 +149,21 @@
 <p>What I said above about Requests being like Hemingway isn't entirely accurate: his clean prose belies a messy reality that is always present; meaning is often unstated. Likewise, when Austen begins, &quot;It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife,&quot; she is not simply stating a universal truth that she has identified. The sentence comes with subtext: the truth is universal in the minds of some people, but not others, an oxymoron, emphasized by the sentence's lack of an active subject. There is also commentary on the relative power of men and women in her time. Here is a richness that demands and rewards repeated reading, offering interpretations as varied as the number of people who read it.</p>
 
 
-<p>When I write a story, I thrive on subtext, on creating shades of meaning and multiple readings. Ambiguity and elision and irony are my techniques for dealing with the messiness of reality. But when I type:</p>
+<p>When I write a story, I thrive on subtext, on creating shades of meaning and
+multiple readings. Ambiguity and elision and irony are my techniques for dealing
+with the messiness of reality. But when I type:</p>
+
+
+<pre><code>import requests, config
+user = config.user
+host = config.host
+url = "/api/login"
+data = {
+  "email": user['email'],
+  "password": user['password']
+}
+session = requests.Session()
+session.post(host+url, data=data)</code></pre>
 
 
 <p>I aim to banish ambiguity. I name my variables clearly, according to what data they hold. I structure the code to indicate the flow of execution. Requests helps me here: the last two lines that create a new session correspond to how I intuitively think of creating a session. The equivalent in urllib2 would be messier and more verbose.</p>
