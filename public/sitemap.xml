@@ -173,6 +173,14 @@
         <lastmod>2013-09-11T12:28:36-04:00</lastmod>
     </url>
     <url>
+        <loc>http://williamjohnbert.com/2014/02/towards-100-percent-uptime-with-node/</loc>
+        <lastmod>2014-02-17T17:36:28-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://williamjohnbert.com/2014/02/using-a-node-repl-with-emacs/</loc>
+        <lastmod>2014-02-17T17:36:28-05:00</lastmod>
+    </url>
+    <url>
         <loc>http://williamjohnbert.com/404.html</loc>
         <lastmod>2013-05-12T15:39:45-04:00</lastmod>
     </url>
@@ -182,11 +190,11 @@
     </url>
     <url>
         <loc>http://williamjohnbert.com/archives/</loc>
-        <lastmod>2014-02-17T17:35:23-05:00</lastmod>
+        <lastmod>2014-02-17T17:36:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://williamjohnbert.com/blog/archives/</loc>
-        <lastmod>2014-02-17T17:35:23-05:00</lastmod>
+        <lastmod>2014-02-17T17:36:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://williamjohnbert.com/contact/</loc>
@@ -194,7 +202,7 @@
     </url>
     <url>
         <loc>http://williamjohnbert.com/</loc>
-        <lastmod>2014-02-17T17:35:23-05:00</lastmod>
+        <lastmod>2014-02-17T17:36:28-05:00</lastmod>
     </url>
     <url>
         <loc>http://williamjohnbert.com/projects/</loc>

@@ -9,8 +9,8 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="An uncaught exception in our Node app was causing not only one, but two and then
-three workers to die. (Fortunately, we hardly ever encounter &hellip;">
+  <meta name="description" content="Running a repl Emacs is often convenient for evaluating code, checking
+syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +83,158 @@ three workers to die. (Fortunately, we hardly ever encounter &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/02/using-a-node-repl-with-emacs/">Using a Node Repl in Emacs With Nvm and Npm</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-17T16:37:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Running a repl Emacs is often convenient for evaluating code, checking
+syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that
+I needed to do a little work to get everything working the way I wanted.</p>
+
+<p>My first question was: which Node? With
+<a href="https://github.com/creationix/nvm">nvm</a>, I&#8217;ve installed multiple version on my
+machine. So I needed a way to specify one to execute.</p>
+
+<p>Another question was: where to run Node? Since <a href="https://www.npmjs.org/">npm</a>
+looks inside <code>node_modules</code> directories starting with the current directory and
+working up the file system hierarchy, your current working directory is
+important. If I want access to the npm modules installed for project A, I need
+to start my repl&#8217;s Node process from <code>~/scm/projectA</code>.</p>
+
+<p>But that raises another question: what happens when I want to switch to project
+B? Do I need to use <code>process.chdir()</code> to switch the Node repl&#8217;s current working
+directory to <code>~/scm/projectB</code>? That&#8217;s clumsy and annoying.</p>
+
+<p>Here&#8217;s how I answered these questions:</p>
+
+<p><a href="https://github.com/rejeep/nvm.el">nvm.el</a> gives you <code>nvm-use</code> to activate a
+   version of Node within Emacs. It&#8217;s basically a nice wrapper around setting
+   the enviroment variables <code>NVM_BIN</code> and <code>NVM_PATH</code> and adding the path to the
+   Node version you want to use to your <code>PATH</code>. Great!</p>
+
+<p>Except for one problem: <code>nvm-use</code> isn&#8217;t interactive. It&#8217;s meant to be use
+programmatically. So I needed to write a small <code>do-nvm-use</code> wrapper that lets me
+specify a version and then activate it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='common-lisp'><span class='line'><span class="p">(</span><span class="nv">require-package</span> <span class="ss">&#39;nvm</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nb">defun</span> <span class="nv">do-nvm-use</span> <span class="p">(</span><span class="nv">version</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">interactive</span> <span class="s">&quot;sVersion: &quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">nvm-use</span> <span class="nv">version</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">exec-path-from-shell-copy-env</span> <span class="s">&quot;PATH&quot;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To specify where to run Node, I wrote another small defun, named <code>run-node</code>,
+that prompts for a directory in which to start Node. Before it does this,
+though, it checks whether a program named node is in the <code>exec-path</code>, and if
+not, it runs <code>do-nvm-use</code> first. Once we have a Node to execute and a directory
+to execute it in, we can make a new <code>comint</code> buffer bound to the repl process.</p>
+
+<p>To address the issue of different repls needing to be run for different
+projects, <code>run-node</code> adds the cwd to the buffer name. Repls for project A and
+project B will live in buffers named <code>*-node-repl-~/scm/projectA</code> and
+<code>*-node-repl-~/scm/projectB</code>, respectively&mdash;making switching to the right
+buffer with <a href="http://www.emacswiki.org/emacs/InteractivelyDoThings">ido</a> trivial.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='common-lisp'><span class='line'><span class="p">(</span><span class="nb">defun</span> <span class="nv">run-node</span> <span class="p">(</span><span class="nv">cwd</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nv">interactive</span> <span class="s">&quot;DDirectory: &quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nv">executable-find</span> <span class="s">&quot;node&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nv">call-interactively</span> <span class="ss">&#39;do-nvm-use</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">default-directory</span> <span class="nv">cwd</span><span class="p">))</span>
+</span><span class='line'>        <span class="p">(</span><span class="nv">pop-to-buffer</span> <span class="p">(</span><span class="nv">make-comint</span> <span class="p">(</span><span class="nb">format</span> <span class="s">&quot;node-repl-%s&quot;</span> <span class="nv">cwd</span><span class="p">)</span> <span class="s">&quot;node&quot;</span> <span class="no">nil</span> <span class="s">&quot;--interactive&quot;</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now to start my Node repls, I just call <code>run-node</code> and I&#8217;m all set!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/02/towards-100-percent-uptime-with-node/">Towards 100% Uptime With Node</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-17T16:18:00-05:00" pubdate data-updated="true">Feb 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In December, I gave a talk at
+<a href="http://www.meetup.com/Nova-Node/events/154016332/">Nova Node</a> called
+<a href="http://sandinmyjoints.github.io/towards-100-pct-uptime/">&#8220;Towards 100% Uptime with Node.js&#8221;</a>.
+I wrote an accompanying blog post for the
+<a href="http://engineering.fluencia.com">Fluencia / SpanishDict engineering blog</a>:
+<a href="http://engineering.spanishdict.com/blog/2013/12/20/the-4-keys-to-100-uptime-with-nodejs">The 4 Keys to 100% Uptime with Node.js</a>.</p>
+
+<p>Hopefully these resources will be useful for other Node engineers out
+there&mdash;they have helped us have confidence that downtime is not a problem
+for our users.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -623,91 +775,6 @@ sounds interesting to you, come by!</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/05/relatively-quick-and-easy-gensim-example-code/">(Relatively) Quick and Easy Gensim Example Code</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-04T04:12:23-04:00" pubdate data-updated="true">May 4<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
-
-<p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
-
-<p>Note that this code <strong>will not work out of the box</strong>. To train the models, you need to provide your own background corpus (a collection of documents, where a document can range from one sentence up to multiple pages of text). Choosing a good corpus is an art; generally, you want tens of thousands of documents that are representative of your problem domain. Like the gensim tutorial, this code also shows how to build a corpus from Wikipedia for experimentation, though note that doing so require a lot of computing time. You could potentially <a href="http://williamjohnbert.com/2012/03/how-to-install-accelerated-blas-into-a-python-virtualenv/">save hours by installing accelerated BLAS on your system</a>.</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/2012/05/relatively-quick-and-easy-gensim-example-code/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/">An Introduction to Gensim: &#8220;Topic Modelling for Humans&#8221;</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-03T10:06:02-04:00" pubdate data-updated="true">May 3<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I&#8217;ve been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
-
-<p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
-
-<p>Finally, I also developed a <a href="http://github.com/sandinmyjoints/visularity">demo app to visualize semantic similarity queries</a>. It&#8217;s a Flask web app, with gensim generating data on the backend that is clustered by scipy and scikit-learn and visualized by d3.js as agglomerative and hierarchical clusters as well as a simple table and dendrogram. To make it all work in realtime, I used threading and hookbox. I call it Visularity, and it&#8217;s <a href="http://github.com/sandinmyjoints/visularity">available on github</a>. You need to provide your own model and dictionary data to use&#8211;check out my presentation and visit <a href="http://radimrehurek.com/gensim">radimrehurek.com/gensim/</a> to learn how. Comments and feedback welcome!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -733,6 +800,14 @@ sounds interesting to you, come by!</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/02/using-a-node-repl-with-emacs/">Using a Node repl in Emacs with nvm and npm</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2014/02/towards-100-percent-uptime-with-node/">Towards 100% Uptime with Node</a>
+      </li>
+    
+      <li class="post">
         <a href="/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times/">How legit HTTP (with an async io assist) massacred my Node workers</a>
       </li>
     
@@ -742,14 +817,6 @@ sounds interesting to you, come by!</p>
     
       <li class="post">
         <a href="/2013/05/emacs-cl-lib-madness/">Emacs cl-lib madness</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/05/juxtaposition/">Juxtaposition</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/01/reprise-of-zero-to-node/">Zero to Node, Again</a>
       </li>
     
   </ul>
