@@ -9,8 +9,8 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Running a repl Emacs is often convenient for evaluating code, checking
-syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that &hellip;">
+  <meta name="description" content="Running a repl inside Emacs is often convenient for evaluating code, checking
+syntax, and myriad other tasks. When I wanted to run a Node REPL, I &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,9 +109,9 @@ syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that &
   </header>
 
 
-<div class="entry-content"><p>Running a repl Emacs is often convenient for evaluating code, checking
-syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that
-I needed to do a little work to get everything working the way I wanted.</p>
+<div class="entry-content"><p>Running a repl inside Emacs is often convenient for evaluating code, checking
+syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that I
+needed to do a little set up to get everything working the way I wanted.</p>
 
 <p>My first question was: which Node? With
 <a href="https://github.com/creationix/nvm">nvm</a>, I&#8217;ve installed multiple version on my
@@ -119,13 +119,13 @@ machine. So I needed a way to specify one to execute.</p>
 
 <p>Another question was: where to run Node? Since <a href="https://www.npmjs.org/">npm</a>
 looks inside <code>node_modules</code> directories starting with the current directory and
-working up the file system hierarchy, your current working directory is
+working up the file system hierarchy, the current working directory is
 important. If I want access to the npm modules installed for project A, I need
-to start my repl&#8217;s Node process from <code>~/scm/projectA</code>.</p>
+to start my repl&#8217;s Node process from <code>path/to/projectA</code>.</p>
 
 <p>But that raises another question: what happens when I want to switch to project
 B? Do I need to use <code>process.chdir()</code> to switch the Node repl&#8217;s current working
-directory to <code>~/scm/projectB</code>? That&#8217;s clumsy and annoying.</p>
+directory to <code>path/to/projectB</code>? That&#8217;s clumsy and annoying.</p>
 
 <p>Here&#8217;s how I answered these questions:</p>
 
@@ -155,14 +155,14 @@ specify a version and then activate it:</p>
 
 <p>To specify where to run Node, I wrote another small defun, named <code>run-node</code>,
 that prompts for a directory in which to start Node. Before it does this,
-though, it checks whether a program named node is in the <code>exec-path</code>, and if
+though, it checks whether a program named <code>node</code> is in the <code>exec-path</code>, and if
 not, it runs <code>do-nvm-use</code> first. Once we have a Node to execute and a directory
 to execute it in, we can make a new <code>comint</code> buffer bound to the repl process.</p>
 
 <p>To address the issue of different repls needing to be run for different
 projects, <code>run-node</code> adds the cwd to the buffer name. Repls for project A and
-project B will live in buffers named <code>*-node-repl-~/scm/projectA</code> and
-<code>*-node-repl-~/scm/projectB</code>, respectively&mdash;making switching to the right
+project B will live in buffers named <code>*-node-repl-path/to/projectA</code> and
+<code>*-node-repl-path/to/projectB</code>, respectively&mdash;making switching to the right
 buffer with <a href="http://www.emacswiki.org/emacs/InteractivelyDoThings">ido</a> trivial.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
