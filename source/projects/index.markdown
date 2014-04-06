@@ -7,9 +7,25 @@ title: Projects
 wordpress_id: 15
 ---
 
+## Conversations and Connections ##
+
+In April 2014, I discusssed my experience co-curating
+[Call + Response](http://callandresponsedc.org/) during the "Let's Make Stuff
+Together: Collaboration in Writing" panel at the 2014
+[Conversations and Connections conference](http://writersconnectconference.com/).
+
+## Towards 100% Uptime with Node ##
+
+I gave a talk at the [December 2013 Nova Node](http://www.meetup.com/Nova-Node/events/154016332/)
+called ["Towards 100% Uptime with Node.js"](http://sandinmyjoints.github.io/towards-100-pct-uptime/).
+It explained how to keep Node apps running all the time by sensibly handling
+uncaught exceptions, using domains to contain errors, managing processes with
+the cluster module, and gracefully terminating TCP connections when necessary.
+
+
 ## Zero to Node ##
 
-I gave a talk at the [November 2012 Nova-Node meetup](http://www.meetup.com/Nova-Node/events/89366852/) titled [Zero to Node: A Case Study of Deploying Node in Production](http://sandinmyjoints.github.com/zero-to-node/). It was about my experience building a text-to-speech service powered by Node.js during my first month at SpanishDict, covering topics such as:
+I gave a talk at the [November 2012 Nova Node meetup](http://www.meetup.com/Nova-Node/events/89366852/) titled [Zero to Node: A Case Study of Deploying Node in Production](http://sandinmyjoints.github.com/zero-to-node/). It was about my experience building a text-to-speech service powered by Node.js during my first month at SpanishDict, covering topics such as:
 
 * Node.js basics.
 * How to structure an Express app.
@@ -94,11 +110,10 @@ History](http://826dc.org/?page_id=24) (including all the copy for the Species
 Identification Chart pictured below), and led and TAed many workshops, including
 some of the ones that led to _[Get Used to the Seats](http://826dc.org/?p=510)_
 and _[The Way We See It](http://826dc.org/?p=512)_. Most recently, in November
-2010, I led a workshop series for middle schoolers called [_Caught in the
-Act_](http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/), and I
+2010, I led a workshop series for middle schoolers called [_Caught in the Act_](http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/), and I
 served as Secretary of the Board up through February 2011.
 
 
 
 
-[![Museum of Unnatural History Species Identification Flowchart](http://williamjohnbert.com/wp-content/uploads/2010/11/chart_11.jpg)](http://williamjohnbert.com/wp-content/uploads/2010/11/chart_11.jpg)
+[![Museum of Unnatural History Species Identification Flowchart](/images/826dc_flowchart_11.jpg)](/images/826dc_flowchart_11.jpg)
