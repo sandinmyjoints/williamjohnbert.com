@@ -34,3 +34,8 @@
   - http://octopress.org/docs/blogging/
 * TODO separate repos for code and content
   - http://alblue.bandlem.com/2012/02/disadvantages-of-octopress.html
+* rvm commands
+  - rvm ls
+  - rvm gemset list
+  - rvm use <version>
+  - rvm use octopress
