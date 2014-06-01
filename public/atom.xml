@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-04-06T12:13:47-04:00</updated>
+  <updated>2014-06-01T17:17:52-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,390 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Handing off a legacy site in a way that makes everyone happier]]></title>
+    <link href="http://williamjohnbert.com/2014/04/handing-off-a-legacy-site/"/>
+    <updated>2014-04-30T18:52:00-04:00</updated>
+    <id>http://williamjohnbert.com/2014/04/handing-off-a-legacy-site</id>
+    <content type="html"><![CDATA[<p>Here&#8217;s how I turned over maintenance of a legacy site &#8211; built as a one-off
+project years ago using now outdated technology &#8211; to my non-techincal
+cofounder, with only a few hours of work. Best of all, it now uses evergreen
+technology that will make it easy for her to update for years to come, and
+everyone is happy with the outcome.</p>
+
+<h3>The problem</h3>
+
+<p>I created <a href="http://www.callandresponsedc.org">Call and Response</a> when my friend
+Kira and I decided to co-curate an art show of that name in 2010. It became an
+annual event, and each year I updated the website with the new participants and
+details. This year, Kira is continuing the show with support from others because
+I&#8217;m out of capacity to help.</p>
+
+<p>Kira needs to be be able to update the website. It lists what the concept behind
+the show is; who&#8217;s participating; where the show is; when it opens; and more. I
+created the original website using <a href="http://www.djangoproject.com">Django</a> as a
+learning exercise when I was fairly new to web development. I went all out by my
+standards of the time, creating a simple micro-CMS that helped me learn about
+the MVC pattern, etc.</p>
+
+<p>However, the project had no use outside of this particular website. It could not
+be generalized without a significant overhaul, and I had no need to generalize
+it. In fact, I had no interest in maintaining it or even working with it. I
+built it with Django 1.3, and hosted it with a service that I don&#8217;t use anymore.</p>
+
+<p>Usually, in such a case, it&#8217;s tough luck for the the web developer. Kira is not
+a web developer and has no interest in becoming one; she just wants to be able
+to update her website. The responsible thing is to step up to to the task, and
+keep the site going.</p>
+
+<p>This time I had an idea for how to reach the end goal of the site being updated
+in a timely way yet still ditching the legacy code. I thought I saw a path
+forward to handing it off to her in a way that would let her easily edit text,
+links, and images, and create new pages.</p>
+
+<h3>The solution</h3>
+
+<p>Here&#8217;s how I converted the site from a Django project that only someone who knew
+Python could update into a flat site that anyone could edit by knowing only the
+most basic HTML:</p>
+
+<p>\1. Scrape.</p>
+
+<p>  This seemed like something I could do fairly easily with my current web
+  programming tool of choice &#8211; Node.js. I just had too download and write to disk
+  every page I could find by following links that had the same host. But often
+  with things that seem straightforward, the devil&#8217;s often in the details, and
+  anyway, I figured someone else must have wanted to do this, so there had to be a
+  tool for it, which would turn this from fairly easily into dead simple.</p>
+
+<p>  The tool I found is called <a href="http://www.httrack.com/">HTTrack</a>.</p>
+
+<pre><code>$ brew install httrack
+</code></pre>
+
+<p>  I ran it against <a href="http://www.callandresponsedc.org">Call and Response</a>,
+  selecting all the default options.</p>
+
+<pre><code>$ httrack www.callandresponsedc.org (TODO check this)
+</code></pre>
+
+<p>  Lo and behold, it did exactly what I wanted. Now I had a full static version of
+  the site.</p>
+
+<p>\2. Host.</p>
+
+<p>I needed to host this static site somewhere free, reliable, and easy to use. I
+created a Github organization, initialized a git repo, created a branch named
+<code>gh-pages</code>, and pushed it to Github. Now the site was up at
+<code>callandresponsedc.github.io/callandresponsedc</code>, (albeit in a broken form due to
+the static assets&#8217; root-relative paths resulting in 404s).</p>
+
+<p>Then I added a
+<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages">CNAME</a>
+for callandresponsedc.org, and I switched the DNS from my old hosting provider
+to the name service, and added the
+<a href="http://davidensinger.com/2013/03/setting-the-dns-for-github-pages-on-namecheap/">right DNS entries</a></p>
+
+<p>Once the DNS changes took effect, the new static site was up where it needed to
+be: http://callandresponsedc.org. And it looked <em>exactly</em> as it had before: to
+any visitor who saw it before the change and again after, no difference would
+have been apparent.</p>
+
+<p>\3. Enable.</p>
+
+<p>While I&#8217;d waited for the DNS to change, I&#8217;d asked Kira to create a github account,
+added her to the organization, and spent 15 minutes writing up a brief guide to
+how to edit the HTML pages using Github.</p>
+
+<p>Thanks to
+<a href="https://github.com/blog/905-edit-like-an-ace">github&#8217;s editing tools</a>, she now
+had the ability to make changes that would take effect instantly.</p>
+
+<p>Technically, at this point, I was no longer needed. I could have handed it over
+now. Kira was enabled to do everything she needed to do. But I would have had to
+add a caveat: &#8220;By the way, when you want to change anything in the menu, or
+header, or footer, or to add a new logo or change colors, you have to do it on
+<em>every single page</em>.&#8221;</p>
+
+<p>Because Httrack, good as it is, is not good enough to produce DRY results. Each
+page of the static site repeated all the same HTML structure for its header and
+footer and body, and contained its own set of inline styles. Changing any part
+of that would have meant changing every page. There weren&#8217;t a lot pages, but
+nonetheless, I didn&#8217;t want to force that burden on K.</p>
+
+<p>I could do better.</p>
+
+<p>\4. Refactor.</p>
+
+<p>Large parts of the pages were identical, so I could factor them out into
+includes, and make a couple of simple layout templates composed of these. Same
+idea with the stylesheet.</p>
+
+<p>To make this work, I had to use something slightly more complicated than flat
+HTML files. I decided to convert the site to use
+<a href="https://help.github.com/articles/using-jekyll-with-pages">(Github-flavored) Jekyll</a>.
+I won&#8217;t repeat the instructions needed to get that up and running; just follow
+the link, and do what it says. It takes on the order of a few minutes.</p>
+
+<p>To refactor, I just needed to figure out exactly what was common to all pages,
+hack it out into includes, and reassemble the includes as templates. Then I&#8217;d
+specify which template to use via YAML front-matter on each page, and voila, my
+Jekyll site would be done. Because I use
+<a href="http://www.gnu.org/software/emacs/">Emacs</a>, I used
+<a href="http://www.gnu.org/software/emacs/manual/html_mono/ediff.html">ediff</a>, but you
+could do this with any diffing tool and text editor.</p>
+
+<p>A nice side effect of this was that the pages that Kira would be editing got much
+simple. They went from something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html;charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>About - Call + Response
+</span><span class='line'>  <span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://platform.twitter.com/anywhere.js?id=IrVoVLmkJDVw9Pagwdxsow&amp;amp;v=1&quot;</span>
+</span><span class='line'>          <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">content=</span><span class="s">&quot;Call + Response is an art show in Washington, DC, pairing writers and artists.&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;author&quot;</span> <span class="na">content=</span><span class="s">&quot;William John Bert&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/static/fonts/fonts.css&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/static/css/bootstrap.css&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/static/css/bootstrap-responsive.css&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;/static/css/style.css&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;fb-root&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;script&gt;</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">js</span><span class="p">,</span> <span class="nx">fjs</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="nx">s</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">js</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="nx">js</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">js</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://connect.facebook.net/en_US/all.js#xfbml=1&amp;appId=398123750217250&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">fjs</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">js</span><span class="p">,</span> <span class="nx">fjs</span><span class="p">);</span>
+</span><span class='line'><span class="p">}(</span><span class="nb">document</span><span class="p">,</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;facebook-jssdk&#39;</span><span class="p">));</span><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar navbar-fixed-top&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;navbar-inner&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container-fluid&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;brand&quot;</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>Call + Response
+</span><span class='line'>      <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container-fluid&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row-fluid&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;span3&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;well sidebar-nav&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;nav nav-list&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/about&quot;</span><span class="nt">&gt;</span>About
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/opening&quot;</span><span class="nt">&gt;</span>Opening
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/participants&quot;</span><span class="nt">&gt;</span>Participants
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/sponsors&quot;</span><span class="nt">&gt;</span>Sponsors
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/contact&quot;</span><span class="nt">&gt;</span>Contact
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/press&quot;</span><span class="nt">&gt;</span>Press
+</span><span class='line'>        <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;span9&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;chiclet pull-right visible-desktop&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://twitter.com/share&quot;</span> <span class="na">class=</span><span class="s">&quot;twitter-share-button&quot;</span> <span class="na">data-count=</span><span class="s">&quot;none&quot;</span>
+</span><span class='line'>     <span class="na">data-hashtags=</span><span class="s">&quot;callandresponsedc&quot;</span><span class="nt">&gt;</span>Tweet
+</span><span class='line'>  <span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span><span class="o">!</span><span class="kd">function</span> <span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">js</span><span class="p">,</span> <span class="nx">fjs</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="nx">s</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">d</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">js</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">js</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">js</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s2">&quot;http://platform.twitter.com/widgets.js&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">fjs</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">js</span><span class="p">,</span> <span class="nx">fjs</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">}(</span><span class="nb">document</span><span class="p">,</span> <span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;twitter-wjs&quot;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;chiclet pull-right visible-desktop&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;fb-like&quot;</span> <span class="na">data-send=</span><span class="s">&quot;true&quot;</span> <span class="na">data-width=</span><span class="s">&quot;100&quot;</span>
+</span><span class='line'>       <span class="na">data-show-faces=</span><span class="s">&quot;false&quot;</span> <span class="na">data-colorscheme=</span><span class="s">light</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;swappable-content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>            <span class="nt">&lt;h1&gt;</span>About
+</span><span class='line'><span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span><span class='line'>  Call + Response is an (almost) annual art show in the nation&#39;s capital that brings together writers and visual artists. The writers provide the call with an original piece of writing and then visual artists generate a new piece of work in response. The end result being two pieces that resonate with each other.
+</span><span class='line'>  [etc...]
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>---
+</span><span class='line'>layout: page
+</span><span class='line'>title: About
+</span><span class='line'>---
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>About
+</span><span class='line'><span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span><span class='line'>  Call + Response is an (almost) annual art show in the nation&#39;s capital that brings together writers and visual artists. The writers provide the call with an original piece of writing and then visual artists generate a new piece of work in response. The end result being two pieces that resonate with each other.
+</span><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It took an hour or so to DRY out everything, and then&#8230;I was done. A site that
+had been a mess &#8211; one-off code written years ago for an outdated version of a
+framework that I don&#8217;t use anymore &#8211; had become so simple that I could hand it
+off to my non-technical cofounder and both of us would be happier for it!</p>
+
+<p>And sure enough, since then, Kira has made numerous updates to the site, each of
+which would have taken at least one, maybe a couple, rounds of emails back and
+forth, plus a context switch for me to make the changes, and a deploy, another
+round of emails to confirm that everything now looked good. Repeat, repeat,
+repeat.</p>
+
+<p>I did this with a Django site, but it&#8217;d be just as applicable with a lot of
+Wordpress sites, or any CMS, really. Obviously, there are many cases where this
+solution wouldn&#8217;t work for a variety of reasons. But if you can make it work,
+it&#8217;s a joy to do so!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using a Node repl in Emacs with nvm and npm]]></title>
@@ -1225,194 +1609,6 @@ the basic functionality is there, and was relatively easy to achieve.</p>
 for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago
 (though if you read the comments, it seems it was actually fixed back in
 mid-July). Good timing.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[How to: Unit testing in Django with mocking and patching]]></title>
-    <link href="http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/"/>
-    <updated>2011-07-08T06:56:29-04:00</updated>
-    <id>http://williamjohnbert.com/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching</id>
-    <content type="html"><![CDATA[<h3>Background</h3>
-
-<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular
-day of the week (e.g., first Sunday of the month, third Friday of the month). I
-created a DayOfWeek model to store any particular event&#8217;s day of the week. It
-contains a method next_day_of_week() to return a datetime.date object set to
-the next occurrence of whatever weekday a given event instance is set to (this
-helps with figuring out when the next occurrence of an event is).</p>
-
-<p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
-
-<ul>
-<li>For an object with DayOfWeek set to Sunday, next_day_of_week() would return 7/3/2011 (current day).</li>
-<li>For DayOfWeek set to Monday, it would return 7/4/2011 (first subsequent Monday).</li>
-<li>For DayOfWeek set to Saturday, it would return 7/9/2011 (first subsequent Saturday).</li>
-</ul>
-
-
-<p>Sounds simple enough. It seemed like this would be a good place to do my first
-unit tests.</p>
-
-<h3>Unit Testing</h3>
-
-<p>To do unit testing, the typical method is to first write test cases and then
-write code. In this case, I&#8217;d already written my code, so I went back and wrote
-test cases, trying to forget how my code worked.</p>
-
-<p>To write test cases, you have to detail requirements for each method you want to
-test: input and expected (correct) output. The list of examples for
-next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch:
-next_day_of_week() calculates the next day of the week relative to the
-current date, by calling datetime.date.today(). So if I write expected output
-for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any
-following day. I needed a way to make datetime.date.today() always spit out my
-input date when I run tests, yet still continue to function normally outside of
-testing. Enter mocking.</p>
-
-<h3>Mocking</h3>
-
-<p>The solution was to mock out the method&#8211;to replace the real
-datetime.date.today() with a fake one that produces the same output no matter
-what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock
-library</a>. Specifically, I needed to
-use the patch decorator. This decorator makes it really easy to replace on
-particular object within the scope of a particular method.</p>
-
-<p>Before I could patch the today() method, I needed to create my own fake
-method. It would look like this:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mock</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">faketoday</span><span class="p">():</span>
-</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&quot;datetime.date.today&quot;</span><span class="p">,</span> <span class="n">faketoday</span><span class="p">)</span>
-</span><span class='line'><span class="o">...</span> <span class="k">def</span> <span class="nf">testfunc</span><span class="p">():</span>
-</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">testfunc</span><span class="p">()</span>
-</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">561</span><span class="p">,</span> <span class="ow">in</span> <span class="n">patched</span>
-</span><span class='line'>    <span class="n">arg</span> <span class="o">=</span> <span class="n">patching</span><span class="o">.</span><span class="n">__enter__</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">623</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__enter__</span>
-</span><span class='line'>    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span>
-</span><span class='line'><span class="ne">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s">&#39;t set attributes of built-in/extension type &#39;</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="s">&#39;</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>datetime.date</code> is considered a Python built-in and can&#8217;t be modified.</p>
-
-<h3>Modifying a Class That Can&#8217;t Be Modified</h3>
-
-<p>The trick is to write a child class that can be modified, and thus faked:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">FakeDate</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
-</span><span class='line'>  <span class="s">&quot;A fake replacement for date that can be mocked for testing.&quot;</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>All this does is create a class whose constructor returns an instance of its
-parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here
-because the new class isn&#8217;t a built-in and thus can be mocked.</p>
-
-<p>To use it, we simply decorate any test method that calls datetime.date.today()
-with a patch to replace datetime.date with FakeDate, and we also provide
-FakeDate a fake today() method that returns only and always the particular we
-are going to use for testing:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">TestDayOfWeek</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-</span><span class='line'>  <span class="sd">&quot;&quot;&quot;Test the day of the week functions.&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;series.models.date&#39;</span><span class="p">,</span> <span class="n">FakeDate</span><span class="p">)</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">test_valid_my_next_day_of_week_sameday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class='line'>  <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-</span><span class='line'>  <span class="n">FakeDate</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">cls</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c"># July 3, 2011 is a Sunday</span>
-</span><span class='line'>  <span class="n">new_day_of_week</span> <span class="o">=</span> <span class="n">DayOfWeek</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">new_day_of_week</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="s">&quot;SU&quot;</span>
-</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">new_day_of_week</span><span class="o">.</span><span class="n">my_next_day_of_week</span><span class="p">(),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>A couple things to note: the patch only applies within this particular method,
-so each method to use a patch must be decorated. Also, the real datetime.date is
-imported in the method so we can use it inside the fake today() method. We could
-put this fake today() method inside FakeClass, but making it a lambda
-(anonymous) method assigned inside the test case gives us the flexibility to set
-a particular date for each test case.</p>
-
-<h3>Namespacing</h3>
-
-<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the
-method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first,
-and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken
-effect.</p>
-
-<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the
-series app, or series.models in Python dotted notation), date has been imported
-like so:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This means that within series.models, date is now available as
-series.models.date, so that&#8217;s the name that needs to be mocked out. For more on
-namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
-
-<p>Now we can supply out unit tests with any date we want, ensuring that we know
-what the results should be and can test against them.</p>
-
-<h3>References</h3>
-
-<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a>
-(I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally,
-the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was
-very helpful as well.</p>
 ]]></content>
   </entry>
   

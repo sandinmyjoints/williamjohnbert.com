@@ -9,7 +9,9 @@
   <meta name="author" content="William John Bert">
 
   
-  <meta name="description" content="Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic &hellip;">
+  <meta name="description" content="I&#8217;m giving a talk about my experience developing and deploying a Node.js web
+service in production at the
+next Nova-Node meetup, October 30 at &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +84,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2012/10/a-case-study-of-node-js-in-production/">A Case Study of Node.js in Production</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-01T17:27:53-04:00" pubdate data-updated="true">Oct 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m giving a talk about my experience <a href="http://www.meetup.com/Nova-Node/events/84918342/">developing and deploying a Node.js web
+service in production</a> at the
+next Nova-Node meetup, October 30 at 6:30 p.m. Below is the writeup. If it
+sounds interesting to you, come by!</p>
+
+<blockquote><p>SpanishDict recently deployed a new text-to-speech service powered by
+  Node. This service can generate audio files on the fly for arbitrary Spanish
+  and English texts with rapid response times. The presentation will walk
+  through the design, development, testing, monitoring, and deployment process
+  for the new application. We will cover topics like how to structure an Express
+  app, testing and debugging, learning to think in streams and pipes, writing a
+  Chef cookbook to deploy to AWS, and monitoring the application for high
+  performance. The lead engineer on the project, William Bert, will also talk
+  about his experiences transitioning from a Python background to Node and some
+  of the key insights he had about writing in Node while developing the
+  application.</p></blockquote>
+
+<p>Update: <a href="http://sandinmyjoints.github.com/zero-to-node">here are the slides from the talk</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -574,221 +629,6 @@ mid-July). Good timing.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/07/how-to-unit-testing-in-django-with-mocking-and-patching/">How to: Unit Testing in Django With Mocking and Patching</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Background</h3>
-
-<p>For <a href="www.readsrs.com">Readsr</a>, I need to track events that recur on a particular
-day of the week (e.g., first Sunday of the month, third Friday of the month). I
-created a DayOfWeek model to store any particular event&#8217;s day of the week. It
-contains a method next_day_of_week() to return a datetime.date object set to
-the next occurrence of whatever weekday a given event instance is set to (this
-helps with figuring out when the next occurrence of an event is).</p>
-
-<p>It&#8217;s easier to show through an example. On Sunday 7/3/2011:</p>
-
-<ul>
-<li>For an object with DayOfWeek set to Sunday, next_day_of_week() would return 7/3/2011 (current day).</li>
-<li>For DayOfWeek set to Monday, it would return 7/4/2011 (first subsequent Monday).</li>
-<li>For DayOfWeek set to Saturday, it would return 7/9/2011 (first subsequent Saturday).</li>
-</ul>
-
-
-<p>Sounds simple enough. It seemed like this would be a good place to do my first
-unit tests.</p>
-
-<h3>Unit Testing</h3>
-
-<p>To do unit testing, the typical method is to first write test cases and then
-write code. In this case, I&#8217;d already written my code, so I went back and wrote
-test cases, trying to forget how my code worked.</p>
-
-<p>To write test cases, you have to detail requirements for each method you want to
-test: input and expected (correct) output. The list of examples for
-next_day_of_week() I wrote above works for this purpose. But there&#8217;s a catch:
-next_day_of_week() calculates the next day of the week relative to the
-current date, by calling datetime.date.today(). So if I write expected output
-for 7/3/2011, it will no longer be the correct output on 7/4/2011 or any
-following day. I needed a way to make datetime.date.today() always spit out my
-input date when I run tests, yet still continue to function normally outside of
-testing. Enter mocking.</p>
-
-<h3>Mocking</h3>
-
-<p>The solution was to mock out the method&#8211;to replace the real
-datetime.date.today() with a fake one that produces the same output no matter
-what day it is. To accomplish this, I used the powerful <a href="http://www.voidspace.org.uk/python/mock/">Mock
-library</a>. Specifically, I needed to
-use the patch decorator. This decorator makes it really easy to replace on
-particular object within the scope of a particular method.</p>
-
-<p>Before I could patch the today() method, I needed to create my own fake
-method. It would look like this:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">()</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mock</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">faketoday</span><span class="p">():</span>
-</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&quot;datetime.date.today&quot;</span><span class="p">,</span> <span class="n">faketoday</span><span class="p">)</span>
-</span><span class='line'><span class="o">...</span> <span class="k">def</span> <span class="nf">testfunc</span><span class="p">():</span>
-</span><span class='line'><span class="o">...</span>     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">testfunc</span><span class="p">()</span>
-</span><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;&lt;console&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">561</span><span class="p">,</span> <span class="ow">in</span> <span class="n">patched</span>
-</span><span class='line'>    <span class="n">arg</span> <span class="o">=</span> <span class="n">patching</span><span class="o">.</span><span class="n">__enter__</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/Users/wbert/.virtualenvs/readsr_env/lib/python2.6/site-packages/mock.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">623</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__enter__</span>
-</span><span class='line'>    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">new_attr</span><span class="p">)</span>
-</span><span class='line'><span class="ne">TypeError</span><span class="p">:</span> <span class="n">can</span><span class="s">&#39;t set attributes of built-in/extension type &#39;</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="s">&#39;</span>
-</span><span class='line'><span class="o">&gt;&gt;&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>datetime.date</code> is considered a Python built-in and can&#8217;t be modified.</p>
-
-<h3>Modifying a Class That Can&#8217;t Be Modified</h3>
-
-<p>The trick is to write a child class that can be modified, and thus faked:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">FakeDate</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
-</span><span class='line'>  <span class="s">&quot;A fake replacement for date that can be mocked for testing.&quot;</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>All this does is create a class whose constructor returns an instance of its
-parent&#8217;s class, date. Usually, this would be pointless, but it&#8217;s useful here
-because the new class isn&#8217;t a built-in and thus can be mocked.</p>
-
-<p>To use it, we simply decorate any test method that calls datetime.date.today()
-with a patch to replace datetime.date with FakeDate, and we also provide
-FakeDate a fake today() method that returns only and always the particular we
-are going to use for testing:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">TestDayOfWeek</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
-</span><span class='line'>  <span class="sd">&quot;&quot;&quot;Test the day of the week functions.&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@mock.patch</span><span class="p">(</span><span class="s">&#39;series.models.date&#39;</span><span class="p">,</span> <span class="n">FakeDate</span><span class="p">)</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">test_valid_my_next_day_of_week_sameday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class='line'>  <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-</span><span class='line'>  <span class="n">FakeDate</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="k">lambda</span> <span class="n">cls</span><span class="p">:</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="c"># July 3, 2011 is a Sunday</span>
-</span><span class='line'>  <span class="n">new_day_of_week</span> <span class="o">=</span> <span class="n">DayOfWeek</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-</span><span class='line'>  <span class="n">new_day_of_week</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="s">&quot;SU&quot;</span>
-</span><span class='line'>  <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="n">new_day_of_week</span><span class="o">.</span><span class="n">my_next_day_of_week</span><span class="p">(),</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>A couple things to note: the patch only applies within this particular method,
-so each method to use a patch must be decorated. Also, the real datetime.date is
-imported in the method so we can use it inside the fake today() method. We could
-put this fake today() method inside FakeClass, but making it a lambda
-(anonymous) method assigned inside the test case gives us the flexibility to set
-a particular date for each test case.</p>
-
-<h3>Namespacing</h3>
-
-<p>You may be wondering why the patch decorator takes &#8220;series.models.date&#8221; as the
-method to replace instead of &#8220;datetime.date&#8221;. That was how I tried it at first,
-and I was confused when it didn&#8217;t work. It seemed as if the patch hadn&#8217;t taken
-effect.</p>
-
-<p>Well, it hadn&#8217;t. That&#8217;s because within the module being tested (models.py in the
-series app, or series.models in Python dotted notation), date has been imported
-like so:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This means that within series.models, date is now available as
-series.models.date, so that&#8217;s the name that needs to be mocked out. For more on
-namespacing when mocking, checked out <a href="http://www.voidspace.org.uk/python/mock/patch.html#id2">Mock&#8217;s Where to patch documentation</a>.</p>
-
-<p>Now we can supply out unit tests with any date we want, ensuring that we know
-what the results should be and can test against them.</p>
-
-<h3>References</h3>
-
-<p>Learning how to do this stuff, I posted <a href="http://stackoverflow.com/questions/6575687/how-do-i-use-mocking-to-test-a-next-day-of-week-function">my first question at Stackoverflow</a>
-(I ended up answering it myself). I also learned about using a fake class <a href="http://stackoverflow.com/questions/4481954/python-trying-to-mock-datetime-date-today-but-not-working">from this question</a>. Finally,
-the <a href="http://www.voidspace.org.uk/python/mock/index.html">Mock documentation</a> was
-very helpful as well.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -816,6 +656,10 @@ very helpful as well.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/handing-off-a-legacy-site/">Handing off a legacy site in a way that makes everyone happier</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/02/using-a-node-repl-with-emacs/">Using a Node repl in Emacs with nvm and npm</a>
       </li>
     
@@ -829,10 +673,6 @@ very helpful as well.</p>
     
       <li class="post">
         <a href="/2013/06/allow-cors-with-localhost-in-chrome/">Allow CORS with localhost in Chrome</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2013/05/emacs-cl-lib-madness/">Emacs cl-lib madness</a>
       </li>
     
   </ul>
