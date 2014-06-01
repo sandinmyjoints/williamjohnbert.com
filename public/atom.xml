@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-01T17:17:52-04:00</updated>
+  <updated>2014-06-01T17:21:13-04:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -77,7 +77,7 @@ most basic HTML:</p>
 <p>  I ran it against <a href="http://www.callandresponsedc.org">Call and Response</a>,
   selecting all the default options.</p>
 
-<pre><code>$ httrack www.callandresponsedc.org (TODO check this)
+<pre><code>$ httrack "www.callandresponsedc.org" -v
 </code></pre>
 
 <p>  Lo and behold, it did exactly what I wanted. Now I had a full static version of

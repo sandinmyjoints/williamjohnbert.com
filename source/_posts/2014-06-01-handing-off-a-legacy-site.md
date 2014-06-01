@@ -64,7 +64,7 @@ most basic HTML:
   I ran it against [Call and Response](http://www.callandresponsedc.org),
   selecting all the default options.
   
-    $ httrack www.callandresponsedc.org (TODO check this)
+    $ httrack "www.callandresponsedc.org" -v
   
   Lo and behold, it did exactly what I wanted. Now I had a full static version of
   the site.
