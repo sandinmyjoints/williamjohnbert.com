@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Handing off a legacy site in a way that makes everyone happier"
+title: "Using Github Pages to hand off a legacy site and make everyone happier"
 date: 2014-04-30 18:52
 comments: true
 categories: git github legacy django
