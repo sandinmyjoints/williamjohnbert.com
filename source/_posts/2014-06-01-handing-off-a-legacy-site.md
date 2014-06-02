@@ -3,7 +3,7 @@ layout: post
 title: "Handing off a legacy site in a way that makes everyone happier"
 date: 2014-04-30 18:52
 comments: true
-categories: 
+categories: git github legacy django
 ---
 
 Here's how I turned over maintenance of a legacy site -- built as a one-off
@@ -18,7 +18,7 @@ I created [Call and Response](http://www.callandresponsedc.org) when my friend
 Kira and I decided to co-curate an art show of that name in 2010. It became an
 annual event, and each year I updated the website with the new participants and
 details. This year, Kira is continuing the show with support from others because
-I'm out of capacity to help. 
+I'm out of capacity to help.
 
 Kira needs to be be able to update the website. It lists what the concept behind
 the show is; who's participating; where the show is; when it opens; and more. I
@@ -56,19 +56,19 @@ most basic HTML:
   with things that seem straightforward, the devil's often in the details, and
   anyway, I figured someone else must have wanted to do this, so there had to be a
   tool for it, which would turn this from fairly easily into dead simple.
-  
+
   The tool I found is called [HTTrack](http://www.httrack.com/).
-  
+
     $ brew install httrack
-  
+
   I ran it against [Call and Response](http://www.callandresponsedc.org),
   selecting all the default options.
-  
+
     $ httrack "www.callandresponsedc.org" -v
-  
+
   Lo and behold, it did exactly what I wanted. Now I had a full static version of
   the site.
-  
+
 \2. Host.
 
 I needed to host this static site somewhere free, reliable, and easy to use. I
