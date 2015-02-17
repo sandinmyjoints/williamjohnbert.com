@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Other | William John Bert]]></title>
+  <title><![CDATA[Category: other | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/other/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Gender, programming, and the power of language ]]></title>
     <link href="http://williamjohnbert.com/2011/08/gender-programming-and-the-power-of-language/"/>
-    <updated>2011-08-28T12:15:02-04:00</updated>
+    <updated>2011-08-28T09:15:02-07:00</updated>
     <id>http://williamjohnbert.com/2011/08/gender-programming-and-the-power-of-language</id>
     <content type="html"><![CDATA[<p>An interlude from the recent trend of hardcore Django action:</p>
 
@@ -39,7 +39,7 @@ a guy.”</p></blockquote>
   <entry>
     <title type="html"><![CDATA[Marshall, Barnard, Laurel, Marshall]]></title>
     <link href="http://williamjohnbert.com/2011/05/marshall-barnard-laurel-marshall/"/>
-    <updated>2011-05-19T18:13:26-04:00</updated>
+    <updated>2011-05-19T15:13:26-07:00</updated>
     <id>http://williamjohnbert.com/2011/05/marshall-barnard-laurel-marshall</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/2.jpg" alt="" /></a><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/3.jpg" alt="" /></a>
 <a href="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/5.jpg" alt="" /></a>
@@ -50,11 +50,11 @@ a guy.”</p></blockquote>
   <entry>
     <title type="html"><![CDATA[My Morning Commute]]></title>
     <link href="http://williamjohnbert.com/2010/11/my-morning-commute/"/>
-    <updated>2010-11-25T06:14:23-05:00</updated>
+    <updated>2010-11-25T03:14:23-08:00</updated>
     <id>http://williamjohnbert.com/2010/11/my-morning-commute</id>
-    <content type="html"><![CDATA[<p>[caption id="" align="alignnone" width="500" caption="Morning comes to Columbia Heights"]<a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to"><img src="http://30.media.tumblr.com/tumblr_lc5efzo5Cd1qelrpbo1_500.jpg" alt="Early morning sunlight on buildings in Columbia Heights" /></a>[/caption]</p>
+    <content type="html"><![CDATA[<p>[caption id=&#8221;&#8221; align=&#8221;alignnone&#8221; width=&#8221;500&#8221; caption=&#8221;Morning comes to Columbia Heights&#8221;]<a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to"><img src="http://30.media.tumblr.com/tumblr_lc5efzo5Cd1qelrpbo1_500.jpg" alt="Early morning sunlight on buildings in Columbia Heights" /></a>[/caption]</p>
 
-<p>Fellow 826DC volunteer and all-around awesome person <a href="http://myamcommute.tumblr.com/">Anna started a Tumblr</a> to collect photos of people's morning commutes. I thought that was a great way to turn what can be one of a day's most unremarkable stretches into something seen anew, so I contributed a <a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to">couple</a> <a href="http://myamcommute.tumblr.com/post/1648509699/william-29-washington-d-c-museum-of-unnatural">photos</a> and plan to send more. At the moment (Happy Thanksgiving!) several of the commute photos involve seriously beautiful skyscapes.</p>
+<p>Fellow 826DC volunteer and all-around awesome person <a href="http://myamcommute.tumblr.com/">Anna started a Tumblr</a> to collect photos of people&#8217;s morning commutes. I thought that was a great way to turn what can be one of a day&#8217;s most unremarkable stretches into something seen anew, so I contributed a <a href="http://myamcommute.tumblr.com/post/1620568222/william-29-washington-dc-sunrise-comes-to">couple</a> <a href="http://myamcommute.tumblr.com/post/1648509699/william-29-washington-d-c-museum-of-unnatural">photos</a> and plan to send more. At the moment (Happy Thanksgiving!) several of the commute photos involve seriously beautiful skyscapes.</p>
 ]]></content>
   </entry>
   

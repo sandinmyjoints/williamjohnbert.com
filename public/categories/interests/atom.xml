@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Interests | William John Bert]]></title>
+  <title><![CDATA[Category: interests | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/interests/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,9 +16,9 @@
   <entry>
     <title type="html"><![CDATA[(Relatively) quick and easy Gensim example code]]></title>
     <link href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/"/>
-    <updated>2012-05-04T04:12:23-04:00</updated>
+    <updated>2012-05-04T01:12:23-07:00</updated>
     <id>http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code</id>
-    <content type="html"><![CDATA[<p>Here's some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
+    <content type="html"><![CDATA[<p>Here&#8217;s some sample code that shows the basic steps necessary to use gensim to create a corpus, train models (log entropy and latent semantic analysis), and perform semantic similarity comparisons and queries.</p>
 
 <p><a href="http://radimrehurek.com/gensim/">gensim</a> has an excellent tutorial, and this does not replace reading and understanding it. Nonetheless, this may be helpful for those interested in doing some quick experimentation and getting their hands dirty fast. It takes you from training corpus to index and queries in about 100 lines of code, much of which is documentation.</p>
 
@@ -27,8 +27,8 @@
 <!-- more -->
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Gensim sample code  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Gensim sample code </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -159,30 +159,11 @@
 <span class='line-number'>129</span>
 <span class='line-number'>130</span>
 <span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">logging</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">pprint</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Generating</span> <span class="n">a</span> <span class="n">training</span><span class="o">/</span><span class="n">background</span> <span class="n">corpus</span> <span class="kn">from</span> <span class="nn">your</span> <span class="nn">own</span> <span class="nn">source</span> <span class="nn">of</span> <span class="nn">documents</span><span class="err">&lt;/</span><span class="nn">h3</span><span class="err">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Generating</span> <span class="n">a</span> <span class="n">training</span><span class="o">/</span><span class="n">background</span> <span class="n">corpus</span> <span class="kn">from</span> <span class="nn">your</span> <span class="nn">own</span> <span class="nn">source</span> <span class="nn">of</span> <span class="nn">documents</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">gensim.corpora</span> <span class="kn">import</span> <span class="n">TextCorpus</span><span class="p">,</span> <span class="n">MmCorpus</span><span class="p">,</span> <span class="n">Dictionary</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -198,15 +179,11 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">back</span> <span class="n">to</span> <span class="n">original</span> <span class="n">words</span><span class="o">.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">background_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">background_corpus</span><span class="o">.</span><span class="n">dictionary</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
+</span><span class='line'>    <span class="s">&quot;my_dict.dict&quot;</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;my_dict.dict&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;background_corpus.mm&quot;</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">background_corpus</span><span class="p">)</span>  <span class="c">#  Uses numpy to persist wiki corpus in Matrix Market format. File will be several GBs.</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">MmCorpus</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s">&quot;background_corpus.mm&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">background_corpus</span><span class="p">)</span>  <span class="c">#  Uses numpy to persist wiki corpus in Matrix Market format. File will be several GBs.&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Generating</span> <span class="n">a</span> <span class="n">large</span> <span class="n">training</span><span class="o">/</span><span class="n">background</span> <span class="n">corpus</span> <span class="n">using</span> <span class="n">Wikipedia</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -231,10 +208,8 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">LsiModel</span><span class="p">,</span> <span class="n">LogEntropyModel</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_transformation</span> <span class="o">=</span> <span class="n">LogEntropyModel</span><span class="p">(</span><span class="n">wiki_corpus</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">)</span>  <span class="c"># Log Entropy weights frequencies of all document features in the corpus</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_transformation</span> <span class="o">=</span> <span class="n">LogEntropyModel</span><span class="p">(</span><span class="n">wiki_corpus</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">)</span>  <span class="c"># Log Entropy weights frequencies of all document features in the corpus&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">tokenize_func</span> <span class="o">=</span> <span class="n">wikicorpus</span><span class="o">.</span><span class="n">tokenize</span>  <span class="c"># The tokenizer used to create the Wikipedia corpus</span>
 </span><span class='line'><span class="n">document</span> <span class="o">=</span> <span class="s">&quot;Some text to be transformed.&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
@@ -243,45 +218,34 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">BOW</span> <span class="n">representation</span> <span class="n">using</span> <span class="n">the</span> <span class="n">dictionary</span> <span class="n">created</span> <span class="n">when</span> <span class="n">generating</span> <span class="n">the</span> <span class="n">background</span> <span class="n">corpus</span><span class="o">.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">bow_document</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">document</span><span class="p">))</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">bow_document</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">tokenize_func</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">document</span><span class="p">))</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">converts</span> <span class="n">a</span> <span class="n">single</span> <span class="n">document</span> <span class="n">to</span> <span class="n">log</span> <span class="n">entropy</span> <span class="n">representation</span><span class="o">.</span> <span class="n">document</span> <span class="n">must</span> <span class="n">be</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">same</span> <span class="n">vector</span> <span class="n">space</span> <span class="k">as</span> <span class="n">corpus</span><span class="o">.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_document</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">bow_document</span><span class="p">]]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_document</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[[</span>
+</span><span class='line'>    <span class="n">bow_document</span><span class="p">]]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Transform</span> <span class="n">arbitrary</span> <span class="n">documents</span> <span class="n">by</span> <span class="n">getting</span> <span class="n">them</span> <span class="n">into</span> <span class="n">the</span> <span class="n">same</span> <span class="n">BOW</span> <span class="n">vector</span> <span class="n">space</span> <span class="n">created</span> <span class="n">by</span> <span class="n">your</span> <span class="n">training</span> <span class="n">corpus</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Some iterable&quot;</span><span class="p">,</span> <span class="s">&quot;containing multiple&quot;</span><span class="p">,</span> <span class="s">&quot;documents&quot;</span><span class="p">,</span> <span class="s">&quot;...&quot;</span><span class="p">]</span>
-</span><span class='line'><span class="n">bow_documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">)</span>  <span class="c"># use a generator expression because...</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_documents</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>               <span class="n">bow_documents</span><span class="p">]</span>  <span class="c"># ...transformation is done during iteration of documents using generators, so this uses constant memory</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">bow_documents</span> <span class="o">=</span> <span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">tokenize_func</span><span class="p">(</span><span class="n">document</span><span class="p">))</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">)</span>  <span class="c"># use a generator expression because...</span>
+</span><span class='line'><span class="n">logent_documents</span> <span class="o">=</span> <span class="n">logent_transformation</span><span class="p">[</span>
+</span><span class='line'>                   <span class="n">bow_documents</span><span class="p">]</span>  <span class="c"># ...transformation is done during iteration of documents using generators, so this uses constant memory&lt;/p&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">Chained</span> <span class="n">transformations</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="n">builds</span> <span class="n">a</span> <span class="n">new</span> <span class="n">corpus</span> <span class="kn">from</span> <span class="nn">iterating</span> <span class="nn">over</span> <span class="nn">documents</span> <span class="nn">of</span> <span class="nn">bow_corpus</span> <span class="nn">as</span> <span class="nn">transformed</span> <span class="nn">to</span> <span class="nn">log</span> <span class="nn">entropy</span> <span class="nn">representation.</span><span class="err">&lt;/</span><span class="nn">h1</span><span class="err">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="n">builds</span> <span class="n">a</span> <span class="n">new</span> <span class="n">corpus</span> <span class="kn">from</span> <span class="nn">iterating</span> <span class="nn">over</span> <span class="nn">documents</span> <span class="nn">of</span> <span class="nn">bow_corpus</span> <span class="nn">as</span> <span class="nn">transformed</span> <span class="nn">to</span> <span class="nn">log</span> <span class="nn">entropy</span> <span class="nn">representation.</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Will</span> <span class="n">also</span> <span class="n">take</span> <span class="n">many</span> <span class="n">hours</span> <span class="k">if</span> <span class="n">bow_corpus</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">Wikipedia</span> <span class="n">corpus</span> <span class="n">created</span> <span class="n">above</span><span class="o">.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">logent_corpus</span> <span class="o">=</span> <span class="n">MmCorpus</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_transformation</span><span class="p">[</span><span class="n">bow_corpus</span><span class="p">])</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Creates</span> <span class="n">LSI</span> <span class="n">transformation</span> <span class="n">model</span> <span class="kn">from</span> <span class="nn">log</span> <span class="nn">entropy</span> <span class="nn">corpus</span> <span class="nn">representation.</span> <span class="nn">Takes</span> <span class="nn">several</span> <span class="nn">hours</span> <span class="nn">with</span> <span class="nn">Wikipedia</span> <span class="nn">corpus.</span><span class="err">&lt;/</span><span class="nn">h1</span><span class="err">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Creates</span> <span class="n">LSI</span> <span class="n">transformation</span> <span class="n">model</span> <span class="kn">from</span> <span class="nn">log</span> <span class="nn">entropy</span> <span class="nn">corpus</span> <span class="nn">representation.</span> <span class="nn">Takes</span> <span class="nn">several</span> <span class="nn">hours</span> <span class="nn">with</span> <span class="nn">Wikipedia</span> <span class="nn">corpus.</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">lsi_transformation</span> <span class="o">=</span> <span class="n">LsiModel</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_corpus</span><span class="p">,</span> <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">lsi_transformation</span> <span class="o">=</span> <span class="n">LsiModel</span><span class="p">(</span><span class="n">corpus</span><span class="o">=</span><span class="n">logent_corpus</span><span class="p">,</span> <span class="n">id2word</span><span class="o">=</span><span class="n">dictionary</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">num_features</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">Alternative</span> <span class="n">way</span> <span class="n">of</span> <span class="n">performing</span> <span class="n">same</span> <span class="n">operation</span> <span class="k">as</span> <span class="n">above</span><span class="p">,</span> <span class="n">but</span> <span class="k">with</span> <span class="n">implicit</span> <span class="n">chaining</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -300,12 +264,10 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">This</span> <span class="n">index</span> <span class="n">corpus</span> <span class="n">consists</span> <span class="n">of</span> <span class="n">what</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">compare</span> <span class="n">future</span> <span class="n">queries</span> <span class="n">against</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">index_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A bear walked in the dark forest.&quot;</span><span class="p">,</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>         <span class="s">&quot;Tall trees have many more leaves than short bushes.&quot;</span><span class="p">,</span>
-</span><span class='line'>         <span class="s">&quot;A starship may someday travel across vast reaches of space to other stars.&quot;</span><span class="p">,</span>
-</span><span class='line'>         <span class="s">&quot;Difference is the concept of how two or more entities are not the same.&quot;</span><span class="p">]</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">index_documents</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A bear walked in the dark forest.&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s">&quot;Tall trees have many more leaves than short bushes.&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s">&quot;A starship may someday travel across vast reaches of space to other stars.&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s">&quot;Difference is the concept of how two or more entities are not the same.&quot;</span><span class="p">]</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">A</span> <span class="n">corpus</span> <span class="n">can</span> <span class="n">be</span> <span class="n">anything</span><span class="p">,</span> <span class="k">as</span> <span class="nb">long</span> <span class="k">as</span> <span class="n">iterating</span> <span class="n">over</span> <span class="n">it</span> <span class="n">produces</span> <span class="n">a</span> <span class="n">representation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">corpus</span> <span class="n">documents</span> <span class="k">as</span> <span class="n">vectors</span><span class="o">.&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>
@@ -328,43 +290,43 @@
 </span><span class='line'><span class="n">index</span> <span class="o">=</span> <span class="n">sims_to_query</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">best_score</span><span class="p">)</span>
 </span><span class='line'><span class="n">most_similar_doc</span> <span class="o">=</span> <span class="n">documents</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 </span><span class='line'><span class="k">print</span> <span class="s">&quot;The document most similar to the query is &#39;</span><span class="si">%s</span><span class="s">&#39; with a score of </span><span class="si">%.2f</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">most_similar_doc</span><span class="p">,</span> <span class="n">best_score</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[An Introduction to gensim: "Topic Modelling for Humans"]]></title>
     <link href="http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans/"/>
-    <updated>2012-05-03T10:06:02-04:00</updated>
+    <updated>2012-05-03T07:06:02-07:00</updated>
     <id>http://williamjohnbert.com/2012/05/an-introduction-to-gensim-topic-modelling-for-humans</id>
-    <content type="html"><![CDATA[<p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I've been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
+    <content type="html"><![CDATA[<p>On Tuesday, I presented at the monthly DC Python meetup. My talk was an introduction to gensim, a free Python framework for topic modelling and semantic similarity using LSA/LSI and other statistical techniques. I&#8217;ve been using gensim on and off for several months at work, and I really appreciate its performance, clean API design, documentation, and community. (All of this is due to its creator, Radim Rehurek, who I interviewed recently.)</p>
 
 <p>The presentation slides are <a href="http://www.slideshare.net/sandinmyjoints/an-introduction-to-gensim-topic-modelling-for-humans">available here</a>. I also wrote some <a href="http://williamjohnbert.com/2012/05/relatively-quick-and-easy-gensim-example-code/">quick gensim example code</a> that walks through creating a corpus, generating and transforming models, and using models to do semantic similarity. The code and slides are both also available on my <a href="https://github.com/sandinmyjoints/gensimtalk">github account</a>.</p>
 
-<p>Finally, I also developed a <a href="http://github.com/sandinmyjoints/visularity">demo app to visualize semantic similarity queries</a>. It's a Flask web app, with gensim generating data on the backend that is clustered by scipy and scikit-learn and visualized by d3.js as agglomerative and hierarchical clusters as well as a simple table and dendrogram. To make it all work in realtime, I used threading and hookbox. I call it Visularity, and it's <a href="http://github.com/sandinmyjoints/visularity">available on github</a>. You need to provide your own model and dictionary data to use--check out my presentation and visit <a href="http://radimrehurek.com/gensim">radimrehurek.com/gensim/</a> to learn how. Comments and feedback welcome!</p>
+<p>Finally, I also developed a <a href="http://github.com/sandinmyjoints/visularity">demo app to visualize semantic similarity queries</a>. It&#8217;s a Flask web app, with gensim generating data on the backend that is clustered by scipy and scikit-learn and visualized by d3.js as agglomerative and hierarchical clusters as well as a simple table and dendrogram. To make it all work in realtime, I used threading and hookbox. I call it Visularity, and it&#8217;s <a href="http://github.com/sandinmyjoints/visularity">available on github</a>. You need to provide your own model and dictionary data to use&#8211;check out my presentation and visit <a href="http://radimrehurek.com/gensim">radimrehurek.com/gensim/</a> to learn how. Comments and feedback welcome!</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Interview with Radim Rehurek, creator of gensim]]></title>
     <link href="http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim/"/>
-    <updated>2012-04-30T08:58:42-04:00</updated>
+    <updated>2012-04-30T05:58:42-07:00</updated>
     <id>http://williamjohnbert.com/2012/04/interview-with-radim-rehurek-creator-of-gensim</id>
-    <content type="html"><![CDATA[<p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I'm giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I'll post the slides and example code for the talk soon.) I've found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim's history and goals, and about his background and interests.</p>
+    <content type="html"><![CDATA[<p>Tomorrow at the <a href="http://meetup.dcpython.org/events/23832731/">May 2012 DC Python meetup</a>, I&#8217;m giving a talk on <a href="http://radimrehurek.com/gensim/">gensim</a>, a Python framework for topic modeling that I use at work and on my own for semantic similarity comparisons. (I&#8217;ll post the slides and example code for the talk soon.) I&#8217;ve found gensim to be a useful and well-designed tool, and pretty much all credit for it goes to its creator, Radim Rehurek. Radim was kind enough to answer a few questions I sent him about gensim&#8217;s history and goals, and about his background and interests.</p>
 
 <p><strong>WB: Why did you create gensim?</strong></p>
 
 <p>RR: Consulting gig for a digital library project (Czech Digital
 Mathematics Library, dml.cz), some 3 years ago. It started off as a
-few loosely connected Python scripts to support the "show similar
-articles" functionality. We wanted to use some of the statistical
+few loosely connected Python scripts to support the &#8220;show similar
+articles&#8221; functionality. We wanted to use some of the statistical
 methods, like latent semantic analysis. Originally, gensim only
 contained wrappers around existing Fortran libraries for SVD, like
 Propack and Svdpack.</p>
 
 <p>But there were issues with that, and it scaled badly (all documents in
 RAM), so I started looking for more scalable, online algorithms.
-Running these popular methods shouldn't be so hard, I thought!</p>
+Running these popular methods shouldn&#8217;t be so hard, I thought!</p>
 
 <p>In the end, I developed new algorithms for these methods for gensim.
 The theoretical part of this research later turned into a part of my
@@ -373,18 +335,18 @@ PhD thesis.</p>
 <!-- more -->
 
 
-<p><strong>Who is using gensim (as far as you know)--academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
+<p><strong>Who is using gensim (as far as you know)&#8211;academics, hobbyists, commercial entities, a mixture? Any particularly interesting uses?</strong></p>
 
-<p>Yes, I've heard from many academic as well as commercial
+<p>Yes, I&#8217;ve heard from many academic as well as commercial
 organizations, both on the mailing list and off. Off the top of my
 head: ravn.co.uk, roistr.com, sportsauthority.com, larkc.eu; TU of
 Denmark, U of Stuttgart, Masaryk U, U of Ghent, some people used it in
-the Yahoo! KD cup competition... But what they all did with gensim, or
-whether they still use it, I don't know. The gensim license (LGPL) is
+the Yahoo! KD cup competition&#8230; But what they all did with gensim, or
+whether they still use it, I don&#8217;t know. The gensim license (LGPL) is
 pretty liberal in that respect.</p>
 
 <p>Unfortunately, all this use rarely translates into any feedback or
-contributions. I guess I'm just not very good at the
+contributions. I guess I&#8217;m just not very good at the
 bring-new-developers-and-grow-open-source stuff :(</p>
 
 <p><strong>Roughly how much of the current codebase was written by you, and how much by contributors?</strong></p>
@@ -396,11 +358,11 @@ changelog: https://github.com/piskvorky/gensim/blob/develop/CHANGELOG.txt
 https://github.com/piskvorky/gensim/wiki . I also try to answer
 general questions on the mailing list.</p>
 
-<p><strong>What are your favorite features, or parts of the code that you're most proud of?</strong></p>
+<p><strong>What are your favorite features, or parts of the code that you&#8217;re most proud of?</strong></p>
 
-<p>I don't have emotional attachments to parts of the code -- if it's
+<p>I don&#8217;t have emotional attachments to parts of the code &#8211; if it&#8217;s
 bad, it needs to go. I guess the most proven parts are the ones that
-had been around for the longest -- LSA etc. Things that were
+had been around for the longest &#8211; LSA etc. Things that were
 contributed recently by other people, like the new HDP (hierarchical
 dirichlet process) code, or the <code>gensim.parsing</code> subpackage, are the
 most rough around the edges.</p>
@@ -412,30 +374,30 @@ corpora. Also they work in batch mode, needing a full re-train when
 new training data arrives. The LSA/LDA algos are online though (can be
 updated with new data, incrementally).</p>
 
-<p><strong>What's your background? Academic, software engineering, both?</strong></p>
+<p><strong>What&#8217;s your background? Academic, software engineering, both?</strong></p>
 
 <p>I finished my PhD, but I feel more like a software engineer than a
 pure researcher. Even during my academic years, I was working in IT
-commerce. I wouldn't like to stay in academia professionally.</p>
+commerce. I wouldn&#8217;t like to stay in academia professionally.</p>
 
 <p><strong>What are you working on next for gensim? What about outside of gensim?</strong></p>
 
-<p>Small things like adding the "hashing trick" etc:
+<p>Small things like adding the &#8220;hashing trick&#8221; etc:
 https://github.com/piskvorky/gensim/issues . Basically things that
 gensim users have been asking for. Some issues keep coming back on the
 mailing list, and while not technically bugs, they hint at minor
 redesigns and improvements.</p>
 
 <p>One big thing that is missing is a basic visual style for gensim. I
-have no clue how to do that and it's really pathetic gensim doesn't
+have no clue how to do that and it&#8217;s really pathetic gensim doesn&#8217;t
 even have a logo yet!</p>
 
 <p>Outside of gensim, I am busy doing consulting (scaling up text
-processing: fulltext search, semantic search, ad targeting etc --
-backend stuff). I'm planning to do a startup that offers semantic
+processing: fulltext search, semantic search, ad targeting etc &#8211;
+backend stuff). I&#8217;m planning to do a startup that offers semantic
 search and similarity as a service. A kind of easy-to-use black box
-tool, something like searchify or myrrix. But it's hard to find good
-people to work with... and hard to give up/interrupt a well-paying
+tool, something like searchify or myrrix. But it&#8217;s hard to find good
+people to work with&#8230; and hard to give up/interrupt a well-paying
 career :) I applied for YC last month, alone, but they turned me down.</p>
 ]]></content>
   </entry>
@@ -443,11 +405,11 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   <entry>
     <title type="html"><![CDATA[Fake bio for Steve]]></title>
     <link href="http://williamjohnbert.com/2012/04/fake-bio-for-steve/"/>
-    <updated>2012-04-06T09:53:07-04:00</updated>
+    <updated>2012-04-06T06:53:07-07:00</updated>
     <id>http://williamjohnbert.com/2012/04/fake-bio-for-steve</id>
     <content type="html"><![CDATA[<p>My good friend Steve has hosted <a href="http://826dc.org/?p=3336">the lowercase</a>, the monthly reading series associated with <a href="http://826dc.org/">826DC</a>, for three years. Steve has a charming habit of introducing his readers with made-up bios, so in his honor, I asked some lowercase regulars to write fake bios of him and share them at the third anniversary reading on April 4. The results were highly entertaining; thanks to everyone who wrote one!</p>
 
-<p>Here's mine:</p>
+<p>Here&#8217;s mine:</p>
 
 <blockquote><p>Steve Souryal is a group of 15 small islets and rocks in the central equatorial Atlantic Ocean. He lies in the Intertropical Convergence Zone, a region of severe storms. Steve exposes serpentinized abyssal mantle peridotite and kaersutite-bearing ultramafic mylonite on the top of the second-largest megamullion in the world (after the Parece Vela megamullion under Okinotoshima in the Pacific). He is the only location in the Atlantic Ocean where the abyssal mantle is exposed above sea level! In 1986, Steve was designated an environmentally protected area, and since 1998, the Danish Navy has maintained a permanently manned research facility in him. His main economic activity is tuna fishing, and we are incredibly lucky to have him with us tonight.</p></blockquote>
 
@@ -458,11 +420,11 @@ career :) I applied for YC last month, alone, but they turned me down.</p>
   <entry>
     <title type="html"><![CDATA[Novelties & Traditions]]></title>
     <link href="http://williamjohnbert.com/2011/11/novelties-traditions/"/>
-    <updated>2011-11-19T05:28:21-05:00</updated>
+    <updated>2011-11-19T02:28:21-08:00</updated>
     <id>http://williamjohnbert.com/2011/11/novelties-traditions</id>
-    <content type="html"><![CDATA[<p>Today's the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving's always been my favorite holiday so I'm more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who're renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
+    <content type="html"><![CDATA[<p>Today&#8217;s the third annual Friendsgiving, a Thanksgiving-like pre-Thanksgiving event for a bunch of people who like each other; hence, Friendsgiving. Thanksgiving&#8217;s always been my favorite holiday so I&#8217;m more than happy to celebrate it twice a year. The first two Friendsgivings took place at my house, but because in the spring I traded my room in a cavernous and amply chandeliered group rowhouse for cozier and warmer digs, the honor of hosting this year falls to two friends who&#8217;re renting an entire lovely house for themselves up in Pleasant Plains. Sweet.</p>
 
-<p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don't Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, "Busted," aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn't have been doing--a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the "Busted" lesson plan</a> more than a year ago--right around the previous Friendsgiving. Hard to believe it's been that long!</p>
+<p>So much for traditions; recent novelties include starting a new job, about which more another time, but basically, I love it; and getting a lesson plan published in <a href="http://www.amzn.com/111802432X">Don&#8217;t Forget to Write</a>, the second volume of lesson plans from <a href="http://www.826national.org/">826</a>. The lesson plan, &#8220;Busted,&#8221; aims to make storytellers out of middle schoolers by having them write about a time they got caught doing something they shouldn&#8217;t have been doing&#8211;a theme first cooked up by the folks who led the <a href="http://826dc.org/?p=510">Get Used to the Seats</a> book project. I <a href="http://williamjohnbert.com/2010/11/caught-in-the-act-part-3/">wrote about leading the workshops that ultimately became the &#8220;Busted&#8221; lesson plan</a> more than a year ago&#8211;right around the previous Friendsgiving. Hard to believe it&#8217;s been that long!</p>
 ]]></content>
   </entry>
   

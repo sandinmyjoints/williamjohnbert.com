@@ -7,6 +7,11 @@ title: Projects
 wordpress_id: 15
 ---
 
+## Node on the Road ##
+
+In August 2014, I was a presenter and panelist when
+[Node on the Road visited Washington, DC](https://www.joyent.com/noderoad/cities/washington-dc-8-20-2014).
+
 ## Conversations and Connections ##
 
 In April 2014, I discusssed my experience co-curating

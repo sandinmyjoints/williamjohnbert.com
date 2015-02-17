@@ -4,7 +4,7 @@
   <title><![CDATA[Category: talks | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/talks/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,11 +16,11 @@
   <entry>
     <title type="html"><![CDATA[Towards 100% Uptime with Node]]></title>
     <link href="http://williamjohnbert.com/2014/02/towards-100-percent-uptime-with-node/"/>
-    <updated>2014-02-17T16:18:00-05:00</updated>
+    <updated>2014-02-17T16:18:00-08:00</updated>
     <id>http://williamjohnbert.com/2014/02/towards-100-percent-uptime-with-node</id>
     <content type="html"><![CDATA[<p>In December, I gave a talk at
 <a href="http://www.meetup.com/Nova-Node/events/154016332/">Nova Node</a> called
-<a href="http://sandinmyjoints.github.io/towards-100-pct-uptime/">"Towards 100% Uptime with Node.js"</a>.
+<a href="http://sandinmyjoints.github.io/towards-100-pct-uptime/">&#8220;Towards 100% Uptime with Node.js&#8221;</a>.
 I wrote an accompanying blog post for the
 <a href="http://engineering.fluencia.com">Fluencia / SpanishDict engineering blog</a>:
 <a href="http://engineering.spanishdict.com/blog/2013/12/20/the-4-keys-to-100-uptime-with-nodejs">The 4 Keys to 100% Uptime with Node.js</a>.</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,15 +16,15 @@
   <entry>
     <title type="html"><![CDATA[How legit HTTP (with an async io assist) massacred my Node workers]]></title>
     <link href="http://williamjohnbert.com/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times/"/>
-    <updated>2013-09-10T18:55:00-04:00</updated>
+    <updated>2013-09-10T18:55:00-07:00</updated>
     <id>http://williamjohnbert.com/2013/09/why-chrome-sometimes-sends-the-same-post-multiple-times</id>
     <content type="html"><![CDATA[<p>An uncaught exception in our Node app was causing not only one, but two and then
 three workers to die. (Fortunately, we hardly ever encounter uncaught
-exceptions. Really, just this one since launch a few months ago. We're Node
+exceptions. Really, just this one since launch a few months ago. We&#8217;re Node
 studs! Right?)</p>
 
-<p>The funny thing is that we're using Express, which (via Connect) wraps each
-request / response in a try / catch. And we use Express's error handler, which
+<p>The funny thing is that we&#8217;re using Express, which (via Connect) wraps each
+request / response in a try / catch. And we use Express&#8217;s error handler, which
 returns 500 on unhandled errors.</p>
 
 <p>Another funny thing is we use cluster, which isolates workers from each other.
@@ -36,13 +36,13 @@ the rest immediately followed.</p>
 <p>Time to get to the bottom of this. A Node stud like me can figure it out. No
 sweat. Right?</p>
 
-<p>For a sanity check, I went to Chrome and Firefox's network inspectors. Only one
+<p>For a sanity check, I went to Chrome and Firefox&#8217;s network inspectors. Only one
 POST, the bad request that triggered the exception. Everything else looks
 normal. Sanity: verified.</p>
 
 <p>Then it was on to the
 <a href="http://nodejs.org/docs/latest/api/cluster.html#cluster_how_it_works">cluster module</a>.
-That magical "OS load balancing" seemed highly suspicious. But nope, I asked in
+That magical &#8220;OS load balancing&#8221; seemed highly suspicious. But nope, I asked in
 #nodejs and they said that only applies at the TCP connection level. Once a
 connection is assigned to a worker, it never goes to another worker. Meaning
 that the bad request was isolated&mdash;only the worker who received the initial
@@ -50,8 +50,8 @@ connection could encounter it.</p>
 
 <p>But the workers kept on dying.</p>
 
-<p>These workers morted out fast. They didn't even return 500, or any kind of
-response. The more I thought about it, that didn't really seem right. Not right
+<p>These workers morted out fast. They didn&#8217;t even return 500, or any kind of
+response. The more I thought about it, that didn&#8217;t really seem right. Not right
 at all. Why no 500?</p>
 
 <p>But I can only tackle one mystery at a time. I wanted to understand: why did so
@@ -89,10 +89,10 @@ new Error("uh-oh")</code>. My dev server spat back: <code>500 Error: uh-oh</code
 <p>So why did that one particular error never, ever return a 500, or any response
 of any kind?</p>
 
-<p>It's my fault, really. I'm still a Node newbie (I must never forget this). I had
+<p>It&#8217;s my fault, really. I&#8217;m still a Node newbie (I must never forget this). I had
 missed that because async IO callbacks occur in a different call stack from the
 request / response cyle, one that originates from the event loop,
-<a href="http://stackoverflow.com/questions/13228649/unable-to-handle-exception-with-node-js-domains-using-express/13240256#13240256">Express's try / catch doesn't catch them</a>.</p>
+<a href="http://stackoverflow.com/questions/13228649/unable-to-handle-exception-with-node-js-domains-using-express/13240256#13240256">Express&#8217;s try / catch doesn&#8217;t catch them</a>.</p>
 
 <p>It makes total sense. I have much to learn.</p>
 
@@ -102,14 +102,13 @@ bit of <a href="https://github.com/brianc/node-domain-middleware">this</a>, a da
 / response in a domain.</p>
 
 <p>But how do I get this domain into my controller? My solution was to attach it to
-<code>res.locals._domain</code>. Good solution? I don't know. I suspect there's a better
+<code>res.locals._domain</code>. Good solution? I don&#8217;t know. I suspect there&#8217;s a better
 way. Good enough? It solved my immediate problem:</p>
 
-<p><code>js
-Model.find({key: value}, res.locals._domain.bind(function(err, docs) {
+<pre><code class="js">Model.find({key: value}, res.locals._domain.bind(function(err, docs) {
   // This callback can throw all it wants. My domain will catch it.
 }));
-</code></p>
+</code></pre>
 
 <p>Sweet. Now, armed with a reference to <code>res</code> in the domain error handler, I can
 return a 500. Voila, the browser gets its response. No more helpful resent

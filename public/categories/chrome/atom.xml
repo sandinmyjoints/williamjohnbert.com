@@ -4,7 +4,7 @@
   <title><![CDATA[Category: chrome | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/chrome/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Allow CORS with localhost in Chrome]]></title>
     <link href="http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome/"/>
-    <updated>2013-06-25T19:04:00-04:00</updated>
+    <updated>2013-06-25T19:04:00-07:00</updated>
     <id>http://williamjohnbert.com/2013/06/allow-cors-with-localhost-in-chrome</id>
     <content type="html"><![CDATA[<p>Today I spent some time wrestling with the notorious
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Same_origin_policy_for_JavaScript">same origin policy</a>
@@ -27,38 +27,33 @@ running on localhost. Setting the <code>Access-Control-Allow-Origin</code> heade
 seemed to have no effect, and
 <a href="https://code.google.com/p/chromium/issues/detail?id=67743">this bug report</a>
 nearly led me to believe that was due to a bug in Chrome that made CORS with
-localhost impossible. It's not. It turned out that I also needed some other
+localhost impossible. It&#8217;s not. It turned out that I also needed some other
 CORs-related headers: <code>Access-Control-Allow-Headers</code> and
 <code>Access-Control-Allow-Methods</code>.</p>
 
 <p>This (slightly generalized) snippet of <a href="http://expressjs.com">Express.js</a>
 middleware is what ended up working for me:</p>
 
-<p><code>javascript
-app.all("/api/*", function(req, res, next) {
+<pre><code class="javascript">app.all("/api/*", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
   return next();
 });
-</code></p>
+</code></pre>
 
 <p>With that, Chrome started making OPTIONS requests when I wanted to POST from
 localhost:3001 to localhost:2002. It seems that using <code>contentType:
 application/json</code> for POSTs forces CORS preflighting, which surprised me since
 it seems like a common case for APIs, but no matter:</p>
 
-<p>```javascript
-app.all("/api/*", function(req, res, next) {
-  if (req.method.toLowerCase() !== "options") {</p>
-
-<pre><code>return next();
-</code></pre>
-
-<p>  }
+<pre><code class="javascript">app.all("/api/*", function(req, res, next) {
+  if (req.method.toLowerCase() !== "options") {
+    return next();
+  }
   return res.send(204);
 });
-```</p>
+</code></pre>
 ]]></content>
   </entry>
   

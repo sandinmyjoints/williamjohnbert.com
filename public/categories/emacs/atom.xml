@@ -4,7 +4,7 @@
   <title><![CDATA[Category: emacs | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/emacs/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,45 +16,44 @@
   <entry>
     <title type="html"><![CDATA[Using a Node repl in Emacs with nvm and npm]]></title>
     <link href="http://williamjohnbert.com/2014/02/using-a-node-repl-with-emacs/"/>
-    <updated>2014-02-17T16:37:00-05:00</updated>
+    <updated>2014-02-17T16:37:00-08:00</updated>
     <id>http://williamjohnbert.com/2014/02/using-a-node-repl-with-emacs</id>
     <content type="html"><![CDATA[<p>Running a repl inside Emacs is often convenient for evaluating code, checking
 syntax, and myriad other tasks. When I wanted to run a Node REPL, I found that I
 needed to do a little set up to get everything working the way I wanted.</p>
 
 <p>My first question was: which Node? With
-<a href="https://github.com/creationix/nvm">nvm</a>, I've installed multiple version on my
+<a href="https://github.com/creationix/nvm">nvm</a>, I&#8217;ve installed multiple version on my
 machine. So I needed a way to specify one to execute.</p>
 
 <p>Another question was: where to run Node? Since <a href="https://www.npmjs.org/">npm</a>
 looks inside <code>node_modules</code> directories starting with the current directory and
 working up the file system hierarchy, the current working directory is
 important. If I want access to the npm modules installed for project A, I need
-to start my repl's Node process from <code>path/to/projectA</code>.</p>
+to start my repl&#8217;s Node process from <code>path/to/projectA</code>.</p>
 
 <p>But that raises another question: what happens when I want to switch to project
-B? Do I need to use <code>process.chdir()</code> to switch the Node repl's current working
-directory to <code>path/to/projectB</code>? That's clumsy and annoying.</p>
+B? Do I need to use <code>process.chdir()</code> to switch the Node repl&#8217;s current working
+directory to <code>path/to/projectB</code>? That&#8217;s clumsy and annoying.</p>
 
-<p>Here's how I answered these questions:</p>
+<p>Here&#8217;s how I answered these questions:</p>
 
 <p><a href="https://github.com/rejeep/nvm.el">nvm.el</a> gives you <code>nvm-use</code> to activate a
-   version of Node within Emacs. It's basically a nice wrapper around setting
+   version of Node within Emacs. It&#8217;s basically a nice wrapper around setting
    the enviroment variables <code>NVM_BIN</code> and <code>NVM_PATH</code> and adding the path to the
    Node version you want to use to your <code>PATH</code>. Great!</p>
 
-<p>Except for one problem: <code>nvm-use</code> isn't interactive. It's meant to be use
+<p>Except for one problem: <code>nvm-use</code> isn&#8217;t interactive. It&#8217;s meant to be use
 programmatically. So I needed to write a small <code>do-nvm-use</code> wrapper that lets me
 specify a version and then activate it:</p>
 
-<p>```common-lisp
-(require-package 'nvm)</p>
+<pre><code class="common-lisp">(require-package 'nvm)
 
-<p>(defun do-nvm-use (version)
+(defun do-nvm-use (version)
   (interactive "sVersion: ")
   (nvm-use version)
   (exec-path-from-shell-copy-env "PATH"))
-```</p>
+</code></pre>
 
 <p>To specify where to run Node, I wrote another small defun, named <code>run-node</code>,
 that prompts for a directory in which to start Node. Before it does this,
@@ -68,57 +67,46 @@ project B will live in buffers named <code>*-node-repl-path/to/projectA</code> a
 <code>*-node-repl-path/to/projectB</code>, respectively&mdash;making switching to the right
 buffer with <a href="http://www.emacswiki.org/emacs/InteractivelyDoThings">ido</a> trivial.</p>
 
-<p>```common-lisp
-(defun run-node (cwd)
+<pre><code class="common-lisp">(defun run-node (cwd)
   (interactive "DDirectory: ")
-  (unless (executable-find "node")</p>
-
-<pre><code>(call-interactively 'do-nvm-use))
+  (unless (executable-find "node")
+    (call-interactively 'do-nvm-use))
+  (let ((default-directory cwd))
+        (pop-to-buffer (make-comint (format "node-repl-%s" cwd) "node" nil "--interactive"))))
 </code></pre>
 
-<p>  (let ((default-directory cwd))</p>
-
-<pre><code>    (pop-to-buffer (make-comint (format "node-repl-%s" cwd) "node" nil "--interactive"))))
-</code></pre>
-
-<p>```</p>
-
-<p>Now to start my Node repls, I just call <code>run-node</code> and I'm all set!</p>
+<p>Now to start my Node repls, I just call <code>run-node</code> and I&#8217;m all set!</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Emacs cl-lib madness]]></title>
     <link href="http://williamjohnbert.com/2013/05/emacs-cl-lib-madness/"/>
-    <updated>2013-05-27T15:52:00-04:00</updated>
+    <updated>2013-05-27T15:52:00-07:00</updated>
     <id>http://williamjohnbert.com/2013/05/emacs-cl-lib-madness</id>
     <content type="html"><![CDATA[<p>Emacs 24.3 renamed the Common Lisp emulation package from <code>cl</code> to <code>cl-lib</code>. The
 <a href="http://www.gnu.org/software/emacs/NEWS.24.3">release notes</a> say that <code>cl</code> in
-24.3 is now "a bunch of aliases that provide the old, non-prefixed names", but I
-encountered some problems with certain packages searching for--as best I can
-determine--function names that at some point changed but were not kept around as
+24.3 is now &#8220;a bunch of aliases that provide the old, non-prefixed names&#8221;, but I
+encountered some problems with certain packages searching for&#8211;as best I can
+determine&#8211;function names that at some point changed but were not kept around as
 aliases. This was particularly problematic when trying to run 24.3 on OS X
 10.6.8.</p>
 
-<p>In case anyone else runs into this problem, here's my solution:</p>
+<p>In case anyone else runs into this problem, here&#8217;s my solution:</p>
 
-<p>``` scheme
-;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in >=24.3.)
+<pre><code class="scheme">;; Require Common Lisp. (cl in &lt;=24.2, cl-lib in &gt;=24.3.)
 (if (require 'cl-lib nil t)
-  (progn</p>
-
-<pre><code>(defalias 'cl-block-wrapper 'identity)
-(defalias 'member* 'cl-member)
-(defalias 'adjoin 'cl-adjoin))
+  (progn
+    (defalias 'cl-block-wrapper 'identity)
+    (defalias 'member* 'cl-member)
+    (defalias 'adjoin 'cl-adjoin))
+  ;; Else we're on an older version so require cl.
+  (require 'cl))
 </code></pre>
 
-<p>  ;; Else we're on an older version so require cl.
-  (require 'cl))
-```</p>
-
 <p>We try to require <code>cl-lib</code>, and when that succeeds, define some aliases so that
-packages don't complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
-<code>adjoin</code>. If it doesn't succeed, we're on an older Emacs, so require the old
+packages don&#8217;t complain about missing <code>cl-block-wrapper</code>, <code>member*</code>, and
+<code>adjoin</code>. If it doesn&#8217;t succeed, we&#8217;re on an older Emacs, so require the old
 <code>cl</code>.</p>
 ]]></content>
   </entry>

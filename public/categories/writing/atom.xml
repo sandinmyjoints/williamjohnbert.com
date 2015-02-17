@@ -4,7 +4,7 @@
   <title><![CDATA[Category: writing | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/writing/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,13 +16,13 @@
   <entry>
     <title type="html"><![CDATA[Review of Requests 1.0]]></title>
     <link href="http://williamjohnbert.com/2013/01/review-of-requests-1-dot-0/"/>
-    <updated>2013-01-14T17:22:00-05:00</updated>
+    <updated>2013-01-14T17:22:00-08:00</updated>
     <id>http://williamjohnbert.com/2013/01/review-of-requests-1-dot-0</id>
-    <content type="html"><![CDATA[<p><em>Author's note: This piece was <a href="http://thediagram.com/12_6/rev_reitz.html">originally published</a> in the excellent literary journal
- <a href="http://thediagram.com/">DIAGRAM</a>, Issue 12.6. I'm
+    <content type="html"><![CDATA[<p><em>Author&#8217;s note: This piece was <a href="http://thediagram.com/12_6/rev_reitz.html">originally published</a> in the excellent literary journal
+ <a href="http://thediagram.com/">DIAGRAM</a>, Issue 12.6. I&#8217;m
  re-publishing here for formatting reasons.</em></p>
 
-<p>Identification with another is addictive: some of my life's most profound, memorable experiences have come when something bridged the gap between me and another human. Because I'm a reader, this can occur across the distance of space and time. It's happened with minor Chekov characters, and at the end of Kate Mansfield stories. It happens again and again with Norman Rush and George Saunders. The author has pushed a character through the page and connected with me on a deep level: identification.</p>
+<p>Identification with another is addictive: some of my life&#8217;s most profound, memorable experiences have come when something bridged the gap between me and another human. Because I&#8217;m a reader, this can occur across the distance of space and time. It&#8217;s happened with minor Chekov characters, and at the end of Kate Mansfield stories. It happens again and again with Norman Rush and George Saunders. The author has pushed a character through the page and connected with me on a deep level: identification.</p>
 
 
 <p>Identification happens with computer programming, too.</p>
@@ -44,16 +44,16 @@
 <h2 id="navigating-complexity">Navigating Complexity</h2>
 
 
-<p>As humans, we've evolved to unconsciously filter the staggering possibilities available to us at each moment. To manage that complexity, we have rules. Humans come with some built in rules (eat when hungry), and easily learn more (don't touch hot stoves; don't lie, especially to those you love). When I'm writing, my stories might examine how these rules come into conflict with each other: a government doctor is ordered to a remote, neglected village, and comes to value its people more than his duty to the government.</p>
+<p>As humans, we&#8217;ve evolved to unconsciously filter the staggering possibilities available to us at each moment. To manage that complexity, we have rules. Humans come with some built in rules (eat when hungry), and easily learn more (don&#8217;t touch hot stoves; don&#8217;t lie, especially to those you love). When I&#8217;m writing, my stories might examine how these rules come into conflict with each other: a government doctor is ordered to a remote, neglected village, and comes to value its people more than his duty to the government.</p>
 
 
-<p>Computers don't come with built-in rules. When I'm programming, if I make a mistake, the computer marches into it head-on. Computers do precisely and only what you tell them (frustrations with Microsoft Word notwithstanding), and because there are a staggering number of things they can do, programmers constantly battle complexity, sometimes spelling out in excruciating detail exactly what it is we want them to do. Programming is an effort to build up sets of rules that direct the computer to do something helpful.</p>
+<p>Computers don&#8217;t come with built-in rules. When I&#8217;m programming, if I make a mistake, the computer marches into it head-on. Computers do precisely and only what you tell them (frustrations with Microsoft Word notwithstanding), and because there are a staggering number of things they can do, programmers constantly battle complexity, sometimes spelling out in excruciating detail exactly what it is we want them to do. Programming is an effort to build up sets of rules that direct the computer to do something helpful.</p>
 
 
-<p>Staggering possibilities managed by rules: that's also a description of natural language. The difference is that natural language has been with our species for a long time. Our brains have evolved pockets that just do languagey stuff. When I write, I benefit from this history.</p>
+<p>Staggering possibilities managed by rules: that&#8217;s also a description of natural language. The difference is that natural language has been with our species for a long time. Our brains have evolved pockets that just do languagey stuff. When I write, I benefit from this history.</p>
 
 
-<p>When it comes to programming, we're just getting started. Our brains need help.</p>
+<p>When it comes to programming, we&#8217;re just getting started. Our brains need help.</p>
 
 
 <h2 id="avoiding-pitfalls">Avoiding Pitfalls</h2>
@@ -62,7 +62,7 @@
 <p>Misunderstandings and garbled messages kill identification before it can begin. Grammar, punctuation, and even typing mistakes fatally divert attention from what the writer is trying to say. Layout and space matter, too: linebreaks are essential to poetry, and visual flow to longer narrative. Communication can happen without them, but immersion comes more easily when nothing gets in the way.</p>
 
 
-<p>The stuff that programmers write, called code, can likewise be correct or incorrect, beautiful or ugly. Requests is written in a programming language called Python <sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup> that's known for being easy to read. Unusually for programming languages, Python requires a certain amount of space between bits of code, and its style guide encourages the use of even more space than required. Built-in elements of the language that programmers cannot change have clear and consistent names that further aid comprehension--not the case in every language. In Requests, Reitz embraces Python's style.</p>
+<p>The stuff that programmers write, called code, can likewise be correct or incorrect, beautiful or ugly. Requests is written in a programming language called Python <sup><a href="#fn1" class="footnoteRef" id="fnref1">1</a></sup> that&#8217;s known for being easy to read. Unusually for programming languages, Python requires a certain amount of space between bits of code, and its style guide encourages the use of even more space than required. Built-in elements of the language that programmers cannot change have clear and consistent names that further aid comprehension&#8211;not the case in every language. In Requests, Reitz embraces Python&#8217;s style.</p>
 
 
 <h2 id="structure">Structure</h2>
@@ -71,7 +71,7 @@
 <p>Options for structure and sequence abound: writers order narrative chronologically, <em>in media res</em>, or in more complex ways. Chapters can be short, long, or omitted. From Volumes and Parts to paragraphs and sentences, structure matters.</p>
 
 
-<p>Requests's dual structure is typical of programming libraries: the code itself, and a document that explains how to use the code. Within the code, there are structures that are roughly analogous in scale to sentences, paragraphs, and chapters, while the documentation proceeds narratively, starting with easy matters and advancing to difficult material.</p>
+<p>Requests&#8217;s dual structure is typical of programming libraries: the code itself, and a document that explains how to use the code. Within the code, there are structures that are roughly analogous in scale to sentences, paragraphs, and chapters, while the documentation proceeds narratively, starting with easy matters and advancing to difficult material.</p>
 
 
 <p>This bundle of code plus documentation is known as an <em>application programming interface</em>, or <em>API</em>.</p>
@@ -80,13 +80,13 @@
 <p>APIs are what make it possible to post your Instagram photos to your Facebook timeline, check-in on Foursquare from your iPhone, book a flight on United from Kayak, etc. Without APIs, without a way to share units of functionality with each other, each programmer or programming team would be on its own. Everything would take much, much longer; each programmer would have to reinvent the wheel.</p>
 
 
-<p>Here's an interesting bit of jargon: programmers say that somebody is &quot;exposing an API.&quot; It's an act of confidence, but also vulnerability.</p>
+<p>Here&#8217;s an interesting bit of jargon: programmers say that somebody is &quot;exposing an API.&quot; It&#8217;s an act of confidence, but also vulnerability.</p>
 
 
 <h2 id="expressive-power">Expressive Power</h2>
 
 
-<p>The number of books to read is huge. Why would you choose one over another? Why might you read a literary novel over, say, a detective novel, or an author you love over one you don't? One reason might be that while a thoughtful reader can eke meaning from even the flimsiest of genre novels (sometimes with great satisfaction and enjoyment), we tend to find more significance in novels and poetry that pack their sentences and stanzas with meaning, allusion, emotion, and impact. We might call this <em>expressive power</em>.</p>
+<p>The number of books to read is huge. Why would you choose one over another? Why might you read a literary novel over, say, a detective novel, or an author you love over one you don&#8217;t? One reason might be that while a thoughtful reader can eke meaning from even the flimsiest of genre novels (sometimes with great satisfaction and enjoyment), we tend to find more significance in novels and poetry that pack their sentences and stanzas with meaning, allusion, emotion, and impact. We might call this <em>expressive power</em>.</p>
 
 
 <p>The collection of programming libraries is also huge. To show how they vary in expressive power, I need to introduce a bit of programming code:</p>
@@ -98,14 +98,14 @@
 &gt;&gt;&gt; response.read()</code></pre>
 
 
-<p>This snippet <sup><a href="#fn2" class="footnoteRef" id="fnref2">2</a></sup> is the standard way to retrieve a webpage (specifically, Goodreads' homepage) using a Python library called urllib2. Requests does the same thing this way:</p>
+<p>This snippet <sup><a href="#fn2" class="footnoteRef" id="fnref2">2</a></sup> is the standard way to retrieve a webpage (specifically, Goodreads&#8217; homepage) using a Python library called urllib2. Requests does the same thing this way:</p>
 
 
 <pre><code>&gt;&gt;&gt; import requests
 &gt;&gt;&gt; response = requests.get(&quot;http://www.goodreads.com&quot;)</code></pre>
 
 
-<p>Requests' code is two lines instead of four. That might not seem like a big difference from urllib2, but note it, and bear with me just a bit longer. Both these snippets store the webpage they've retrieved in a variable called <code>response</code>. When I'm programming, I'll want to do something useful with <code>response</code>: save it to a file, show it to a user, parse it to see what books are popular. If I ask Python to describe the <code>response</code> returned by urllib2, I get something like <sup><a href="#fn3" class="footnoteRef" id="fnref3">3</a></sup> this:</p>
+<p>Requests&#8217; code is two lines instead of four. That might not seem like a big difference from urllib2, but note it, and bear with me just a bit longer. Both these snippets store the webpage they&#8217;ve retrieved in a variable called <code>response</code>. When I&#8217;m programming, I&#8217;ll want to do something useful with <code>response</code>: save it to a file, show it to a user, parse it to see what books are popular. If I ask Python to describe the <code>response</code> returned by urllib2, I get something like <sup><a href="#fn3" class="footnoteRef" id="fnref3">3</a></sup> this:</p>
 
 
 <pre><code>&gt;&gt;&gt; response
@@ -122,16 +122,16 @@
 <p>Again, Requests is smaller, and it turns out its two lines of code give me something much more useable than urllib2. <code>Response [200]</code> is meaningful; one of the first things every web programmer learns is that, in HTTP, the language of the internet, 200 means, simply, &quot;OK&quot;. Requests lets me know my code succeeded.</p>
 
 
-<p>The thing that urllib2 gave me, <code>&lt;addinfourl at 4338521656 whose fp = &lt;socket._fileobject object at 0x10297ce50&gt;&gt;</code>, is clear as mud. I can make some guesses about it, but to really understand it, I'd have to spend time rooting around in documentation. I just wanted to get a web page.</p>
+<p>The thing that urllib2 gave me, <code>&lt;addinfourl at 4338521656 whose fp = &lt;socket._fileobject object at 0x10297ce50&gt;&gt;</code>, is clear as mud. I can make some guesses about it, but to really understand it, I&#8217;d have to spend time rooting around in documentation. I just wanted to get a web page.</p>
 
 
-<p>This difference between the two libraries--their expressive power--plays out over and over with the rest of their functionality. Fetching a webpage is just scratching the surface, and the efficiency penalty imposed by the gap in expressive power compounds as you do more complicated, hence interesting, things.</p>
+<p>This difference between the two libraries&#8211;their expressive power&#8211;plays out over and over with the rest of their functionality. Fetching a webpage is just scratching the surface, and the efficiency penalty imposed by the gap in expressive power compounds as you do more complicated, hence interesting, things.</p>
 
 
-<p><code>requests.get</code> is Hemingway, or Strunk and White. Declarative. Terse. Say what you mean as plainly as possible. Behind the scenes, its two lines are doing more work than they seem, the way a good writer's sentences accomplish multiple things at once: moving plot forward, imparting character, setting tone, painting a scene.</p>
+<p><code>requests.get</code> is Hemingway, or Strunk and White. Declarative. Terse. Say what you mean as plainly as possible. Behind the scenes, its two lines are doing more work than they seem, the way a good writer&#8217;s sentences accomplish multiple things at once: moving plot forward, imparting character, setting tone, painting a scene.</p>
 
 
-<p>urllib2's jumble is verbose jargon, like legalese: heretofore, whereas, the party of the first part. Its API is a menagerie of abstractions with names such as <code>OpenerDirector</code> and <code>HTTPPasswordMgrWithDefaultRealm</code> <sup><a href="#fn4" class="footnoteRef" id="fnref4">4</a></sup> that must be looked up to be understood, and are often underwhelming in their capabilities.</p>
+<p>urllib2&#8217;s jumble is verbose jargon, like legalese: heretofore, whereas, the party of the first part. Its API is a menagerie of abstractions with names such as <code>OpenerDirector</code> and <code>HTTPPasswordMgrWithDefaultRealm</code> <sup><a href="#fn4" class="footnoteRef" id="fnref4">4</a></sup> that must be looked up to be understood, and are often underwhelming in their capabilities.</p>
 
 
 <p>Greater expressive power matches more closely the workings of my mind, where thought flows in a continuous stream. It eases the transit of thought across the boundary between internal and external. With a good novel or a good API, the pace of comprehension accelerates, syncing with my inner monologue, setting the stage for identification.</p>
@@ -143,10 +143,10 @@
 <p>Programmers strive to be subtext-free. The code is tricky enough. Miss a comma or closing brace, and spend hours trying to find your mistake. The computer forgives nothing. Good programmers deal with this by making reality as clean as possible.</p>
 
 
-<p>For example, within an app that tracks the books you've read, you've either read a book or not, or perhaps you're currently reading it. There's no &quot;I read a third of it, then put it down for a while,&quot; or &quot;I stole it from a friend and almost finished it but now Vanessa's borrowing it, I think.&quot; A system that tried to encode every possible state of any person's relationship to their books would never be finished. This is how programmers deal with reality: by cleaning it up.</p>
+<p>For example, within an app that tracks the books you&#8217;ve read, you&#8217;ve either read a book or not, or perhaps you&#8217;re currently reading it. There&#8217;s no &quot;I read a third of it, then put it down for a while,&quot; or &quot;I stole it from a friend and almost finished it but now Vanessa&#8217;s borrowing it, I think.&quot; A system that tried to encode every possible state of any person&#8217;s relationship to their books would never be finished. This is how programmers deal with reality: by cleaning it up.</p>
 
 
-<p>What I said above about Requests being like Hemingway isn't entirely accurate: his clean prose belies a messy reality that is always present; meaning is often unstated. Likewise, when Austen begins, &quot;It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife,&quot; she is not simply stating a universal truth that she has identified. The sentence comes with subtext: the truth is universal in the minds of some people, but not others, an oxymoron, emphasized by the sentence's lack of an active subject. There is also commentary on the relative power of men and women in her time. Here is a richness that demands and rewards repeated reading, offering interpretations as varied as the number of people who read it.</p>
+<p>What I said above about Requests being like Hemingway isn&#8217;t entirely accurate: his clean prose belies a messy reality that is always present; meaning is often unstated. Likewise, when Austen begins, &quot;It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife,&quot; she is not simply stating a universal truth that she has identified. The sentence comes with subtext: the truth is universal in the minds of some people, but not others, an oxymoron, emphasized by the sentence&#8217;s lack of an active subject. There is also commentary on the relative power of men and women in her time. Here is a richness that demands and rewards repeated reading, offering interpretations as varied as the number of people who read it.</p>
 
 
 <p>When I write a story, I thrive on subtext, on creating shades of meaning and
@@ -169,22 +169,22 @@ session.post(host+url, data=data)</code></pre>
 <p>I aim to banish ambiguity. I name my variables clearly, according to what data they hold. I structure the code to indicate the flow of execution. Requests helps me here: the last two lines that create a new session correspond to how I intuitively think of creating a session. The equivalent in urllib2 would be messier and more verbose.</p>
 
 
-<p>I want future readers--myself and others--to understand exactly what that code is doing. Future readers are as sure a thing with code as with literature. <sup><a href="#fn5" class="footnoteRef" id="fnref5">5</a></sup> I'll be re-reading my code in six months when I add a new feature in another part of the program and it suddenly breaks something here and I have to figure out how they are connected.</p>
+<p>I want future readers&#8211;myself and others&#8211;to understand exactly what that code is doing. Future readers are as sure a thing with code as with literature. <sup><a href="#fn5" class="footnoteRef" id="fnref5">5</a></sup> I&#8217;ll be re-reading my code in six months when I add a new feature in another part of the program and it suddenly breaks something here and I have to figure out how they are connected.</p>
 
 
-<h2 id="what-its-like-to-work-with-a-bad-api">What it's like to work with a bad API</h2>
+<h2 id="what-its-like-to-work-with-a-bad-api">What it&#8217;s like to work with a bad API</h2>
 
 
-<p>You get annoyed. You say of whoever created it, What were they thinking? You feel bogged down. Nothing comes easy. You have to keep taking breaks. You feel forgetful. You wonder if it's your fault, if you're missing something everyone else sees. You get a headache. You curse. You may bite or click your nails, or maniacally tap your foot. You want to be doing something else.</p>
+<p>You get annoyed. You say of whoever created it, What were they thinking? You feel bogged down. Nothing comes easy. You have to keep taking breaks. You feel forgetful. You wonder if it&#8217;s your fault, if you&#8217;re missing something everyone else sees. You get a headache. You curse. You may bite or click your nails, or maniacally tap your foot. You want to be doing something else.</p>
 
 
 <h2 id="grok">Grok</h2>
 
 
-<p>Programmers put so much value on understanding something with intimate and exhaustive knowledge that traditional programmer slang has its own word for it: <em>grok</em> <sup><a href="#fn6" class="footnoteRef" id="fnref6">6</a></sup>. It's from the language of the Martians in Robert Heinlein's <em>Stranger in a Strange Land</em>, in which it means literally &quot;to drink&quot; and metaphorically &quot;to be one with.&quot;</p>
+<p>Programmers put so much value on understanding something with intimate and exhaustive knowledge that traditional programmer slang has its own word for it: <em>grok</em> <sup><a href="#fn6" class="footnoteRef" id="fnref6">6</a></sup>. It&#8217;s from the language of the Martians in Robert Heinlein&#8217;s <em>Stranger in a Strange Land</em>, in which it means literally &quot;to drink&quot; and metaphorically &quot;to be one with.&quot;</p>
 
 
-<p>In a novel or poem, you've been led to understanding and impression by a succession of images and literary devices and experiences and revelations. In programming, you are led to understanding by encountering problems, ways of thinking about those problems, organizing them, and finally grokking them well enough to devise a solution.</p>
+<p>In a novel or poem, you&#8217;ve been led to understanding and impression by a succession of images and literary devices and experiences and revelations. In programming, you are led to understanding by encountering problems, ways of thinking about those problems, organizing them, and finally grokking them well enough to devise a solution.</p>
 
 
 <p>Reitz groks Python and the internet well, better than I ever will, as Austen grokked relationships and power dynamics better than I ever will. Through exposure to their works, I benefit from their experience of the world. In my own work of programming and writing, I strive to match the understanding that they achieved.</p>
@@ -199,22 +199,22 @@ session.post(host+url, data=data)</code></pre>
 <p>Writers inhabit the minds of their characters and of readers of their work.</p>
 
 
-<p>Programmers inhabit the minds of users. In Reitz's case, these are other programmers (as opposed to, say, the programmers of Google Chrome, which is used by non-programmers). Programmers might also be said to inhabit mind of the computer itself.</p>
+<p>Programmers inhabit the minds of users. In Reitz&#8217;s case, these are other programmers (as opposed to, say, the programmers of Google Chrome, which is used by non-programmers). Programmers might also be said to inhabit mind of the computer itself.</p>
 
 
-<p>This habitation of minds outside my own is part of what draws me to both these pursuits. It is a challenge. It broadens my world. Thinking of others, as others think, anticipating their needs and wants and questions, helps me transcend myself and gain perspective. It's invigorating!</p>
+<p>This habitation of minds outside my own is part of what draws me to both these pursuits. It is a challenge. It broadens my world. Thinking of others, as others think, anticipating their needs and wants and questions, helps me transcend myself and gain perspective. It&#8217;s invigorating!</p>
 
 
-<h2 id="what-its-like-to-work-with-a-great-api">What it's like to work with a great API</h2>
+<h2 id="what-its-like-to-work-with-a-great-api">What it&#8217;s like to work with a great API</h2>
 
 
-<p>It's more than if Lori Moore or John Ashbery published a notebook of exercises and prompts; it's as if they published part of their brain, so that you too can run your thoughts through it, and have them upgraded. As you figure out how to do what you set out to do, you realize other things that would also be cool to do, and you find that the API has ways to do them, too! You think the way someone else thought, and understand their thinking on a deep level. You have a sense that we are all in this together. We're not so different.</p>
+<p>It&#8217;s more than if Lori Moore or John Ashbery published a notebook of exercises and prompts; it&#8217;s as if they published part of their brain, so that you too can run your thoughts through it, and have them upgraded. As you figure out how to do what you set out to do, you realize other things that would also be cool to do, and you find that the API has ways to do them, too! You think the way someone else thought, and understand their thinking on a deep level. You have a sense that we are all in this together. We&#8217;re not so different.</p>
 
 
 <h2 id="identification">Identification</h2>
 
 
-<p>Identification is addictive. I seek it out, and I have an urge to spark it in others. The difficulties of navigating complexity while avoid communication pitfalls, of harnessing expressive power, and of inhabiting other minds make it difficult to find and create. If I can ever achieve it in my own work--whether writing or programming--it will be through studying--grokking--works like <em>Pride and Prejudice</em>, and <em>Requests</em>.</p>
+<p>Identification is addictive. I seek it out, and I have an urge to spark it in others. The difficulties of navigating complexity while avoid communication pitfalls, of harnessing expressive power, and of inhabiting other minds make it difficult to find and create. If I can ever achieve it in my own work&#8211;whether writing or programming&#8211;it will be through studying&#8211;grokking&#8211;works like <em>Pride and Prejudice</em>, and <em>Requests</em>.</p>
 
 
 <h2 id="footnotes">Footnotes</h2>
@@ -229,16 +229,72 @@ session.post(host+url, data=data)</code></pre>
 <pre><code>&gt;&gt;&gt; requests.get(&quot;www.goodreads.com&quot;)
 &lt;Result [200]&gt;</code></pre>
 <p>is really this little dialog:</p>
-<p>Python: I'm ready! Give me something to do.</p>
+<p>Python: I&#8217;m ready! Give me something to do.</p>
 <p>Me: Retrieve this webpage, www.goodreads.com, for me.</p>
-<p>Python: OK, did that, here's what I got.</p>
+<p>Python: OK, did that, here&#8217;s what I got.</p>
 <p>Writing out prompt/command/result is a common way for programmers to give each other examples: this is what I did; this is what I got; if you do the same, you should get the same result.<a href="#fnref2">^</a></p></li>
 <li id="fn3"><p>I say &quot;something like&quot; because the exact details will vary on different computers and at different times of execution.<a href="#fnref3">^</a></p></li>
 <li id="fn4"><p>These names are strikingly similar to the kinds of names that are common in another programming language you may have heard of, Java. Why that is is a whole other discussion that gets into very different philosophies about programming languages.<a href="#fnref4">^</a></p></li>
-<li id="fn5"><p>An experience I've noticed that's common to writers and programmers is looking back at their own work and not recognizing it, with reactions ranging from admiration (How did I do that?) to disgust (What was I thinking?).<a href="#fnref5">^</a></p></li>
+<li id="fn5"><p>An experience I&#8217;ve noticed that&#8217;s common to writers and programmers is looking back at their own work and not recognizing it, with reactions ranging from admiration (How did I do that?) to disgust (What was I thinking?).<a href="#fnref5">^</a></p></li>
 <li id="fn6"><p>This definition is taken from The Jargon File, a reference of programming jargon and lore: <a href="http://www.catb.org/jargon/html/G/grok.html">http://www.catb.org/jargon/html/G/grok.html</a><a href="#fnref6">^</a></p></li>
 </ol>
 </div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Poetry for the President]]></title>
+    <link href="http://williamjohnbert.com/2011/05/poetry-for-the-president/"/>
+    <updated>2011-05-11T04:43:10-07:00</updated>
+    <id>http://williamjohnbert.com/2011/05/poetry-for-the-president</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/IMG_1361-1.jpg" alt="" /></a>Since March, I&#8217;ve been working with DC students from several high schools, including Duke Ellington, Ballou, Wilson and Bell, in evening poetry workshops at <a href="http://www.826dc.org">826DC</a>. A bunch of us have been helping out—Mike Scalise, Adam Pelligrini, and Sally Keith (the last two being actual poets, while Mike and I, both prose writers, were faking it the whole time). And of course program director Mariam Al-Shawaf and 826DC Executive Director Joe Callahan did the thankless behind-the-scenes labor to make it all happen.</p>
+
+<p>The students came to us talented and hard-working, and we just helped them along with workshops on poetic forms, poetic sound, and metaphor (this is the one I&#8217;m awkwardly teaching in the photo above), and by giving plenty of exercises and time to generate new material. We even had a guest visit from the amazing <a href="http://www.poetryfoundation.org/bio/carolyn-forche">Carolyn Forche</a>.</p>
+
+<p>All this <a href="http://english.georgetown.edu/217153.html">culminates today</a> in a <a href="http://www.826national.org/article/405/826dc-and-826chi-students-write-poetry-at-the-white-house">workshop at the White House</a>, hosted by the Obamas, where the students will work with the likes of Billy Collins, Common, Rita Dove, Aimee Mann, Jill Scott and several other amazing poets to hone their craft even further. Very, very cool. Congrats to 826DC and especially to the students!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Spring, spring, spring]]></title>
+    <link href="http://williamjohnbert.com/2011/05/spring-spring-spring/"/>
+    <updated>2011-05-09T02:59:26-07:00</updated>
+    <id>http://williamjohnbert.com/2011/05/spring-spring-spring</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
+
+<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New story, and other updates]]></title>
+    <link href="http://williamjohnbert.com/2011/03/new-story-in-anomalous-press/"/>
+    <updated>2011-03-23T04:35:36-07:00</updated>
+    <id>http://williamjohnbert.com/2011/03/new-story-in-anomalous-press</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png"><img src="http://williamjohnbert.com/wp-content/uploads/2011/03/anomalous1.png" alt="Anomalous Press #1" /></a>I&#8217;m really thrilled to have a story, <a href="http://www.anomalouspress.org/current/21.bert.winner.php">&#8220;Winner,&#8221;</a> in the very first issue of Anomalous Press. It was released on the Ides of March, so I&#8217;m a bit tardy announcing it here—it&#8217;s been a busy March so far.</p>
+
+<p>The issue includes work from many better writers than me, including <a href="http://www.anomalouspress.org/current/25.ayala.winter.php">a poem</a> and <a href="http://www.anomalouspress.org/current/26.ayala.vision.php">two translations</a> from my friend Naomi Ayala. It was Naomi who suggested I submit to Anomalous. In this way and many others, she&#8217;s been a great friend and supporter of my writing, and I hope someday to be able to pay her back. You can catch another poem of hers when <a href="http://www.callandresponsedc.org/">Call + Response: Textures</a> opens on April 16. (More on that tomorrow.)</p>
+
+<p>Anomalous Press #1 is available for download as a PDF, but only if you <a href="http://www.paywithatweet.com/">pay with a tweet</a>. Neat concept. Attention as currency. And from a technical standpoint, I&#8217;m interested in how they integrated with <a href="http://dev.twitter.com/">Twitter using OAuth</a>—I want to do a similar thing with the reading series web app (Readsr/Readthing/whatever) I&#8217;m working on: tweet whenever a reading series is updated. So I&#8217;ll be looking into this soon.</p>
+
+<p>First, though, I plan to deploy an alpha version of the site this weekend. I&#8217;ve been reading up on <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <a href="http://pypi.python.org/pypi/pip">pip</a>, <a href="http://fabfile.org/">fabric</a>, and <a href="http://git-scm.com/">git</a>, trying to figure out how to deploy the right way&#8211;with automated version control and dependency isolation. This part, the admin stuff, is as complicated as any coding problem I&#8217;ve faced. Looking forward to tackling it in a marathon session on Saturday!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Stuff: Happening]]></title>
+    <link href="http://williamjohnbert.com/2011/02/stuff-happening/"/>
+    <updated>2011-02-22T12:06:54-08:00</updated>
+    <id>http://williamjohnbert.com/2011/02/stuff-happening</id>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
+
+<ul>
+<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
+<li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
+<li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
+<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
+</ul>
 
 ]]></content>
   </entry>

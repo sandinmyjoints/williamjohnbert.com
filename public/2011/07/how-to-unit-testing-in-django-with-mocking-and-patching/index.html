@@ -102,7 +102,7 @@ day of the week (e.g., first Sunday of the month, third Friday of the month &hel
   
 
 
-<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+<time datetime="2011-07-08T03:56:29-07:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -158,7 +158,7 @@ particular object within the scope of a particular method.</p>
 <p>Before I could patch the today() method, I needed to create my own fake
 method. It would look like this:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">faketoday</span><span class="p">()</span>
 </span><span class='line'>    <span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -167,7 +167,7 @@ method. It would look like this:</p>
 
 <p>There&#8217;s a problem, though, when I try to patch (or mock out) the method:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -210,7 +210,7 @@ method. It would look like this:</p>
 
 <p>The trick is to write a child class that can be modified, and thus faked:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -230,7 +230,7 @@ with a patch to replace datetime.date with FakeDate, and we also provide
 FakeDate a fake today() method that returns only and always the particular we
 are going to use for testing:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -271,7 +271,7 @@ effect.</p>
 series app, or series.models in Python dotted notation), date has been imported
 like so:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -311,12 +311,12 @@ very helpful as well.</p>
   
 
 
-<time datetime="2011-07-08T06:56:29-04:00" pubdate data-updated="true">Jul 8<span>th</span>, 2011</time>
+<time datetime="2011-07-08T03:56:29-07:00" pubdate data-updated="true"></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/categories/web-development/'>Web Development</a>
+    <a class='category' href='/categories/web-development/'>web development</a>
   
 </span>
 
@@ -393,7 +393,7 @@ very helpful as well.</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
+    <li class="loading">Status updating&#8230;</li>
   </ul>
   
   <a href="https://github.com/sandinmyjoints">@sandinmyjoints</a> on GitHub
@@ -431,7 +431,7 @@ very helpful as well.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - William John Bert -
+  Copyright &copy; 2015 - William John Bert -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

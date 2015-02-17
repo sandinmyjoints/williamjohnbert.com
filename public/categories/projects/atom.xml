@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Projects | William John Bert]]></title>
+  <title><![CDATA[Category: projects | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/projects/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,12 +16,12 @@
   <entry>
     <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
     <link href="http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
-    <updated>2011-08-26T07:16:14-04:00</updated>
+    <updated>2011-08-26T04:16:14-07:00</updated>
     <id>http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
     <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
 registration/login system pretty easily. But I wanted to give users the ability
 to use their existing accounts through popular services such as Facebook,
-Twitter, etc., rather than have to create yet another account. Here's how I did
+Twitter, etc., rather than have to create yet another account. Here&#8217;s how I did
 it.</p>
 
 <h1>Sorting Through the Choices</h1>
@@ -33,17 +33,17 @@ between <a href="https://github.com/omab/django-social-auth"><code>django-social
 originally linked to the wrong app here, but this link is correct) and
 <a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I
 went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>)
-because a friend had recommended it and because I'd already installed it before
-I read this article. However, the article's conclusion that <code>django-allauth</code> is
+because a friend had recommended it and because I&#8217;d already installed it before
+I read this article. However, the article&#8217;s conclusion that <code>django-allauth</code> is
 best out of the box also seems valid.</p>
 
 <h1>Installation</h1>
 
-<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>'s docs</a> are helpful in
+<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>&#8217;s docs</a> are helpful in
 walking you through available settings and options.</p>
 
 <p>I also found the included example app useful. To use this app, I cloned
-<code>django-social-auth</code>'s git repo, created a virtualenv called
+<code>django-social-auth</code>&#8217;s git repo, created a virtualenv called
 <code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this
 virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally
 ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1,
@@ -61,9 +61,9 @@ settings and installation and whatnot. Seemed fine.</p>
 <p>I turned my attention to the API keys. The ones I had were generated for
 <a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when
 I generated them at dev.twitter.com. But now I was running on localhost,
-127.0.0.1, so I suspected the readsrs.com keys wouldn't be valid. I wasn't sure
+127.0.0.1, so I suspected the readsrs.com keys wouldn&#8217;t be valid. I wasn&#8217;t sure
 whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at
-the request. (It seemed like it should do so, but I hadn't seen any instructions
+the request. (It seemed like it should do so, but I hadn&#8217;t seen any instructions
 anywhere that said to get a key for your development machine.) Turns out Twitter
 will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was
 able to log in with my Twitter credentials, and just as it should,
@@ -78,7 +78,7 @@ socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
 
 <p>I still need to fix a few oddities. For example, Twitter returns my first and
 last names together in <code>first_name</code> (or else <code>django-social-auth</code> is
-concatenating them into that column), and doesn't supply any email address. But
+concatenating them into that column), and doesn&#8217;t supply any email address. But
 the basic functionality is there, and was relatively easy to achieve.</p>
 
 <h1>Postscript</h1>
@@ -93,27 +93,27 @@ mid-July). Good timing.</p>
   <entry>
     <title type="html"><![CDATA[Simple Django Event Calendar]]></title>
     <link href="http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner/"/>
-    <updated>2011-06-13T16:34:52-04:00</updated>
+    <updated>2011-06-13T13:34:52-07:00</updated>
     <id>http://williamjohnbert.com/2011/06/django-event-calendar-for-a-django-beginner</id>
     <content type="html"><![CDATA[<h3>Background</h3>
 
-<p>I've been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
+<p>I&#8217;ve been teaching myself Django by writing a web app that tracks reading series in cities: <a href="http://www.readsrs.com">Readsr</a>. A reading series is a kind of recurring event. It defines a time, location, and recurrence rule such as first Monday of the month. Writing a list view to display upcoming readings was easy, but I also wanted to create a calendar view, similar to what Google Calendar provides. That took a little more work.</p>
 
 <h3>Existing Solutions</h3>
 
-<p>First I searched for existing Django calendar solutions. I found several. <a href="https://code.google.com/p/django-swingtime/">Swingtime</a> and <a href="https://github.com/dokterbob/django-agenda">django-agenda</a> seemed very well thought out and comprehensive, but were also perhaps overkill for what I needed. <a href="https://code.google.com/p/django-gencal/">django-gencal</a> doesn't appear to be maintained and I had trouble understanding the documentation (though you may have better results, as I am slow).</p>
+<p>First I searched for existing Django calendar solutions. I found several. <a href="https://code.google.com/p/django-swingtime/">Swingtime</a> and <a href="https://github.com/dokterbob/django-agenda">django-agenda</a> seemed very well thought out and comprehensive, but were also perhaps overkill for what I needed. <a href="https://code.google.com/p/django-gencal/">django-gencal</a> doesn&#8217;t appear to be maintained and I had trouble understanding the documentation (though you may have better results, as I am slow).</p>
 
 <h3>A Way Forward</h3>
 
-<p>I found that Python's calendar module has a built template called <a href="http://docs.python.org/library/calendar.html#calendar.HTMLCalendar">HTMLCalendar</a>, which sounded promising. Then I found a <a href="http://journal.uggedal.com/creating-a-flexible-monthly-calendar-in-django/">couple</a> <a href="http://drumcoder.co.uk/blog/2010/jun/13/monthly-calendar-django/">examples</a> of people inheriting from HTMLCalendar to add data to the calendar display. This sounded right on, so I adapted this code for my reading events.</p>
+<p>I found that Python&#8217;s calendar module has a built template called <a href="http://docs.python.org/library/calendar.html#calendar.HTMLCalendar">HTMLCalendar</a>, which sounded promising. Then I found a <a href="http://journal.uggedal.com/creating-a-flexible-monthly-calendar-in-django/">couple</a> <a href="http://drumcoder.co.uk/blog/2010/jun/13/monthly-calendar-django/">examples</a> of people inheriting from HTMLCalendar to add data to the calendar display. This sounded right on, so I adapted this code for my reading events.</p>
 
 <h3>Problem: Presentation and Content Mixed</h3>
 
-<p>I noticed a problem in the code I was adapting. The view was producing HTML. That seemed to violate separation of content and presentation. Shouldn't the HTML be generated in the template? And since the templating language itself isn't powerful enough to generate an HTML table from a list of objects, that meant I needed to write my own template tag. Yikes.</p>
+<p>I noticed a problem in the code I was adapting. The view was producing HTML. That seemed to violate separation of content and presentation. Shouldn&#8217;t the HTML be generated in the template? And since the templating language itself isn&#8217;t powerful enough to generate an HTML table from a list of objects, that meant I needed to write my own template tag. Yikes.</p>
 
 <h3>Writing My First Template Tag</h3>
 
-<p>Django's documentation made it easy, though. A template tag consists of a few parts. Below is the code; it goes into a subdirectory of the django app called "templatetags."</p>
+<p>Django&#8217;s documentation made it easy, though. A template tag consists of a few parts. Below is the code; it goes into a subdirectory of the django app called &#8220;templatetags.&#8221;</p>
 
 <p>The first part follows directly from the Django docs: get a register object.</p>
 
@@ -121,14 +121,14 @@ mid-July). Good timing.</p>
 
 <p>Then I define the node itself, which is made thread-safe by storing and retrieving the variables passed through the template tag from a context (again, this is straight from the Django docs).</p>
 
-<p>Then I inherit from HTMLCalendar and redefine the format methods to add the particular reading event data. You could adapt this class to any kind of event that has an associated date/time by changing the groupby lambda function to use whatever field your event object uses to store its date and time (my reading object simply calls it "date_and_time").</p>
+<p>Then I inherit from HTMLCalendar and redefine the format methods to add the particular reading event data. You could adapt this class to any kind of event that has an associated date/time by changing the groupby lambda function to use whatever field your event object uses to store its date and time (my reading object simply calls it &#8220;date_and_time&#8221;).</p>
 
 <p>Finally, I register this template tag so it is available to templates.</p>
 
-<p>Here's the code.</p>
+<p>Here&#8217;s the code.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Reading calendar  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Reading calendar </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -224,9 +224,6 @@ mid-July). Good timing.</p>
 <span class='line-number'>94</span>
 <span class='line-number'>95</span>
 <span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'>  <span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
 </span><span class='line'><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">HTMLCalendar</span>
 </span><span class='line'><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
@@ -237,26 +234,24 @@ mid-July). Good timing.</p>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">do_reading_calendar</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">do_reading_calendar</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    The template tag&#39;s syntax is { % reading_calendar year month reading_list %}</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="s">The template tag&#39;s syntax is { </span><span class="si">% r</span><span class="s">eading_calendar year month reading_list %}</span>
-</span><span class='line'><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">try</span><span class="p">:</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">try</span><span class="p">:</span>
 </span><span class='line'>    <span class="n">tag_name</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()</span>
 </span><span class='line'><span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
 </span><span class='line'>    <span class="k">raise</span> <span class="n">template</span><span class="o">.</span><span class="n">TemplateSyntaxError</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%r</span><span class="s"> tag requires three arguments&quot;</span> <span class="o">%</span> <span class="n">token</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 </span><span class='line'><span class="k">return</span> <span class="n">ReadingCalendarNode</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span><span class="p">)</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">ReadingCalendarNode</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">Node</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">ReadingCalendarNode</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">Node</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Process a particular node in the template. Fail silently.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="s">Process a particular node in the template. Fail silently.</span>
-</span><span class='line'><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span><span class="p">):</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">reading_list</span><span class="p">):</span>
 </span><span class='line'>    <span class="k">try</span><span class="p">:</span>
 </span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
 </span><span class='line'>        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
@@ -278,14 +273,13 @@ mid-July). Good timing.</p>
 </span><span class='line'>        <span class="k">return</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">ReadingCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">ReadingCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Overload Python&#39;s calendar.HTMLCalendar to add the appropriate reading events to</span>
+</span><span class='line'><span class="sd">    each day&#39;s table cell.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="s">Overload Python&#39;s calendar.HTMLCalendar to add the appropriate reading events to</span>
-</span><span class='line'><span class="s">each day&#39;s table cell.</span>
-</span><span class='line'><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readings</span><span class="p">):</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">readings</span><span class="p">):</span>
 </span><span class='line'>    <span class="nb">super</span><span class="p">(</span><span class="n">ReadingCalendar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
 </span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">readings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="n">readings</span><span class="p">)</span>
 </span><span class='line'>
@@ -326,12 +320,12 @@ mid-July). Good timing.</p>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">register</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="s">&quot;reading_calendar&quot;</span><span class="p">,</span> <span class="n">do_reading_calendar</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
-<p>Then, here's the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
+<p>Then, here&#8217;s the view (and a couple helper functions) that gets called with the arguments from the URL, including the year, month, and series to display events for.</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>View  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>View </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -391,9 +385,6 @@ mid-July). Good timing.</p>
 <span class='line-number'>58</span>
 <span class='line-number'>59</span>
 <span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">named_month</span><span class="p">(</span><span class="n">month_number</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
@@ -402,24 +393,21 @@ mid-July). Good timing.</p>
 </span><span class='line'><span class="k">return</span> <span class="n">date</span><span class="p">(</span><span class="mi">1900</span><span class="p">,</span> <span class="n">month_number</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%B&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">this_month</span><span class="p">(</span><span class="n">request</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">this_month</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Show calendar of readings this month.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span>
+</span><span class='line'>    <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="s">Show calendar of readings this month.</span>
-</span><span class='line'><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-</span><span class='line'><span class="k">return</span> <span class="n">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">series_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&quot;&quot;&quot;</span>
+</span><span class='line'><span class="sd">    Show calendar of readings for a given month of a given year.</span>
+</span><span class='line'><span class="sd">    &lt;code&gt;series_id&lt;/code&gt;</span>
+</span><span class='line'><span class="sd">    The reading series to show. None shows all reading series.</span>
+</span><span class='line'><span class="sd">    &quot;&quot;&quot;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">calendar</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">series_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'><span class="s">Show calendar of readings for a given month of a given year.</span>
-</span><span class='line'><span class="s">``series_id``</span>
-</span><span class='line'><span class="s">The reading series to show. None shows all reading series.</span>
-</span><span class='line'><span class="s">&quot;&quot;&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">my_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">my_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
 </span><span class='line'><span class="n">my_month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
 </span><span class='line'><span class="n">my_calendar_from_month</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </span><span class='line'><span class="n">my_calendar_to_month</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">,</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">my_year</span><span class="p">,</span> <span class="n">my_month</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
@@ -457,12 +445,12 @@ mid-July). Good timing.</p>
 </span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
-<p>And finally, here's the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I'll forgo writing that out):</p>
+<p>And finally, here&#8217;s the template where we load the template tag and employ it, passing the year, month, and list from the view (you would also want to write some control elements that use previous_year, previous_month, etc. to allow the user to change what the calendar displays, but because I want to wrap this up I&#8217;ll forgo writing that out):</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Use template tag  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><figure class='code'><figcaption><span>Use template tag </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -478,7 +466,7 @@ mid-July). Good timing.</p>
 </span><span class='line'>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>Hopefully that makes sense. Enjoy!</p>
 
@@ -489,26 +477,26 @@ mid-July). Good timing.</p>
   <entry>
     <title type="html"><![CDATA[Spring, spring, spring]]></title>
     <link href="http://williamjohnbert.com/2011/05/spring-spring-spring/"/>
-    <updated>2011-05-09T05:59:26-04:00</updated>
+    <updated>2011-05-09T02:59:26-07:00</updated>
     <id>http://williamjohnbert.com/2011/05/spring-spring-spring</id>
-    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>--the ideal vacation.</p>
+    <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/05/jbb_cr2.jpg" alt="" /></a>Spring is the rarest of seasons in DC, but it looks like we get a few days of it this week. This could not be happening at a better time. The protracted move from Columbia Heights/Baltimore/Tucson to Capitol Hill is over. The <a href="http://www.callandresponsedc.org/">art show</a> has wrapped. Work is still way busy, but next week I head to North Carolina for some writing time in the mountains at <a href="http://doebranchink.org/">Doe Branch Ink</a>&#8211;the ideal vacation.</p>
 
-<p>Craig Nova is the resident author for this session at DBI, and I'm looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It'll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don't have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I'm feeling optimistic.</p>
+<p>Craig Nova is the resident author for this session at DBI, and I&#8217;m looking forward to reading his novel <em>The Good Son</em>, starting on the commute home this afternoon. It&#8217;ll be good to dive back into reading and writing, which have taken a back seat so far this season. I did have the honor of getting tapped for <a href="http://dcarts.dc.gov/DC/DCARTS/Events/Annual+Programming/Annual+Programming#4">a Larry Neal award</a>, 2nd place for adult fiction  (the non-euphemistic kind), for a story I began back in Arizona but kept revisiting up until last fall. That just made me want to sit down and get back to writing, drafting, and revising even more! I don&#8217;t have any illusions that late spring and summer will be slow, but few things suck up time more than moving, and with a good solid week to get jump-started, I&#8217;m feeling optimistic.</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Stuff: Happening]]></title>
     <link href="http://williamjohnbert.com/2011/02/stuff-happening/"/>
-    <updated>2011-02-22T15:06:54-05:00</updated>
+    <updated>2011-02-22T12:06:54-08:00</updated>
     <id>http://williamjohnbert.com/2011/02/stuff-happening</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/02/IMG_0746.jpg" alt="Plane flying in clouds" /></a>If I updated more regularly, I would have written entire posts about the following things.</p>
 
 <ul>
-<li><p>AWP 2011 came and went blazingly fast. I saw many people I've missed dearly, and missed many people I would've liked to see.</p></li>
+<li><p>AWP 2011 came and went blazingly fast. I saw many people I&#8217;ve missed dearly, and missed many people I would&#8217;ve liked to see.</p></li>
 <li><p>The second workshop with the Bell Poetry Club for <a href="http://www.826dc.org/">826DC</a>, this time diving into the poem-as-extended-metaphor, went swimmingly.</p></li>
 <li><p>A story of mine is going to be published in the first issue of Anomalous.</p></li>
-<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight's task: refactoring and adding messaging.</p></li>
+<li><p>And I continue working on my reading series Django app. Possible names: Readsr, or Readzee, or Readoo, or maybe Readthing. Hmm. Are any of these, like, any good? Tonight&#8217;s task: refactoring and adding messaging.</p></li>
 </ul>
 
 ]]></content>
@@ -517,25 +505,25 @@ mid-July). Good timing.</p>
   <entry>
     <title type="html"><![CDATA[Building the New Call + Response Site]]></title>
     <link href="http://williamjohnbert.com/2011/01/building-the-new-call-response-site/"/>
-    <updated>2011-01-26T15:32:03-05:00</updated>
+    <updated>2011-01-26T12:32:03-08:00</updated>
     <id>http://williamjohnbert.com/2011/01/building-the-new-call-response-site</id>
     <content type="html"><![CDATA[<p><a href="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg"><img src="http://williamjohnbert.com/wp-content/uploads/2011/01/5391220127_9ed0503fb0_b.jpg" alt="National Portrart Gallery in the snow" /></a>Over the past couple weeks I worked on relaunching the website for <a href="http://www.callandresponsedc.org/">Call + Response</a>, an art show I co-curate with my friend <a href="http://twitter.com/kiraface">Kira</a>.</p>
 
-<p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn't use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
+<p>The website for the second iteration of the show, Call + Response: Textures, is pretty different from <a href="http://williamjohnbert.com/callandresponse2010/">the first version</a>. The first was ultra minimal, hand-coded, and didn&#8217;t use a CMS—just a simple site that I could get going in a matter of hours. It was not designed to coordinate with a promotional campaign incorporating Twitter and Facebook. Even doing regular updates on our progress putting together the show would have been a real pain.</p>
 
-<p>My goal for this site was to keep the clean, minimal feel while using a modern CMS that would allow for frequent updates, integration with social media, and cool stuff like photo galleries, maps, and interactive widgets. So here's what I did.</p>
+<p>My goal for this site was to keep the clean, minimal feel while using a modern CMS that would allow for frequent updates, integration with social media, and cool stuff like photo galleries, maps, and interactive widgets. So here&#8217;s what I did.</p>
 
 <ul>
-<li><p>First I installed  a Wordpress theme, a rather minimalist one called <a href="http://www.yukei.net/proyectos/satori-english-documentation/">sartorii</a>. Then I started to customize it to the particular needs of the site, slimming it down further, eliminating sidebars and meta information, culling whatever felt extraneous to the site's mission of communicating essentials and focusing on the concept and participants.</p></li>
-<li><p>To present the bios of the participants, I used jQuery UI's accordion tool. Call + Response pairs artists with writers, so I wrote code to link two accordions together. When you click on an artist name you get two bios, theirs and the writer they are paired with, and vice versa.</p></li>
-<li><p>I installed  a lightbox plugin for the <a href="http://www.callandresponsedc.org/?page_id=65">photos page</a>. First, I discovered just how many lightbox plugins are out there. I wanted one that would integrate with Wordpress's gallery feature, and it took some time to find a solution. I ended up using <a href="http://wordpress.org/extend/plugins/fancy-gallery/">Fancy Gallery</a>, which integrates with <a href="http://fancybox.net/">Fancy Box</a> to produce the desired results.</p></li>
-<li><p>Once I received the poster design for the show from our designer, <a href="http://www.olivermunday.com">Oliver Munday</a>, I further customized the theme to use the poster's colors and imagery.</p></li>
+<li><p>First I installed  a Wordpress theme, a rather minimalist one called <a href="http://www.yukei.net/proyectos/satori-english-documentation/">sartorii</a>. Then I started to customize it to the particular needs of the site, slimming it down further, eliminating sidebars and meta information, culling whatever felt extraneous to the site&#8217;s mission of communicating essentials and focusing on the concept and participants.</p></li>
+<li><p>To present the bios of the participants, I used jQuery UI&#8217;s accordion tool. Call + Response pairs artists with writers, so I wrote code to link two accordions together. When you click on an artist name you get two bios, theirs and the writer they are paired with, and vice versa.</p></li>
+<li><p>I installed  a lightbox plugin for the <a href="http://www.callandresponsedc.org/?page_id=65">photos page</a>. First, I discovered just how many lightbox plugins are out there. I wanted one that would integrate with Wordpress&#8217;s gallery feature, and it took some time to find a solution. I ended up using <a href="http://wordpress.org/extend/plugins/fancy-gallery/">Fancy Gallery</a>, which integrates with <a href="http://fancybox.net/">Fancy Box</a> to produce the desired results.</p></li>
+<li><p>Once I received the poster design for the show from our designer, <a href="http://www.olivermunday.com">Oliver Munday</a>, I further customized the theme to use the poster&#8217;s colors and imagery.</p></li>
 </ul>
 
 
-<p>I'm pleased with the result. I think it fulfills the goals I set forth. I learned a ton about jQuery, css, and WordPress, which was a great side benefit. Picking up new skills can be really enjoyable, especially when  those skills quickly turn into tangible results.</p>
+<p>I&#8217;m pleased with the result. I think it fulfills the goals I set forth. I learned a ton about jQuery, css, and WordPress, which was a great side benefit. Picking up new skills can be really enjoyable, especially when  those skills quickly turn into tangible results.</p>
 
-<p>I'm already starting on my  next web development project: building a Django app to manage a list of DC-area reading series.</p>
+<p>I&#8217;m already starting on my  next web development project: building a Django app to manage a list of DC-area reading series.</p>
 ]]></content>
   </entry>
   

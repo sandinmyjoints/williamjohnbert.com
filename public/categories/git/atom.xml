@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | William John Bert]]></title>
   <link href="http://williamjohnbert.com/categories/git/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2014-06-02T10:39:12-04:00</updated>
+  <updated>2015-02-17T10:40:12-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -16,10 +16,10 @@
   <entry>
     <title type="html"><![CDATA[Using Github Pages to hand off a legacy site and make everyone happier]]></title>
     <link href="http://williamjohnbert.com/2014/04/handing-off-a-legacy-site/"/>
-    <updated>2014-04-30T18:52:00-04:00</updated>
+    <updated>2014-04-30T18:52:00-07:00</updated>
     <id>http://williamjohnbert.com/2014/04/handing-off-a-legacy-site</id>
-    <content type="html"><![CDATA[<p>Here's how I turned over maintenance of a legacy site -- built as a one-off
-project years ago using now outdated technology -- to my non-techincal
+    <content type="html"><![CDATA[<p>Here&#8217;s how I turned over maintenance of a legacy site &#8211; built as a one-off
+project years ago using now outdated technology &#8211; to my non-techincal
 cofounder, with only a few hours of work. Best of all, it now uses evergreen
 technology that will make it easy for her to update for years to come, and
 everyone is happy with the outcome.</p>
@@ -30,10 +30,10 @@ everyone is happy with the outcome.</p>
 Kira and I decided to co-curate an art show of that name in 2010. It became an
 annual event, and each year I updated the website with the new participants and
 details. This year, Kira is continuing the show with support from others because
-I'm out of capacity to help.</p>
+I&#8217;m out of capacity to help.</p>
 
 <p>Kira needs to be be able to update the website. It lists what the concept behind
-the show is; who's participating; where the show is; when it opens; and more. I
+the show is; who&#8217;s participating; where the show is; when it opens; and more. I
 created the original website using <a href="http://www.djangoproject.com">Django</a> as a
 learning exercise when I was fairly new to web development. I went all out by my
 standards of the time, creating a simple micro-CMS that helped me learn about
@@ -42,9 +42,9 @@ the MVC pattern, etc.</p>
 <p>However, the project had no use outside of this particular website. It could not
 be generalized without a significant overhaul, and I had no need to generalize
 it. In fact, I had no interest in maintaining it or even working with it. I
-built it with Django 1.3, and hosted it with a service that I don't use anymore.</p>
+built it with Django 1.3, and hosted it with a service that I don&#8217;t use anymore.</p>
 
-<p>Usually, in such a case, it's tough luck for the the web developer. Kira is not
+<p>Usually, in such a case, it&#8217;s tough luck for the the web developer. Kira is not
 a web developer and has no interest in becoming one; she just wants to be able
 to update her website. The responsible thing is to step up to to the task, and
 keep the site going.</p>
@@ -56,16 +56,16 @@ links, and images, and create new pages.</p>
 
 <h3>The solution</h3>
 
-<p>Here's how I converted the site from a Django project that only someone who knew
+<p>Here&#8217;s how I converted the site from a Django project that only someone who knew
 Python could update into a flat site that anyone could edit by knowing only the
 most basic HTML:</p>
 
 <p>\1. Scrape.</p>
 
 <p>  This seemed like something I could do fairly easily with my current web
-  programming tool of choice -- Node.js. I just had too download and write to disk
+  programming tool of choice &#8211; Node.js. I just had too download and write to disk
   every page I could find by following links that had the same host. But often
-  with things that seem straightforward, the devil's often in the details, and
+  with things that seem straightforward, the devil&#8217;s often in the details, and
   anyway, I figured someone else must have wanted to do this, so there had to be a
   tool for it, which would turn this from fairly easily into dead simple.</p>
 
@@ -89,7 +89,7 @@ most basic HTML:</p>
 created a Github organization, initialized a git repo, created a branch named
 <code>gh-pages</code>, and pushed it to Github. Now the site was up at
 <code>callandresponsedc.github.io/callandresponsedc</code>, (albeit in a broken form due to
-the static assets' root-relative paths resulting in 404s).</p>
+the static assets&#8217; root-relative paths resulting in 404s).</p>
 
 <p>Then I added a
 <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages">CNAME</a>
@@ -104,25 +104,25 @@ have been apparent.</p>
 
 <p>\3. Enable.</p>
 
-<p>While I'd waited for the DNS to change, I'd asked Kira to create a github account,
+<p>While I&#8217;d waited for the DNS to change, I&#8217;d asked Kira to create a github account,
 added her to the organization, and spent 15 minutes writing up a brief guide to
 how to edit the HTML pages using Github.</p>
 
 <p>Thanks to
-<a href="https://github.com/blog/905-edit-like-an-ace">github's editing tools</a>, she now
+<a href="https://github.com/blog/905-edit-like-an-ace">github&#8217;s editing tools</a>, she now
 had the ability to make changes that would take effect instantly.</p>
 
 <p>Technically, at this point, I was no longer needed. I could have handed it over
 now. Kira was enabled to do everything she needed to do. But I would have had to
-add a caveat: "By the way, when you want to change anything in the menu, or
+add a caveat: &#8220;By the way, when you want to change anything in the menu, or
 header, or footer, or to add a new logo or change colors, you have to do it on
-<em>every single page</em>."</p>
+<em>every single page</em>.&#8221;</p>
 
 <p>Because Httrack, good as it is, is not good enough to produce DRY results. Each
 page of the static site repeated all the same HTML structure for its header and
 footer and body, and contained its own set of inline styles. Changing any part
-of that would have meant changing every page. There weren't a lot pages, but
-nonetheless, I didn't want to force that burden on K.</p>
+of that would have meant changing every page. There weren&#8217;t a lot pages, but
+nonetheless, I didn&#8217;t want to force that burden on K.</p>
 
 <p>I could do better.</p>
 
@@ -135,11 +135,11 @@ idea with the stylesheet.</p>
 <p>To make this work, I had to use something slightly more complicated than flat
 HTML files. I decided to convert the site to use
 <a href="https://help.github.com/articles/using-jekyll-with-pages">(Github-flavored) Jekyll</a>.
-I won't repeat the instructions needed to get that up and running; just follow
+I won&#8217;t repeat the instructions needed to get that up and running; just follow
 the link, and do what it says. It takes on the order of a few minutes.</p>
 
 <p>To refactor, I just needed to figure out exactly what was common to all pages,
-hack it out into includes, and reassemble the includes as templates. Then I'd
+hack it out into includes, and reassemble the includes as templates. Then I&#8217;d
 specify which template to use via YAML front-matter on each page, and voila, my
 Jekyll site would be done. Because I use
 <a href="http://www.gnu.org/software/emacs/">Emacs</a>, I used
@@ -149,19 +149,16 @@ could do this with any diffing tool and text editor.</p>
 <p>A nice side effect of this was that the pages that Kira would be editing got much
 simple. They went from something like:</p>
 
-<p>```html
+<p>&#8220;`html
 &lt;!DOCTYPE HTML>
 <html lang="en">
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
   <title>About - Call + Response
   </title>
-  &lt;script src="http://platform.twitter.com/anywhere.js?id=IrVoVLmkJDVw9Pagwdxsow&amp;v=1"</p>
-
-<pre><code>      type="text/javascript"&gt;
-</code></pre>
-
-<p>  </script>
+  <script src="http://platform.twitter.com/anywhere.js?id=IrVoVLmkJDVw9Pagwdxsow&amp;v=1"
+          type="text/javascript">
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Call + Response is an art show in Washington, DC, pairing writers and artists.">
   <meta name="author" content="William John Bert"></p>
@@ -185,20 +182,14 @@ simple. They went from something like:</p>
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
-<p>  <body></p>
-
-<pre><code>&lt;div class="navbar navbar-fixed-top"&gt;
-</code></pre>
-
-<p>  <div class="navbar-inner"></p>
-
-<pre><code>&lt;div class="container-fluid"&gt;
-  &lt;a class="brand" href="http://williamjohnbert.com/"&gt;Call + Response
-  &lt;/a&gt;
-&lt;/div&gt;
-</code></pre>
-
-<p>  </div>
+<p>  <body>
+    <div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="http://williamjohnbert.com/">Call + Response
+      </a>
+    </div>
+  </div>
 </div></p>
 
 <pre><code>&lt;div class="container-fluid"&gt;
@@ -206,62 +197,53 @@ simple. They went from something like:</p>
     &lt;div class="span3"&gt;
 </code></pre>
 
-<p>  <div class="well sidebar-nav"></p>
-
-<pre><code>&lt;ul class="nav nav-list"&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/about"&gt;About
-    &lt;/a&gt;
-  &lt;/li&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/opening"&gt;Opening
-    &lt;/a&gt;
-  &lt;/li&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/participants"&gt;Participants
-    &lt;/a&gt;
-  &lt;/li&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/sponsors"&gt;Sponsors
-    &lt;/a&gt;
-  &lt;/li&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/contact"&gt;Contact
-    &lt;/a&gt;
-  &lt;/li&gt;
-  &lt;li class=""&gt;
-    &lt;a href="http://williamjohnbert.com/press"&gt;Press
-    &lt;/a&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-
-<p>  </div>
+<p>  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="">
+        <a href="http://williamjohnbert.com/about">About
+        </a>
+      </li>
+      <li class="">
+        <a href="http://williamjohnbert.com/opening">Opening
+        </a>
+      </li>
+      <li class="">
+        <a href="http://williamjohnbert.com/participants">Participants
+        </a>
+      </li>
+      <li class="">
+        <a href="http://williamjohnbert.com/sponsors">Sponsors
+        </a>
+      </li>
+      <li class="">
+        <a href="http://williamjohnbert.com/contact">Contact
+        </a>
+      </li>
+      <li class="">
+        <a href="http://williamjohnbert.com/press">Press
+        </a>
+      </li>
+    </ul>
+  </div>
 </div></p>
 
 <pre><code>    &lt;div class="span9"&gt;
       &lt;div class="chiclet pull-right visible-desktop"&gt;
 </code></pre>
 
-<p>  &lt;a href="https://twitter.com/share" class="twitter-share-button" data-count="none"</p>
-
-<pre><code> data-hashtags="callandresponsedc"&gt;Tweet
-</code></pre>
-
-<p>  </a>
-  <script>!function (d, s, id) {</p>
-
-<pre><code>var js, fjs = d.getElementsByTagName(s)[0];
-if (!d.getElementById(id)) {
-js = d.createElement(s);
-js.id = id;
-js.src = "http://platform.twitter.com/widgets.js";
-fjs.parentNode.insertBefore(js, fjs);
-}
-}(document, "script", "twitter-wjs");
-</code></pre>
-
-<p>  </script>
+<p>  <a href="https://twitter.com/share" class="twitter-share-button" data-count="none"
+     data-hashtags="callandresponsedc">Tweet
+  </a>
+  <script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "http://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }
+    }(document, "script", "twitter-wjs");
+  </script>
 </div></p>
 
 <div class="chiclet pull-right visible-desktop">
@@ -277,42 +259,40 @@ fjs.parentNode.insertBefore(js, fjs);
 
 <p></h1></p>
 
-<p>
-  Call + Response is an (almost) annual art show in the nation's capital that brings together writers and visual artists. The writers provide the call with an original piece of writing and then visual artists generate a new piece of work in response. The end result being two pieces that resonate with each other.
-  [etc...]
-```
+<p><p>
+  Call + Response is an (almost) annual art show in the nation&#8217;s capital that brings together writers and visual artists. The writers provide the call with an original piece of writing and then visual artists generate a new piece of work in response. The end result being two pieces that resonate with each other.
+  [etc&#8230;]
+&#8220;`</p>
 
-to:
+<p>to:</p>
 
-```html
----
+<pre><code class="html">---
 layout: page
 title: About
 ---
 
-<h1>About
-</h1>
-<p>
+&lt;h1&gt;About
+&lt;/h1&gt;
+&lt;p&gt;
   Call + Response is an (almost) annual art show in the nation's capital that brings together writers and visual artists. The writers provide the call with an original piece of writing and then visual artists generate a new piece of work in response. The end result being two pieces that resonate with each other.
-</p>
-```
+&lt;/p&gt;
+</code></pre>
 
-It took an hour or so to DRY out everything, and then...I was done. A site that
-had been a mess -- one-off code written years ago for an outdated version of a
-framework that I don't use anymore -- had become so simple that I could hand it
-off to my non-technical cofounder and both of us would be happier for it!
+<p>It took an hour or so to DRY out everything, and then&#8230;I was done. A site that
+had been a mess &#8211; one-off code written years ago for an outdated version of a
+framework that I don&#8217;t use anymore &#8211; had become so simple that I could hand it
+off to my non-technical cofounder and both of us would be happier for it!</p>
 
-And sure enough, since then, Kira has made numerous updates to the site, each of
+<p>And sure enough, since then, Kira has made numerous updates to the site, each of
 which would have taken at least one, maybe a couple, rounds of emails back and
 forth, plus a context switch for me to make the changes, and a deploy, another
 round of emails to confirm that everything now looked good. Repeat, repeat,
-repeat.
+repeat.</p>
 
-I did this with a Django site, but it'd be just as applicable with a lot of
+<p>I did this with a Django site, but it&#8217;d be just as applicable with a lot of
 Wordpress sites, or any CMS, really. Obviously, there are many cases where this
-solution wouldn't work for a variety of reasons. But if you can make it work,
-it's a joy to do so!
-
+solution wouldn&#8217;t work for a variety of reasons. But if you can make it work,
+it&#8217;s a joy to do so!</p>
 ]]></content>
   </entry>
   
