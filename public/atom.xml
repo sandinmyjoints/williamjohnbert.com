@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2015-02-17T10:40:12-08:00</updated>
+  <updated>2015-02-17T18:55:03-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -12,6 +12,46 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Why I'd like Node and io.js to merge]]></title>
+    <link href="http://williamjohnbert.com/2015/02/why-id-like-node-and-io-dot-js-to-merge/"/>
+    <updated>2015-02-17T18:46:00-08:00</updated>
+    <id>http://williamjohnbert.com/2015/02/why-id-like-node-and-io-dot-js-to-merge</id>
+    <content type="html"><![CDATA[<p>I encourage Node users to express support for using io.js&#8217;s open governance
+model as the basis for the Node foundation&#8217;s technical committee &mdash; because
+from where I sit, one Node with a technical committee composed of the best
+technical people is the ideal outcome of this situation.</p>
+
+<p>My life would be easier if there were just one Node. My team wouldn&#8217;t have to
+spend time discussing and deciding which to use. There wouldn&#8217;t be any confusion
+in the future about whether <code>npm install</code> would give me a module I could use
+with whatever runtime I happened to be using.</p>
+
+<p>The
+<a href="https://medium.com/@iojs/io-js-and-a-node-js-foundation-4e14699fb7be">recent Medium post</a>
+said that io.js met with Joyent CEO Scott Hammond last week, so I&#8217;m sure he
+knows exactly where they stand.</p>
+
+<p>And the big companies that are already on the foundation board are certainly
+going to get input into the rules for the technical committtee.</p>
+
+<p>What about the rest of us &mdash; engineers who use Node / io.js every day but
+aren&#8217;t inner core, who don&#8217;t work for an IBM or a PayPal, who want stability and
+also language improvements that will make our jobs easier?</p>
+
+<p>I hated the idea of looking back a few months from now, in the midst of heated
+discussions about whether to use Node or io.js, with <span style="white-space:nowrap;"><code>npm install</code>s</span> failing all around me, and wondering if there was
+anything I could have done to prevent this situation. A tweet doesn&#8217;t count for
+all that much, but it&#8217;s more than nothing.</p>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/williamjohnbert">@williamjohnbert</a> Thanks William. The TC will consider that when they define the governance model.</p>&mdash; Scott Hammond (@Scott_Hammond) <a href="https://twitter.com/Scott_Hammond/status/566045931657633792">February 13, 2015</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using Github Pages to hand off a legacy site and make everyone happier]]></title>
@@ -1528,83 +1568,6 @@ computer science, “when you hear the phrase ‘the world’s best developers,�
 a guy.”</p></blockquote>
 
 <p>From <a href="http://www.washingtonpost.com/opinions/when-computer-programming-was-womens-work/2011/08/24/gIQAdixGgJ_print.html">When computer programming was ‘women’s work’</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[django-social-auth: Installing and troubleshooting]]></title>
-    <link href="http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting/"/>
-    <updated>2011-08-26T04:16:14-07:00</updated>
-    <id>http://williamjohnbert.com/2011/08/django-social-auth-installing-and-troubleshooting</id>
-    <content type="html"><![CDATA[<p>Thanks to <code>django-registration</code>, I was able to build a working account
-registration/login system pretty easily. But I wanted to give users the ability
-to use their existing accounts through popular services such as Facebook,
-Twitter, etc., rather than have to create yet another account. Here&#8217;s how I did
-it.</p>
-
-<h1>Sorting Through the Choices</h1>
-
-<p>There are a number of reusable Django apps out there to help with
-registration/login from social media sites. I found this <a href="http://hackerluddite.wordpress.com/2011/05/17/review-of-4-django-social-auth-apps/">Review of 4 Django Social Auth apps</a>
-very helpful in sorting out the options. After reading it, I was left to choose
-between <a href="https://github.com/omab/django-social-auth"><code>django-social-auth</code></a> (I
-originally linked to the wrong app here, but this link is correct) and
-<a href="https://github.com/pennersr/django-allauth"><code>django-allauth</code></a>. In the end, I
-went with <code>django-social-auth</code> (not to be confused with <code>django-socialauth</code>)
-because a friend had recommended it and because I&#8217;d already installed it before
-I read this article. However, the article&#8217;s conclusion that <code>django-allauth</code> is
-best out of the box also seems valid.</p>
-
-<h1>Installation</h1>
-
-<p>The instructions in <a href="http://django-social-auth.readthedocs.org/en/latest/"><code>django-social-auth</code>&#8217;s docs</a> are helpful in
-walking you through available settings and options.</p>
-
-<p>I also found the included example app useful. To use this app, I cloned
-<code>django-social-auth</code>&#8217;s git repo, created a virtualenv called
-<code>django-social-auth</code>, ran <code>pip install -r requirements.txt</code> inside this
-virtualenv to install all the required apps, ran <code>manage.py syncdb</code>, and finally
-ran <code>manage.py runserver</code>. Voila, example app is up and running at 127.0.0.1,
-showing a simple screen with options to login through about a dozen different
-different services.</p>
-
-<h1>API Keys</h1>
-
-<p>The first service I tested was Twitter. I use it more than any others, and I
-already had the API keys for it. I threw my API key and secret key into the
-example <code>local_settings.py</code> file provided with <code>django-social-auth</code> and tried to
-log in via the example app. Boom: <code>401 Unauthorized</code>. I double-checked all my
-settings and installation and whatnot. Seemed fine.</p>
-
-<p>I turned my attention to the API keys. The ones I had were generated for
-<a href="http://www.readsrs.com">Readsr</a>, i.e., I entered readsrs.com as the domain when
-I generated them at dev.twitter.com. But now I was running on localhost,
-127.0.0.1, so I suspected the readsrs.com keys wouldn&#8217;t be valid. I wasn&#8217;t sure
-whether Twitter would hand over a new consumer key for 127.0.0.1, or baulk at
-the request. (It seemed like it should do so, but I hadn&#8217;t seen any instructions
-anywhere that said to get a key for your development machine.) Turns out Twitter
-will happily give you a key for 127.0.0.1. Once I plugged the new keys in, I was
-able to log in with my Twitter credentials, and just as it should,
-<code>django-social-auth</code> automatically created an <code>auth.user</code> for this account.</p>
-
-<h1>Integrating with Readsr</h1>
-
-<p>I followed the instructions again to config my own app, Readsr. To add a login
-option using Twitter credentials, I put a link to the reversed view that begins
-the <code>django-social-auth</code> login process for twitter, i.e., <code>{% url
-socialauth_begin "twitter" %}</code>, to my login template. And it worked.</p>
-
-<p>I still need to fix a few oddities. For example, Twitter returns my first and
-last names together in <code>first_name</code> (or else <code>django-social-auth</code> is
-concatenating them into that column), and doesn&#8217;t supply any email address. But
-the basic functionality is there, and was relatively easy to achieve.</p>
-
-<h1>Postscript</h1>
-
-<p>The author of the article I linked above had an error using OpenID when using <code>django-social-auth</code>, which is why he preferred <code>django-authall</code>. He filed a bug
-for the error he got, and I notice that <a href="https://github.com/omab/django-social-auth/issues/67">it was closed</a> 15 hours ago
-(though if you read the comments, it seems it was actually fixed back in
-mid-July). Good timing.</p>
 ]]></content>
   </entry>
   

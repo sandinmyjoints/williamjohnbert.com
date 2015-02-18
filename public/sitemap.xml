@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://williamjohnbert.com/2015/02/why-id-like-node-and-io-dot-js-to-merge/</loc>
+    <lastmod>2015-02-17T18:46:00-08:00</lastmod>
+  </url>
+  <url>
     <loc>http://williamjohnbert.com/2014/04/handing-off-a-legacy-site/</loc>
     <lastmod>2014-04-30T18:52:00-07:00</lastmod>
   </url>
@@ -170,35 +174,35 @@
   </url>
   <url>
     <loc>http://williamjohnbert.com/404.html</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/blog/archives/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/archives/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/about/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/contact/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/projects/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/publications/</loc>
-    <lastmod>2015-02-17T10:40:12-08:00</lastmod>
+    <lastmod>2015-02-17T18:55:03-08:00</lastmod>
   </url>
   <url>
     <loc>http://williamjohnbert.com/callandresponse2010/chapbook.html</loc>
