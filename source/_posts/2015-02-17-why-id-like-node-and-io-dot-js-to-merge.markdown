@@ -6,10 +6,11 @@ comments: true
 categories:
 ---
 
-I encourage Node users to express support for using io.js's open governance
-model as the basis for the Node foundation's technical committee &mdash; because
-from where I sit, one Node with a technical committee composed of the best
-technical people is the ideal outcome of this situation.
+I made [nodegovernance.io](http://nodegovernance.io/) &mdash; which encourages Node
+users to express support for using io.js's open governance model as the basis
+for the Node foundation's technical committee &mdash; because from where I sit,
+one Node with a technical committee composed of the best technical people is the
+ideal outcome of this situation.
 
 My life would be easier if there were just one Node. My team wouldn't have to
 spend time discussing and deciding which to use. There wouldn't be any confusion

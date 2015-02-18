@@ -4,7 +4,7 @@
   <title><![CDATA[William John Bert]]></title>
   <link href="http://williamjohnbert.com/atom.xml" rel="self"/>
   <link href="http://williamjohnbert.com/"/>
-  <updated>2015-02-17T18:55:03-08:00</updated>
+  <updated>2015-02-18T07:58:01-08:00</updated>
   <id>http://williamjohnbert.com/</id>
   <author>
     <name><![CDATA[William John Bert]]></name>
@@ -18,10 +18,11 @@
     <link href="http://williamjohnbert.com/2015/02/why-id-like-node-and-io-dot-js-to-merge/"/>
     <updated>2015-02-17T18:46:00-08:00</updated>
     <id>http://williamjohnbert.com/2015/02/why-id-like-node-and-io-dot-js-to-merge</id>
-    <content type="html"><![CDATA[<p>I encourage Node users to express support for using io.js&#8217;s open governance
-model as the basis for the Node foundation&#8217;s technical committee &mdash; because
-from where I sit, one Node with a technical committee composed of the best
-technical people is the ideal outcome of this situation.</p>
+    <content type="html"><![CDATA[<p>I made <a href="http://nodegovernance.io/">nodegovernance.io</a> &mdash; which encourages Node
+users to express support for using io.js&#8217;s open governance model as the basis
+for the Node foundation&#8217;s technical committee &mdash; because from where I sit,
+one Node with a technical committee composed of the best technical people is the
+ideal outcome of this situation.</p>
 
 <p>My life would be easier if there were just one Node. My team wouldn&#8217;t have to
 spend time discussing and deciding which to use. There wouldn&#8217;t be any confusion
