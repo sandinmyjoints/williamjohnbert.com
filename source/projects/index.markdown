@@ -7,6 +7,12 @@ title: Projects
 wordpress_id: 15
 ---
 
+## If everyone would ##
+
+A [Twitter bot](https://twitter.com/ifeveryonewould) that retweets tweets
+containing the phrase "if everyone would".
+[Source](https://github.com/sandinmyjoints/ifeveryonewould).
+
 ## Node on the Road ##
 
 In August 2014, I was a presenter and panelist when
